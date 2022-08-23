@@ -27,6 +27,9 @@ var jwtCheck = expressJwt({
 
 app.use('/api/private', jwtCheck, (err, req, res, next) => {
     if (err.name === 'UnauthorizedError') {
+        console.log('Unauthorized request:');
+        console.log(req.headers);
+        console.log(req.body);
         res.status(401);
         res.json({"error" : err.name + ": " + err.message});
     }
@@ -36,19 +39,31 @@ app.use(express.json())
 
 // Auth0 authenticated API requests
 app.get('/api/private', function (req, res) {
+    console.log('Received authenticated GET request:');
+    console.log(req.headers);
+    console.log(req.body);
     res.send('Welcome to the dark side. \n I\'ve been running for ' + process.uptime() + ' seconds! :D');
 });
 
 app.post('/api/private', function (req, res) {
+    console.log('Received authenticated POST request:');
+    console.log(req.headers);
+    console.log(req.body);
     res.send('Welcome to the dark side. \n I\'ve been running for ' + process.uptime() + ' seconds! :D');
 });
 
 // Non-authenticated, public requests
 app.get('/', function (req, res) {
+    console.log('Received public GET request:');
+    console.log(req.headers);
+    console.log(req.body);
     res.send('I\'ve been running for ' + process.uptime() + ' seconds! :D');
 });
 
 app.post('/', function (req, res) {
+    console.log('Received public POST request:');
+    console.log(req.headers);
+    console.log(req.body);
     res.send('I\'ve been running for ' + process.uptime() + ' seconds! :D');
 });
 
