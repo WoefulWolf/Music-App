@@ -1,6 +1,3 @@
-// Get environment Vars
-require('dotenv').config();
-
 // Start Node + Express.js Server
 const express = require('express')
 const app = express()
@@ -12,6 +9,8 @@ if (process.env.CI) {
     console.log("Run in CI, let's stop listening and exit!")
     process.exit()
 }
+
+app.set( 'port', ( port ));
 
 // Setup Auth0 Middleware Authentication
 var jwtCheck = expressJwt({
