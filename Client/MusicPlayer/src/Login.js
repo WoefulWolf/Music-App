@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -11,16 +11,6 @@ const auth0 = new Auth0({
   domain: 'dev-mmmro5b5.us.auth0.com',
   clientId: 'IM1izBnquKofVNsAXXUWc9Q6fsr0rEPS',
 });
-
-const onLogin = () => {
-  auth0.webAuth
-    .authorize({
-      scope: 'openid profile email',
-    })
-    .then(credentials => {
-      console.log(credentials);
-    });
-};
 
 // Add a user to the database
 const addUserToDatabase = async () => {
@@ -108,14 +98,37 @@ const getUserProfile = async (accTok, _callback) => {
 const Login = ({navigation}) => {
   let accessToken, idToken, username, user_id;
 
+  const [loggedIn, setLoggedIn] = useState(false);
+
   const toHome = async () => {
-    navigation.navigate('Home', {
-      userIDToken: idToken,
-      userAccessToken: accessToken,
-      authUsername: username,
-      userID: user_id,
-    });
+    if (loggedIn) {
+      navigation.navigate('Home', {
+        userIDToken: idToken,
+        userAccessToken: accessToken,
+        authUsername: username,
+        userID: user_id,
+      });
+    }
   };
+
+  const onLogin = () => {
+    auth0.webAuth
+      .authorize({
+        scope: 'openid profile email',
+      })
+      .then(credentials => {
+        console.log(credentials);
+        setLoggedIn(true);
+      });
+  };
+
+  useEffect(() => {
+    onLogin();
+  }, []);
+
+  useEffect(() => {
+    toHome();
+  }, [loggedIn]);
 
   return (
     <View
