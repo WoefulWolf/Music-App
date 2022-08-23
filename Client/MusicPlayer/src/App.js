@@ -1,42 +1,37 @@
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  TouchableOpacityComponent,
-} from 'react-native';
-import Auth0 from 'react-native-auth0';
+import Login from './Login';
+import Home from './Home';
 
-const auth0 = new Auth0({
-  domain: 'dev-mmmro5b5.us.auth0.com',
-  clientId: 'IM1izBnquKofVNsAXXUWc9Q6fsr0rEPS',
-});
+const Stack = createNativeStackNavigator();
 
-const onLogin = () => {
-  auth0.webAuth
-    .authorize({
-      scope: 'openid profile email',
-    })
-    .then(credentials => {
-      console.log(credentials);
-    })
-}
+/*
+This file is responsible for handling the use of multiple screens
+All new pages should be added in the stack navigator below.
+*/
 
-const HelloWorldApp = () => {
+const App = () => {
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <TouchableOpacity
-        onPress={() => {
-          onLogin();
-        }}>
-        <Text>Hello, world!</Text>
-      </TouchableOpacity>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          header: () => null
+        }}
+      >
+        <Stack.Screen
+          name="Login"
+          component={Login}
+        />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+    
   );
 };
-export default HelloWorldApp;
+
+export default App;
