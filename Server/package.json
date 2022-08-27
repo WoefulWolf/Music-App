@@ -2,6 +2,7 @@
   "name": "sdp-music-app",
   "description": "",
   "version": "0.0.1",
+  "main": "main.js",
   "engines": {
     "node": "16.x",
     "npm": "8.x"
