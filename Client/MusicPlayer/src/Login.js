@@ -101,12 +101,14 @@ const Login = ({navigation}) => {
   };
 
   const toHome = () => {
-    navigation.navigate('Home', {
-      userIDToken: idToken,
-      userAccessToken: accessToken,
-      authUsername: username,
-      userID: user_id,
-    });
+    navigation.navigate('Home', 
+    // {
+    //   userIDToken: idToken,
+    //   userAccessToken: accessToken,
+    //   authUsername: username,
+    //   userID: user_id,
+    // }
+    );
   };
 
   const onLogin = () => {
