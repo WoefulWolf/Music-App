@@ -123,9 +123,9 @@ const Login = ({navigation}) => {
       });
   };
 
-  useEffect(() => {
-    onLogin();
-  }, []);
+  // useEffect(() => {
+  //   onLogin();
+  // }, []);
 
   return (
     <View
