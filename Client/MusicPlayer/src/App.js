@@ -3,7 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import Login from './Login';
 import Home from './Home';
-import Selection from './Selection';
+import Library from './Library';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,8 +19,7 @@ const App = () => {
         screenOptions={{
           header: () => null,
         }}>
-        <Stack.Screen name="Selection" component={Selection} />
-
+        <Stack.Screen name="Library" component={Library} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Login" component={Login} />
       </Stack.Navigator>
