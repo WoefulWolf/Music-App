@@ -1,3 +1,6 @@
+const MusicAppAPI = require('./api');
+let api = new MusicAppAPI();
+
 test('DummyTest', () => {
-    expect(3).toBe(3);
+    expect(api.DummyTest()).toBe(3);
 });
