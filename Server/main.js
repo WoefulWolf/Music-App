@@ -6,7 +6,7 @@ const { expressjwt: expressJwt } = require('express-jwt');
 var jwks = require('jwks-rsa');
 
 if (process.env.CI) {
-    console.log("Run in CI, let's stop listening and exit!")
+    console.log("Run in CI, let's not startup the entire server...")
     process.exit()
 }
 
