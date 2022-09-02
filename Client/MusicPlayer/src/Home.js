@@ -162,10 +162,10 @@ const Home = ({route, navigation}) => {
         style={styles.albumArt}
         source={currentAlbumCover}
       />
-      <Text>
+      <Text style={styles.songTitle}>
         {currentTitle}
       </Text>
-      <Text>
+      <Text style={styles.artist}>
         {currentArtist}
       </Text>
       <View style={styles.row}>
@@ -207,7 +207,17 @@ const styles =StyleSheet.create({
   albumArt:{
     width: 250,
     height: 250,
-    marginTop:100,
+    marginTop:130,
   },
+  songTitle:{
+    color:'black',
+    fontSize:23,
+    paddingTop:20,
+  },
+  artist:{
+    color:'black',
+    fontSize:18,
+  }
+
 })
 export default Home;
