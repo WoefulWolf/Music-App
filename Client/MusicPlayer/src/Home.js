@@ -10,10 +10,11 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 import {
   Text,
-  Image,
   View,
   TouchableOpacity,
   TouchableOpacityComponent,
+  StyleSheet,
+  Image,
 } from 'react-native';
 
 const songs = [
@@ -145,29 +146,51 @@ const Home = ({route, navigation}) => {
 
   return (
     <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <TouchableOpacity onPress={() => {TrackPlayer.play()}}>
-        <Text>Play</Text>
-      </TouchableOpacity>
+      style={styles.body}>
       <Image
-        style={{width: 50, height: 50}}
+        style={styles.albumArt}
         source={currentAlbumCover}
       />
-      <TouchableOpacity onPress={() => TrackPlayer.pause()}>
-        <Text>Pause</Text>
+      <View style={styles.row}>
+      <TouchableOpacity style={styles.button} onPress={() => {TrackPlayer.skipToPrevious(), getImage()}}>
+      <Image style={{width: 40, height: 40}} source={require('./Assets/Buttons/backward-solid.png')} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {TrackPlayer.skipToNext(), getImage()}}>
-        <Text>Skip</Text>
+      <TouchableOpacity style={styles.button} onPress={() => {TrackPlayer.play()}}>
+      <Image style={{width: 30, height: 40}} source={require('./Assets/Buttons/play-solid.png')} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {TrackPlayer.skipToPrevious(), getImage()}}>
-        <Text>Prev</Text>
+      <TouchableOpacity style={styles.button} onPress={() => TrackPlayer.pause()}>
+      <Image style={{width: 30, height: 40}} source={require('./Assets/Buttons/pause-solid.png')} />
       </TouchableOpacity>
-      <Text>Hello, world!</Text>
+      <TouchableOpacity style={styles.button} onPress={() => {TrackPlayer.skipToNext(), getImage()}}>
+      <Image style={{width: 40, height: 40}} source={require('./Assets/Buttons/forward-solid.png')} />
+      </TouchableOpacity>
+      </View>
     </View>
   );
 };
+
+const styles =StyleSheet.create({
+  body:{
+    flex: 1,
+    flexDirection:'column',
+    alignItems:'center',
+    justifyContent:'center',
+  },
+  row:{
+    flex:1,
+    flexDirection:'row',
+    alignItems:'flex-end',
+    justifyContent:'space-between',
+  },
+  button:{
+    paddingLeft:20,
+    paddingRight:20,
+    paddingBottom:40,
+  },
+  albumArt:{
+    width: 250,
+    height: 250,
+    marginTop:100,
+  },
+})
 export default Home;
