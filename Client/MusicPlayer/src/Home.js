@@ -123,6 +123,8 @@ const Home = ({route, navigation}) => {
   const {songIndex} = route.params;
   const [trackIndex, setTrackIndex] = useState(1);
   const [currentAlbumCover, setCurrentAlbumCover] = useState(require('./Assets/Images/Default_Cover.png'));
+  const [currentTitle, setCurrentTitle] = useState('Song Name');
+  const [currentArtist, setCurrentArtist] = useState('Artist Name');
   const playbackState = usePlaybackState();
 
   const getImage = async () => {
@@ -133,10 +135,19 @@ const Home = ({route, navigation}) => {
     return trackObject.imageLink;
   }
 
+  const getName = async () => {
+    let trackIndex = await TrackPlayer.getCurrentTrack();
+    let trackObject = await TrackPlayer.getTrack(trackIndex);
+
+    setCurrentTitle(trackObject.title);
+    setCurrentArtist(trackObject.artist);
+  }
+
   useEffect(() => {
     setupPlayer().then(() => {
       TrackPlayer.skip(songIndex);
       getImage();
+      getName();
       TrackPlayer.play();
     })
     console.log(songIndex);
@@ -151,8 +162,14 @@ const Home = ({route, navigation}) => {
         style={styles.albumArt}
         source={currentAlbumCover}
       />
+      <Text>
+        {currentTitle}
+      </Text>
+      <Text>
+        {currentArtist}
+      </Text>
       <View style={styles.row}>
-      <TouchableOpacity style={styles.button} onPress={() => {TrackPlayer.skipToPrevious(), getImage()}}>
+      <TouchableOpacity style={styles.button} onPress={() => {TrackPlayer.skipToPrevious(), getImage(), getName()}}>
       <Image style={{width: 40, height: 40}} source={require('./Assets/Buttons/backward-solid.png')} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => {TrackPlayer.play()}}>
@@ -161,7 +178,7 @@ const Home = ({route, navigation}) => {
       <TouchableOpacity style={styles.button} onPress={() => TrackPlayer.pause()}>
       <Image style={{width: 30, height: 40}} source={require('./Assets/Buttons/pause-solid.png')} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => {TrackPlayer.skipToNext(), getImage()}}>
+      <TouchableOpacity style={styles.button} onPress={() => {TrackPlayer.skipToNext(), getImage(), getName()}}>
       <Image style={{width: 40, height: 40}} source={require('./Assets/Buttons/forward-solid.png')} />
       </TouchableOpacity>
       </View>
