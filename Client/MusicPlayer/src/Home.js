@@ -10,6 +10,7 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 import {
   Text,
+  Image,
   View,
   TouchableOpacity,
   TouchableOpacityComponent,
@@ -22,6 +23,7 @@ const songs = [
     url: require('./Assets/TestMusic/song1.mp3'),
     title: 'Feel Good Inc.',
     albumArt: require('./Assets/Images/Feel_Good_Inc.jpeg'),
+    imageLink: './Assets/Images/Feel_Good_Inc.jpeg',
   },
   {
     id: 1,
@@ -29,6 +31,7 @@ const songs = [
     url: require('./Assets/TestMusic/song2.mp3'),
     title: 'Never Gonna Give You Up',
     albumArt: require('./Assets/Images/Rickroll.jpeg'),
+    imageLink: './Assets/Images/Rickroll.jpeg',
   },
   {
     id: 2,
@@ -36,6 +39,7 @@ const songs = [
     url: require('./Assets/TestMusic/Megalovania.mp3'),
     title: 'Megalovania',
     albumArt: require('./Assets/Images/Megalovania.jpeg'),
+    imageLink: './Assets/Images/Megalovania.jpeg',
   },
   {
     id: 3,
@@ -43,6 +47,7 @@ const songs = [
     url: require('./Assets/TestMusic/Sandstorm.mp3'),
     title: 'Sandstorm',
     albumArt: require('./Assets/Images/Sandstorm.png'),
+    imageLink: './Assets/Images/Sandstorm.png',
   },
   {
     id: 4,
@@ -50,6 +55,7 @@ const songs = [
     url: require('./Assets/TestMusic/All_Star.mp3'),
     title: 'All Star',
     albumArt: require('./Assets/Images/All_Star.jpeg'),
+    imageLink: './Assets/Images/All_Star.jpeg',
   },
   {
     id: 5,
@@ -57,6 +63,7 @@ const songs = [
     url: require('./Assets/TestMusic/Pumped_up_Kicks.mp3'),
     title: 'Pumped Up Kicks',
     albumArt: require('./Assets/Images/Pumped_Up_Kicks.jpeg'),
+    imageLink: './Assets/Images/Pumped_Up_Kicks.jpeg',
   },
   {
     id: 6,
@@ -64,6 +71,7 @@ const songs = [
     url: require('./Assets/TestMusic/Take_On_Me.mp3'),
     title: 'Take On Me',
     albumArt: require('./Assets/Images/Take_On_Me.jpeg'),
+    imageLink: './Assets/Images/Take_On_Me.jpeg',
   },
   {
     id: 7,
@@ -71,6 +79,7 @@ const songs = [
     url: require('./Assets/TestMusic/Roundabout.mp3'),
     title: 'Roundabout',
     albumArt: require('./Assets/Images/Roundabout.jpeg'),
+    imageLink: './Assets/Images/Roundabout.jpeg',
   },
   {
     id: 8,
@@ -78,6 +87,7 @@ const songs = [
     url: require('./Assets/TestMusic/Rockefeller_Street.mp3'),
     title: 'Rockefeller Street (Nightcore)',
     albumArt: require('./Assets/Images/Rockefeller_Street.jpeg'),
+    imageLink: './Assets/Images/Rockefeller_Street.jpeg',
   },
   {
     id: 9,
@@ -85,6 +95,7 @@ const songs = [
     url: require('./Assets/TestMusic/Caramelldansen.mp3'),
     title: 'Caramelldansen',
     albumArt: require('./Assets/Images/Caramelldansen.jpeg'),
+    imageLink: './Assets/Images/Caramelldansen.jpeg',
   },
 ];
 
@@ -110,11 +121,21 @@ const togglePlayback = async () => {
 const Home = ({route, navigation}) => {
   const {songIndex} = route.params;
   const [trackIndex, setTrackIndex] = useState(1);
+  const [currentAlbumCover, setCurrentAlbumCover] = useState(require('./Assets/Images/Default_Cover.png'));
   const playbackState = usePlaybackState();
+
+  const getImage = async () => {
+    let trackIndex = await TrackPlayer.getCurrentTrack();
+    let trackObject = await TrackPlayer.getTrack(trackIndex);
+
+    setCurrentAlbumCover(trackObject.albumArt);
+    return trackObject.imageLink;
+  }
 
   useEffect(() => {
     setupPlayer().then(() => {
       TrackPlayer.skip(songIndex);
+      getImage();
       TrackPlayer.play();
     })
     console.log(songIndex);
@@ -132,13 +153,17 @@ const Home = ({route, navigation}) => {
       <TouchableOpacity onPress={() => {TrackPlayer.play()}}>
         <Text>Play</Text>
       </TouchableOpacity>
+      <Image
+        style={{width: 50, height: 50}}
+        source={currentAlbumCover}
+      />
       <TouchableOpacity onPress={() => TrackPlayer.pause()}>
         <Text>Pause</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => TrackPlayer.skipToNext()}>
+      <TouchableOpacity onPress={() => {TrackPlayer.skipToNext(), getImage()}}>
         <Text>Skip</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => TrackPlayer.skipToPrevious()}>
+      <TouchableOpacity onPress={() => {TrackPlayer.skipToPrevious(), getImage()}}>
         <Text>Prev</Text>
       </TouchableOpacity>
       <Text>Hello, world!</Text>
