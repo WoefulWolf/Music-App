@@ -70,7 +70,7 @@ test('Getting a user without specified ID.', async () => {
         request_type: 'GetAccount',
     };
     
-    const result = await api.ParseAPIGetRequest(headers, res);
+    const result = await api.ParseAPIGETRequest(headers, res);
     expect(result.status).toEqual(400);
     expect(result.body).toEqual({"Invalid ID": "The ID 'undefined' is not valid"});
 });
@@ -81,7 +81,7 @@ test('Getting a non-existent user.', async () => {
         id: 'McDonaldsSprite',
     };
     
-    const result = await api.ParseAPIGetRequest(headers, res);
+    const result = await api.ParseAPIGETRequest(headers, res);
     expect(result.status).toEqual(404);
     expect(result.body).toEqual({"No results": "No results were found"});
 });
@@ -92,7 +92,7 @@ test('Getting a user.', async () => {
         id: 'test',
     };
     
-    const result = await api.ParseAPIGetRequest(headers, res);
+    const result = await api.ParseAPIGETRequest(headers, res);
     expect(result.status).toEqual(200);
     expect(result.body[0].Email).toEqual("1234567890");
 });
