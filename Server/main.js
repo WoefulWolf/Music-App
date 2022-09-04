@@ -47,7 +47,7 @@ let api = new MusicAppAPI();
 // Auth0 authenticated API requests
 // GET
 app.get('/api/private', function (req, res) {
-    api.ParseAPIGetRequest(req.headers, res);
+    api.ParseAPIGETRequest(req.headers, res);
 });
 
 // POST
@@ -58,7 +58,7 @@ app.post('/api/private', function (req, res) {
 // Non-authenticated, public requests
 // GET
 app.get('/', function (req, res) {
-    api.ParseAPIGetRequest(req.headers, res);
+    api.ParseAPIGETRequest(req.headers, res);
 });
 
 // POST
