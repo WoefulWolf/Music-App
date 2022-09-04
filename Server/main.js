@@ -5,11 +5,13 @@ const port = process.env.PORT || 8080
 const { expressjwt: expressJwt } = require('express-jwt');
 var jwks = require('jwks-rsa');
 
+// If we are running in CI, then we close the server instead of listening
 if (process.env.CI) {
     console.log("Run in CI, let's not startup the entire server...")
     process.exit()
 }
 
+// Set the port
 app.set( 'port', ( port ));
 
 // Setup Auth0 Middleware Authentication
@@ -24,6 +26,7 @@ var jwtCheck = expressJwt({
   algorithms: ['RS256']
 });
 
+// Setup the response to unauthorized requests
 app.use('/api/private', jwtCheck, (err, req, res, next) => {
     if (err.name === 'UnauthorizedError') {
         console.log('Unauthorized request:');
@@ -34,39 +37,36 @@ app.use('/api/private', jwtCheck, (err, req, res, next) => {
     }
 });
 
+// Turn express requests into JSON
 app.use(express.json())
 
+// Import the API
+const MusicAppAPI = require('./api');
+let api = new MusicAppAPI();
+
 // Auth0 authenticated API requests
+// GET
 app.get('/api/private', function (req, res) {
-    console.log('Received authenticated GET request:');
-    console.log(req.headers);
-    console.log(req.body);
-    res.send('Welcome to the dark side. \n I\'ve been running for ' + process.uptime() + ' seconds! :D');
+    api.ParseAPIGetRequest(req.headers, res);
 });
 
+// POST
 app.post('/api/private', function (req, res) {
-    console.log('Received authenticated POST request:');
-    console.log(req.headers);
-    console.log(req.body);
-    res.send('Welcome to the dark side. \n I\'ve been running for ' + process.uptime() + ' seconds! :D');
+    api.ParseAPIPOSTRequest(req.headers, req.body, res);
 });
 
 // Non-authenticated, public requests
+// GET
 app.get('/', function (req, res) {
-    console.log('Received public GET request:');
-    console.log(req.headers);
-    console.log(req.body);
-    res.send('I\'ve been running for ' + process.uptime() + ' seconds! :D');
+    api.ParseAPIGetRequest(req.headers, res);
 });
 
+// POST
 app.post('/', function (req, res) {
-    console.log('Received public POST request:');
-    console.log(req.headers);
-    console.log(req.body);
-    res.send('I\'ve been running for ' + process.uptime() + ' seconds! :D');
+    api.ParseAPIPOSTRequest(req.headers, req.body, res);
 });
 
-// Start listening
+// Start listening for requests once everything has been setup
 app.listen(port, () => {
     console.log(`Music web app listening on port ${port}`)
 })
