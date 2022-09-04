@@ -14,7 +14,7 @@ test('Registering user with bad ID.', async () => {
     const body = {
     };
     
-    const result = await api.ParseAPIPOSTRequest(headers, body, res);
+    const result = await api.ParsePOSTRequest(headers, body, res);
     expect(result.status).toEqual(400);
     expect(result.body).toEqual({"Invalid ID": "The ID 'undefined' is not valid"});
 });
@@ -28,7 +28,7 @@ test('Registering user with bad email.', async () => {
         id: '1234567890',
     };
     
-    const result = await api.ParseAPIPOSTRequest(headers, body, res);
+    const result = await api.ParsePOSTRequest(headers, body, res);
     expect(result.status).toEqual(400);
     expect(result.body).toEqual({"Invalid email": "The email 'undefined' is not valid"});
 });
@@ -43,7 +43,7 @@ test('Registering user with bad username.', async () => {
         email: 'test@test.com',
     };
     
-    const result = await api.ParseAPIPOSTRequest(headers, body, res);
+    const result = await api.ParsePOSTRequest(headers, body, res);
     expect(result.status).toEqual(400);
     expect(result.body).toEqual({"Invalid username": "The username 'undefined' is not valid"});
 });
@@ -59,7 +59,7 @@ test('Registering duplicate user.', async () => {
         username: 'test',
     };
     
-    const result = await api.ParseAPIPOSTRequest(headers, body, res);
+    const result = await api.ParsePOSTRequest(headers, body, res);
     expect(result.status).toEqual(500);
     expect(result.body).toEqual({"Database error": "Key (\"User_ID\")=(test) already exists."});
 });
@@ -70,7 +70,7 @@ test('Getting a user without specified ID.', async () => {
         request_type: 'GetAccount',
     };
     
-    const result = await api.ParseAPIGETRequest(headers, res);
+    const result = await api.ParseGETRequest(headers, res);
     expect(result.status).toEqual(400);
     expect(result.body).toEqual({"Invalid ID": "The ID 'undefined' is not valid"});
 });
@@ -81,7 +81,7 @@ test('Getting a non-existent user.', async () => {
         id: 'McDonaldsSprite',
     };
     
-    const result = await api.ParseAPIGETRequest(headers, res);
+    const result = await api.ParseGETRequest(headers, res);
     expect(result.status).toEqual(404);
     expect(result.body).toEqual({"No results": "No results were found"});
 });
@@ -92,7 +92,7 @@ test('Getting a user.', async () => {
         id: 'test',
     };
     
-    const result = await api.ParseAPIGETRequest(headers, res);
+    const result = await api.ParseGETRequest(headers, res);
     expect(result.status).toEqual(200);
     expect(result.body[0].Email).toEqual("1234567890");
 });

@@ -8,7 +8,7 @@ const songs = require("./api-songs");
 const playlists = require("./api-playlists");
 
 class MusicAppAPI {
-    async ParseAPIGETRequest(headers, response) {
+    async ParseGETRequest(headers, response) {
         //console.log("GET request received:", headers);
         let reqType = headers.request_type;
         let res = {};
@@ -39,7 +39,7 @@ class MusicAppAPI {
         return res;
     }
 
-    async ParseAPIPOSTRequest(headers, body, response) {
+    async ParsePOSTRequest(headers, body, response) {
         //console.log("POST request received:", headers, body);
         let reqType = headers.request_type;
         let res = {};
