@@ -57,6 +57,13 @@ const songs = [
   },
   {
     id: 4,
+    artist: 'Discord',
+    url: require('./Assets/TestMusic/Discord_Ping.mp3'),
+    title: 'Discord Ping',
+    albumArt: require('./Assets/Images/Discord_Ping.png'),
+  },
+  {
+    id: 5,
     artist: 'Smash Mouth',
     url: require('./Assets/TestMusic/All_Star.mp3'),
     title: 'All Star',
@@ -64,7 +71,7 @@ const songs = [
     imageLink: './Assets/Images/All_Star.jpeg',
   },
   {
-    id: 5,
+    id: 6,
     artist: 'Foster The People',
     url: require('./Assets/TestMusic/Pumped_up_Kicks.mp3'),
     title: 'Pumped Up Kicks',
@@ -72,7 +79,7 @@ const songs = [
     imageLink: './Assets/Images/Pumped_Up_Kicks.jpeg',
   },
   {
-    id: 6,
+    id: 7,
     artist: 'a-ha',
     url: require('./Assets/TestMusic/Take_On_Me.mp3'),
     title: 'Take On Me',
@@ -80,7 +87,7 @@ const songs = [
     imageLink: './Assets/Images/Take_On_Me.jpeg',
   },
   {
-    id: 7,
+    id: 8,
     artist: 'Yes',
     url: require('./Assets/TestMusic/Roundabout.mp3'),
     title: 'Roundabout',
@@ -88,7 +95,7 @@ const songs = [
     imageLink: './Assets/Images/Roundabout.jpeg',
   },
   {
-    id: 8,
+    id: 9,
     artist: 'Getter Jaani',
     url: require('./Assets/TestMusic/Rockefeller_Street.mp3'),
     title: 'Rockefeller Street (Nightcore)',
@@ -96,7 +103,7 @@ const songs = [
     imageLink: './Assets/Images/Rockefeller_Street.jpeg',
   },
   {
-    id: 9,
+    id: 10,
     artist: 'Caramella Girls',
     url: require('./Assets/TestMusic/Caramelldansen.mp3'),
     title: 'Caramelldansen',
@@ -169,6 +176,14 @@ const Home = ({route, navigation}) => {
     return () => TrackPlayer.destroy();
   }, []);
 
+  // This function is used to update the UI when the song changes
+  useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
+    if (event.type === Event.PlaybackTrackChanged && event.nextTrack != null) {
+      getImage();
+      getName();
+    }
+  });
+
   // The UI is rendered here
   return (
     <SafeAreaView style={styles.body}>
@@ -187,7 +202,7 @@ const Home = ({route, navigation}) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            TrackPlayer.skipToPrevious(), getImage(), getName();
+            TrackPlayer.skipToPrevious();
           }}>
           <Image
             style={{width: 40, height: 40}}
@@ -215,7 +230,7 @@ const Home = ({route, navigation}) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            TrackPlayer.skipToNext(), getImage(), getName();
+            TrackPlayer.skipToNext();
           }}>
           <Image
             style={{width: 40, height: 40}}
