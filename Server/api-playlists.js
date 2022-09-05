@@ -5,5 +5,5 @@ class Playlists {
 }
 
 // Create and export the accounts object
-let playlists = new Playlists();
+const playlists = new Playlists();
 module.exports = playlists;

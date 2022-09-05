@@ -10,5 +10,5 @@ class IsValid {
     }
 }
 
-let isValid = new IsValid();
+const isValid = new IsValid();
 module.exports = isValid;

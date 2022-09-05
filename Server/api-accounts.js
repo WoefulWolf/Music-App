@@ -29,8 +29,8 @@ class Accounts {
         }
 
         // Create a new account in the database
-        const text = "INSERT INTO accounts VALUES($1, $2, $3, CURRENT_DATE)";
-        const values = [ID, email, username];
+        const text = "INSERT INTO accounts(\"Email\", \"Username\", \"User_ID\", \"Date_Joined\") VALUES($1, $2, $3, CURRENT_DATE)";
+        const values = [email, username, ID];
         const res = await database.Query(text, values);
         return res;
     }
@@ -54,5 +54,5 @@ class Accounts {
 }
 
 // Create and export the accounts object
-let accounts = new Accounts();
+const accounts = new Accounts();
 module.exports = accounts;

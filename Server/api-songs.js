@@ -11,5 +11,5 @@ class Songs {
 }
 
 // Create and export the accounts object
-let songs = new Songs();
+const songs = new Songs();
 module.exports = songs;

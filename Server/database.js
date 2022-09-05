@@ -37,6 +37,11 @@ class Database {
                 status: 404,
                 body: {"No results": "No results were found"},
             };
+        } else if (res.rows.length == 0 && res.command == "INSERT") { // If no rows were returned and the command was an INSERT
+            return {
+                status: 200,
+                body: {"Success": "Insertion successful"},
+            };
         } else {
             //console.log(res);
             return {
@@ -52,5 +57,5 @@ class Database {
 }
 
 // Create and export the database object
-let database = new Database();
+const database = new Database();
 module.exports = database;

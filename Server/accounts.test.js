@@ -61,7 +61,7 @@ test('Registering duplicate user.', async () => {
     
     const result = await api.ParsePOSTRequest(headers, body, res);
     expect(result.status).toEqual(500);
-    expect(result.body).toEqual({"Database error": "Key (\"User_ID\")=(test) already exists."});
+    expect(result.body).toEqual({"Database error": "Key (\"User_ID\")=(" + body.id + ") already exists."});
 });
 
 // ACCOUNTS GET REQUESTS
@@ -89,12 +89,12 @@ test('Getting a non-existent user.', async () => {
 test('Getting a user.', async () => {
     const headers = {
         request_type: 'GetAccount',
-        id: 'test',
+        id: '1234567890',
     };
     
     const result = await api.ParseGETRequest(headers, res);
     expect(result.status).toEqual(200);
-    expect(result.body[0].Email).toEqual("1234567890");
+    expect(result.body[0].User_ID).toEqual("1234567890");
 });
 
 afterAll(async () => {
