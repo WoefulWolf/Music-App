@@ -11,6 +11,7 @@ import TrackPlayer, {
 import {
   Text,
   View,
+  SafeAreaView,
   TouchableOpacity,
   TouchableOpacityComponent,
   StyleSheet,
@@ -156,8 +157,16 @@ const Home = ({route, navigation}) => {
   }, []);
 
   return (
-    <View
+    <SafeAreaView
       style={styles.body}>
+        <View style={styles.backButton}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image
+            style={styles.backButtonImage}
+            source={require('./Assets/Buttons/back-icon.png')}
+          />
+          </TouchableOpacity>
+        </View>
       <Image
         style={styles.albumArt}
         source={currentAlbumCover}
@@ -182,7 +191,7 @@ const Home = ({route, navigation}) => {
       <Image style={{width: 40, height: 40}} source={require('./Assets/Buttons/forward-solid.png')} />
       </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -198,6 +207,13 @@ const styles =StyleSheet.create({
     flexDirection:'row',
     alignItems:'flex-end',
     justifyContent:'space-between',
+  },
+  backButton:{
+  },
+  backButtonImage:{
+    width: 20,
+    height: 20,
+    marginRight: 300,
   },
   button:{
     paddingLeft:20,
