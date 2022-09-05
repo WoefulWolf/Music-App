@@ -1,3 +1,5 @@
+// All imports from react-native, react and any other libraries are imported here
+
 import React, {useEffect, useState} from 'react';
 import TrackPlayer, {
   Capability,
@@ -17,6 +19,8 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
+
+// Array of songs in the library with their respective properties
 
 const songs = [
   {
@@ -101,139 +105,166 @@ const songs = [
   },
 ];
 
+// function to set up the music player
 const setupPlayer = async () => {
   await TrackPlayer.setupPlayer();
 
   await TrackPlayer.add(songs);
-}
+};
 
+// function to update the music player
 const togglePlayback = async () => {
   const currentTrack = await TrackPlayer.getCurrentTrack();
 
   if (currentTrack !== null) {
     if (playbackState == State.Paused) {
       await TrackPlayer.play();
-    }
-    else {
+    } else {
       await TrackPlayer.pause();
     }
   }
-}
+};
 
+// main function of the app
 const Home = ({route, navigation}) => {
-  const {songIndex} = route.params;
+  // all necessary variables are declared here
+  const {songIndex} = route.params; // This is the index of the song that was clicked on the previous screen
   const [trackIndex, setTrackIndex] = useState(1);
-  const [currentAlbumCover, setCurrentAlbumCover] = useState(require('./Assets/Images/Default_Cover.png'));
-  const [currentTitle, setCurrentTitle] = useState('Song Name');
-  const [currentArtist, setCurrentArtist] = useState('Artist Name');
-  const playbackState = usePlaybackState();
+  const [currentAlbumCover, setCurrentAlbumCover] = useState(
+    require('./Assets/Images/Default_Cover.png'),
+  ); // Used to set album cover on rendered UI
+  const [currentTitle, setCurrentTitle] = useState('Song Name'); // Used to set song title on rendered UI
+  const [currentArtist, setCurrentArtist] = useState('Artist Name'); // Used to set artist name on rendered UI
+  const playbackState = usePlaybackState(); // Keeps track of the current playback state of the music player
 
+  // This function is used to update the UI when the song changes
   const getImage = async () => {
     let trackIndex = await TrackPlayer.getCurrentTrack();
     let trackObject = await TrackPlayer.getTrack(trackIndex);
 
     setCurrentAlbumCover(trackObject.albumArt);
     return trackObject.imageLink;
-  }
+  };
 
+  // This function is used to update the UI when the song changes
   const getName = async () => {
     let trackIndex = await TrackPlayer.getCurrentTrack();
     let trackObject = await TrackPlayer.getTrack(trackIndex);
 
     setCurrentTitle(trackObject.title);
     setCurrentArtist(trackObject.artist);
-  }
+  };
 
+  // This function is used to update the UI when the song changes
+  // and setup the player on startup
   useEffect(() => {
     setupPlayer().then(() => {
       TrackPlayer.skip(songIndex);
       getImage();
       getName();
       TrackPlayer.play();
-    })
+    });
     console.log(songIndex);
 
     return () => TrackPlayer.destroy();
   }, []);
 
+  // The UI is rendered here
   return (
-    <SafeAreaView
-      style={styles.body}>
-        <View style={styles.backButton}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+    <SafeAreaView style={styles.body}>
+      <View style={styles.backButton}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
             style={styles.backButtonImage}
             source={require('./Assets/Buttons/back-icon.png')}
           />
-          </TouchableOpacity>
-        </View>
-      <Image
-        style={styles.albumArt}
-        source={currentAlbumCover}
-      />
-      <Text style={styles.songTitle}>
-        {currentTitle}
-      </Text>
-      <Text style={styles.artist}>
-        {currentArtist}
-      </Text>
+        </TouchableOpacity>
+      </View>
+      <Image style={styles.albumArt} source={currentAlbumCover} />
+      <Text style={styles.songTitle}>{currentTitle}</Text>
+      <Text style={styles.artist}>{currentArtist}</Text>
       <View style={styles.row}>
-      <TouchableOpacity style={styles.button} onPress={() => {TrackPlayer.skipToPrevious(), getImage(), getName()}}>
-      <Image style={{width: 40, height: 40}} source={require('./Assets/Buttons/backward-solid.png')} />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => {TrackPlayer.play()}}>
-      <Image style={{width: 30, height: 40}} source={require('./Assets/Buttons/play-solid.png')} />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => TrackPlayer.pause()}>
-      <Image style={{width: 30, height: 40}} source={require('./Assets/Buttons/pause-solid.png')} />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => {TrackPlayer.skipToNext(), getImage(), getName()}}>
-      <Image style={{width: 40, height: 40}} source={require('./Assets/Buttons/forward-solid.png')} />
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            TrackPlayer.skipToPrevious(), getImage(), getName();
+          }}>
+          <Image
+            style={{width: 40, height: 40}}
+            source={require('./Assets/Buttons/backward-solid.png')}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            TrackPlayer.play();
+          }}>
+          <Image
+            style={{width: 30, height: 40}}
+            source={require('./Assets/Buttons/play-solid.png')}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => TrackPlayer.pause()}>
+          <Image
+            style={{width: 30, height: 40}}
+            source={require('./Assets/Buttons/pause-solid.png')}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            TrackPlayer.skipToNext(), getImage(), getName();
+          }}>
+          <Image
+            style={{width: 40, height: 40}}
+            source={require('./Assets/Buttons/forward-solid.png')}
+          />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 };
 
-const styles =StyleSheet.create({
-  body:{
+// styles for the UI
+const styles = StyleSheet.create({
+  body: {
     flex: 1,
-    flexDirection:'column',
-    alignItems:'center',
-    justifyContent:'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  row:{
-    flex:1,
-    flexDirection:'row',
-    alignItems:'flex-end',
-    justifyContent:'space-between',
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
   },
-  backButton:{
-  },
-  backButtonImage:{
+  backButton: {},
+  backButtonImage: {
     width: 20,
     height: 20,
     marginRight: 300,
   },
-  button:{
-    paddingLeft:20,
-    paddingRight:20,
-    paddingBottom:40,
+  button: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 40,
   },
-  albumArt:{
+  albumArt: {
     width: 250,
     height: 250,
-    marginTop:130,
+    marginTop: 130,
   },
-  songTitle:{
-    color:'black',
-    fontSize:23,
-    paddingTop:20,
+  songTitle: {
+    color: 'black',
+    fontSize: 23,
+    paddingTop: 20,
   },
-  artist:{
-    color:'black',
-    fontSize:18,
-  }
-
-})
+  artist: {
+    color: 'black',
+    fontSize: 18,
+  },
+});
 export default Home;

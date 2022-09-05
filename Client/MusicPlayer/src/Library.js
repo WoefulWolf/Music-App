@@ -1,3 +1,5 @@
+// All imports from react-native, react and any other libraries are imported here
+
 import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
@@ -11,6 +13,7 @@ import {
   FlatList,
 } from 'react-native';
 
+// Array of songs in the library with their respective properties
 const songs = [
   {
     id: 0,
@@ -84,7 +87,9 @@ const songs = [
   },
 ];
 
+// main function of this screen
 const Home = ({navigation, route}) => {
+  // UI for the library screen
   return (
     <SafeAreaView style={styles.body}>
       <FlatList
@@ -104,10 +109,7 @@ const Home = ({navigation, route}) => {
               }}>
               <View style={styles.songDetails}>
                 <View>
-                  <Image
-                    style={styles.albumCover}
-                    source={item.albumArt}
-                  />
+                  <Image style={styles.albumCover} source={item.albumArt} />
                 </View>
                 <View>
                   <Text style={styles.songTitle}>{item.title}</Text>
@@ -123,6 +125,7 @@ const Home = ({navigation, route}) => {
 };
 export default Home;
 
+// Styles for the UI
 const styles = StyleSheet.create({
   body: {
     flex: 1,

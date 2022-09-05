@@ -1,3 +1,5 @@
+// All necessary imports are declared here
+
 import React, {useEffect, useState} from 'react';
 import {
   Text,
@@ -101,13 +103,14 @@ const Login = ({navigation}) => {
   };
 
   const toHome = () => {
-    navigation.navigate('Home', 
-    // {
-    //   userIDToken: idToken,
-    //   userAccessToken: accessToken,
-    //   authUsername: username,
-    //   userID: user_id,
-    // }
+    navigation.navigate(
+      'Home',
+      // {
+      //   userIDToken: idToken,
+      //   userAccessToken: accessToken,
+      //   authUsername: username,
+      //   userID: user_id,
+      // }
     );
   };
 
