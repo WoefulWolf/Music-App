@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+<row>
+  <Email>1</Email>
+  <Username>zidan@gmail.com</Username>
+  <User_ID>zidanisme</User_ID>
+  <Date_Joined>2022-09-01</Date_Joined>
+</row>
+<row>
+  <Email>aaaaaa</Email>
+  <Username>aaa@aaa.com</Username>
+  <User_ID>greg</User_ID>
+  <Date_Joined>2022-09-04</Date_Joined>
+</row>
+<row>
+  <Email>sonic@hedgehog.com</Email>
+  <Username>sanic</Username>
+  <User_ID>666</User_ID>
+  <Date_Joined>2022-09-02</Date_Joined>
+</row>
+<row>
+  <Email>test@test.com</Email>
+  <Username>test</Username>
+  <User_ID>1234567890</User_ID>
+  <Date_Joined>2022-09-05</Date_Joined>
+</row>
+</data>
