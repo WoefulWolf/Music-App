@@ -24,7 +24,6 @@ const App = () => {
         screenOptions={{
           header: () => null,
         }}>
-        <Stack.Screen name="Library" component={Library} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Login" component={Login} />
       </Stack.Navigator>

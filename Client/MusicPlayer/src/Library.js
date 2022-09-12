@@ -112,7 +112,7 @@ const Home = ({navigation, route}) => {
           <View style={styles.song}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Home', {songIndex: item.id});
+                navigation.navigate('Player', {songIndex: item.id});
               }}>
               <View style={styles.songDetails}>
                 <View>
@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     backgroundColor: '#fff',
+    marginBottom: 75,
   },
   list: {
     flex: 2,
