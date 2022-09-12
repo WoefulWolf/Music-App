@@ -5,6 +5,8 @@ import {
   Text,
   View,
   TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
   TouchableOpacityComponent,
 } from 'react-native';
 import Auth0 from 'react-native-auth0';
@@ -131,25 +133,64 @@ const Login = ({navigation}) => {
   // }, []);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+    <SafeAreaView
+      style={styles.body}>
+        <View style={styles.heading}>
+        <Text style={styles.headingText}>Millions of songs.</Text>
+        <Text style={styles.headingText}>Free on NotSpotify.</Text>
+        </View>
+        <View style={styles.buttonView}>
       <TouchableOpacity
         onPress={() => {
           onLogin();
-        }}>
-        <Text>Get started</Text>
+        }}
+        style={styles.button}>
+        
+        <Text style={styles.buttonText}>Sign up for free</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           toHome();
         }}>
-        <Text>Go to home page...</Text>
+        <Text>Continue without an account</Text>
       </TouchableOpacity>
-    </View>
+      </View>
+    </SafeAreaView>
   );
 };
 export default Login;
+
+const styles = StyleSheet.create({
+  body: {
+    flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+  },
+  heading: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 50,
+  },
+  headingText: {
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  buttonView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  button: {
+    margin: 15,
+    padding: 15,
+    width: 300,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 30,
+    backgroundColor: '#7F055F',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 20,
+  }
+})
