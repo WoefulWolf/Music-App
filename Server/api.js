@@ -7,17 +7,20 @@ const accounts = require("./api-accounts");
 const songs = require("./api-songs");
 const playlists = require("./api-playlists");
 
+// API class to handle HTTP requests and their responses
 class MusicAppAPI {
+    // Parser for GET requests
     async ParseGETRequest(headers, response) {
         //console.log("GET request received:", headers);
         let reqType = headers.request_type;
         let res = {};
 
+        // Check request type and run the appropriate function
         switch(reqType) {
-            case "GetAccount":
+            case "GetAccount":  // Get account info
                 res = await accounts.GetAccount(headers.id);
                 break;
-            case undefined:
+            case undefined: // No request type specified
                 res = {
                     status: 400,
                     body: {
@@ -26,32 +29,34 @@ class MusicAppAPI {
                     },
                 };
                 break;
-            default:
+            default: // Request type not recognized
                 res = {
                     status: 400,
                     body: {"Unknown request type": "The request type '" + reqType + "' is not recognized"},
                 };
         }
 
-        //console.log(res);
+        // Return the response
         response.status(res.status);
         response.json(res.body);
         return res;
     }
 
+    // Parser for POST requests
     async ParsePOSTRequest(headers, body, response) {
         //console.log("POST request received:", headers, body);
         let reqType = headers.request_type;
         let res = {};
 
+        // Check request type and run the appropriate function
         switch(reqType) {
-            case 'RegisterAccount':
+            case 'RegisterAccount': // Register a new account
                 res = await accounts.RegisterAccount(body.id, body.email, body.username);
                 break;
-            case 'AddSong':
+            case 'AddSong': // Add a new song
                 res = await songs.AddSong(body.artist, body.name, body.albumn);
                 break;
-            case undefined:
+            case undefined: // No request type specified
                 res = {
                     status: 400,
                     body: {
@@ -60,19 +65,21 @@ class MusicAppAPI {
                     },
                 };
                 break;
-            default:
+            default:        // Request type not recognized
                 res = {
                     status: 400,
                     body: {"Unknown request type": "The request type '" + reqType + "' is not recognized"},
                 };
         }
 
+        // Return the response
         //console.log(res);
         response.status(res.status);
         response.json(res.body);
         return res;
     }
 
+    // Shutdown the database client
     async Shutdown() {
         await database.endClient();
     }

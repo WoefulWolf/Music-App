@@ -17,11 +17,12 @@ class Database {
         try {   // Try to query the database
             const res = await client.query(text, values)
             return this.#CheckQueryResult(res);
-        } catch (err) { // Catch any errors and throw them to the caller
+        } catch (err) { // Catch any errors and return them to the caller
             return this.#GenerateErrJSON(err);
         }
     }
 
+    // Turn the error into a JSON object response
     #GenerateErrJSON(err) {
         //console.log(err);
         return {
