@@ -17,31 +17,23 @@ const auth0 = new Auth0({
 });
 
 const Login = ({navigation}) => {
-  let accessToken, idToken, username, user_id;
+  let accessToken, idToken, username, user_id, email;
 
   const [loggedIn, setLoggedIn] = useState(false);
 
   // Add a user to the database
-  const addUserToDatabase = async () => {
-    console.log(user_id);
-    console.log(
-      JSON.stringify({
-        UserID: user_id,
-        Username: username,
-        Email: email,
-      }),
-    );
-    fetch('https://harvest-stalkoverflow.herokuapp.com/api/private/', {
+  const addUserToDatabase = async _callback => {
+    fetch('https://sdp-music-app.herokuapp.com/api/private/', {
       method: 'POST',
       headers: {
         Authorization: 'Bearer ' + accessToken,
-        RequestType: 'AddUser',
+        request_type: 'RegisterAccount',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        UserID: user_id,
-        Username: username,
-        Email: email,
+        id: user_id,
+        email: email,
+        username: username,
       }),
     })
       .then(response => response.text())
@@ -51,39 +43,6 @@ const Login = ({navigation}) => {
       .catch(error => {
         console.log(error);
       });
-  };
-
-  // Update the date_last_accessed field in the database
-  const addLoginToDatabase = async () => {
-    fetch('https://harvest-stalkoverflow.herokuapp.com/api/private/', {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + accessToken,
-        RequestType: 'LoginUser',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        UserID: user_id,
-      }),
-    })
-      .then(response => response.text())
-      .then(text => {
-        console.log(text);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
-  // Checks whether it is a user's first time using the app
-  // and calls the appropriate function
-  const addToDatabase = async _callback => {
-    if (loginsCount == 1) {
-      await addUserToDatabase();
-    } else if (loginsCount != 1) {
-      await addLoginToDatabase();
-    }
-    _callback();
   };
 
   // This function gets the user profile from
@@ -93,10 +52,15 @@ const Login = ({navigation}) => {
     auth0.auth
       .userInfo({token: accTok})
       .then(Json => {
-        username = String(Json['https://dev-q8h6rzir:us:auth0:com/username']);
-        user_id = String(Json['https://dev-q8h6rzir:us:auth0:com/user_id']);
+        return Json;
+      })
+      .then(Json => {
+        // username = String(Json['https://dev-mmmro5b5.us.auth0.com/nickname']);
+        username = String(Json.nickname);
+        // user_id = String(Json['https://dev-mmmro5b5.us.auth0.com/sub']);
+        user_id = String(Json.sub);
         loginsCount = parseInt(
-          Json['https://dev-q8h6rzir:us:auth0:com/loginsCount'],
+          Json['https://dev-mmmro5b5.us.auth0.com/loginsCount'],
         );
         email = String(Json['email']);
         _callback();
@@ -105,55 +69,62 @@ const Login = ({navigation}) => {
   };
 
   const toHome = () => {
-    navigation.navigate(
-      'Home',
-      // {
-      //   userIDToken: idToken,
-      //   userAccessToken: accessToken,
-      //   authUsername: username,
-      //   userID: user_id,
-      // }
-    );
+    console.log("Successfully logged in");
+    navigation.navigate('Home', {
+      userIDToken: idToken,
+      userAccessToken: accessToken,
+      authUsername: username,
+      userID: user_id,
+    });
   };
 
-  const onLogin = () => {
+  const onLogin = async _callback => {
     auth0.webAuth
       .authorize({
         scope: 'openid profile email',
+        audience: 'https://sdp-music-app.herokuapp.com/',
       })
       .then(credentials => {
-        console.log(credentials);
+        accessToken = credentials.accessToken;
+        idToken = credentials.idToken;
         setLoggedIn(true);
-        toHome();
-      });
+        _callback();
+      })
+      .catch(error => console.log(error));
   };
 
-  // useEffect(() => {
-  //   onLogin();
-  // }, []);
+  useEffect(() => {
+   onLogin(async function () {
+    await getUserProfile(accessToken, async function () {
+      await addUserToDatabase(toHome())
+    })
+   });
+  }, []);
 
   return (
-    <SafeAreaView
-      style={styles.body}>
-        <View style={styles.heading}>
+    <SafeAreaView style={styles.body}>
+      <View style={styles.heading}>
         <Text style={styles.headingText}>Millions of songs.</Text>
         <Text style={styles.headingText}>Free on NotSpotify.</Text>
-        </View>
-        <View style={styles.buttonView}>
-      <TouchableOpacity
-        onPress={() => {
-          onLogin();
-        }}
-        style={styles.button}>
-        
-        <Text style={styles.buttonText}>Sign up for free</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          toHome();
-        }}>
-        <Text>Continue without an account</Text>
-      </TouchableOpacity>
+      </View>
+      <View style={styles.buttonView}>
+        <TouchableOpacity
+          onPress={async () => {
+            await onLogin(async function () {
+              await getUserProfile(accessToken, async function () {
+                await addUserToDatabase(toHome());
+              });
+            });
+          }}
+          style={styles.button}>
+          <Text style={styles.buttonText}>Sign up for free</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            toHome();
+          }}>
+          <Text>Continue without an account</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -163,8 +134,8 @@ export default Login;
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   heading: {
     justifyContent: 'center',
@@ -192,5 +163,5 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 20,
-  }
-})
+  },
+});

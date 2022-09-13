@@ -9,8 +9,12 @@ import {
 import Library from './Library';
 import Player from './Player';
 
+// this file is responsible for creating the bottom tab navigator
+// it is used to switch between the library and player screens
+
 const Tab = createBottomTabNavigator();
 
+// This is the main function that is called when the app is run
 export default function Home({navigation, route}) {
 
   return (
