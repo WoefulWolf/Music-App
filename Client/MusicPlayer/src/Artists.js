@@ -92,38 +92,76 @@ const songs = [
     title: 'Caramelldansen',
     albumArt: require('./Assets/Images/Caramelldansen.jpeg'),
   },
+  {
+    id: 11,
+    artist: 'Caramella Girls',
+    url: require('./Assets/TestMusic/Caramelldansen.mp3'),
+    title: 'Caramelldansen',
+    albumArt: require('./Assets/Images/Caramelldansen.jpeg'),
+  },
 ];
+var artists=[];
 
 // main function of this screen
-const Home = ({navigation, route}) => {
+const Artists = ({navigation, route}) => {
   // UI for the library screen
+   useEffect(() => {
+    console.log("----------------------------------------------------")
+    let tempItem={
+      artist:"tempArtist"
+    }
+    var bFlag=false;
+    artists.push(tempItem);
+    for(var i=0;i<songs.length;i++){
+      bFlag=false;
+      for(var k=0;k<artists.length;k++){
+        if(songs[i].artist === artists[k].artist){
+          bFlag=true;
+      }
+    }
+      if(bFlag==false){
+        let tempItem={
+          artist:songs[i].artist,
+          albumArt:songs[i].albumArt
+        }
+         artists.push(tempItem);
+         //console.log("songs length:"+songs.length);
+       //console.log("artist length:"+artists.length);
+         }
+      
+      
+    }
+    artists.shift();
+   }, []);
+  
+  
   return (
     <SafeAreaView style={styles.body}>
-      <View style={styles.spacer}></View>
-      <View style={styles.buttonView}>
-        <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Songs');
-        }}
-        >
-          <Text style={styles.button}>Songs</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Artists');
-        }}
-        >
-          <Text style={styles.button}>Artists</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.button}>Playlists</Text>
-        </TouchableOpacity>
-      </View>
+      <FlatList
+        data={artists}
+        showsVerticalScrollIndicator={false}
+        style={styles.list}
+        ListHeaderComponent={() => (
+          <View style={styles.header}>
+            
+            <Text style={styles.headerText}>Artists</Text>
+          </View>
+        )}
+        renderItem={({item}) => (
+          <View style={styles.songDetails}>
+                <View>
+                  <Image style={styles.albumCover} source={item.albumArt} />
+                </View>
+                <View>
+                  <Text style={styles.songArtist}>{item.artist}</Text>
+                </View>
+              </View>
+        )}
+      />
     </SafeAreaView>
   );
 };
-export default Home;
+export default Artists;
 
 // Styles for the UI
 const styles = StyleSheet.create({
@@ -132,21 +170,43 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginBottom: 75,
   },
-  button:{
-    color:'black',
-    fontSize:25,
-    borderBottomWidth:1,
-    borderTopWidth:1,
-    borderColor: 'rgba(158, 150, 150, .5)',
-    paddingTop:5,
-    paddingTop:5,
-    paddingLeft:50,
+  list: {
+    flex: 2,
+    marginBottom: 2.5,
   },
-  spacer:{
-    paddingTop:20,
+  header: {
+    marginLeft: 20,
+    paddingBottom: 5,
   },
-  buttonView:{
+  headerText: {
+    fontSize: 30,
+    color: '#000',
+  },
+  song: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    marginLeft: 20,
+  },
+  songTitle: {
+    fontSize: 18,
+    paddingLeft: 10,
+    color: '#000',
+  },
+  songDetails: {
+    flexDirection: 'row',
+    paddingBottom:10,
+    paddingTop:10,
     paddingLeft:10,
-    paddingRight:10,
-  }
+  },
+  songArtist: {
+    paddingLeft: 10,
+    color: '#000',
+    fontSize:20,
+    marginTop:10,
+  },
+  albumCover: {
+    width: 50,
+    height: 50,
+  },
+  
 });

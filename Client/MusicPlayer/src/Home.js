@@ -8,6 +8,7 @@ import {
 
 import Library from './Library';
 import Player from './Player';
+import LibraryStack from './LibraryStack';
 
 // this file is responsible for creating the bottom tab navigator
 // it is used to switch between the library and player screens
@@ -32,8 +33,8 @@ export default function Home({navigation, route}) {
     }
     >
       <Tab.Screen
-        name="Library"
-        component={Library}
+        name="LibraryStack"
+        component={LibraryStack}
         options={{
           tabBarIcon: ({focused}) => (
             <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>

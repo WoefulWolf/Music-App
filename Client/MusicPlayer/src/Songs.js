@@ -95,35 +95,42 @@ const songs = [
 ];
 
 // main function of this screen
-const Home = ({navigation, route}) => {
+const Songs = ({navigation, route}) => {
   // UI for the library screen
   return (
     <SafeAreaView style={styles.body}>
-      <View style={styles.spacer}></View>
-      <View style={styles.buttonView}>
-        <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Songs');
-        }}
-        >
-          <Text style={styles.button}>Songs</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Artists');
-        }}
-        >
-          <Text style={styles.button}>Artists</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.button}>Playlists</Text>
-        </TouchableOpacity>
-      </View>
+      <FlatList
+        data={songs}
+        showsVerticalScrollIndicator={false}
+        style={styles.list}
+        ListHeaderComponent={() => (
+          <View style={styles.header}>
+            <Text style={styles.headerText}>Songs</Text>
+          </View>
+        )}
+        renderItem={({item}) => (
+          <View style={styles.song}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Player', {songIndex: item.id});
+              }}>
+              <View style={styles.songDetails}>
+                <View>
+                  <Image style={styles.albumCover} source={item.albumArt} />
+                </View>
+                <View>
+                  <Text style={styles.songTitle}>{item.title}</Text>
+                  <Text style={styles.songArtist}>{item.artist}</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+        )}
+      />
     </SafeAreaView>
   );
 };
-export default Home;
+export default Songs;
 
 // Styles for the UI
 const styles = StyleSheet.create({
@@ -132,21 +139,37 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginBottom: 75,
   },
-  button:{
-    color:'black',
-    fontSize:25,
-    borderBottomWidth:1,
-    borderTopWidth:1,
-    borderColor: 'rgba(158, 150, 150, .5)',
-    paddingTop:5,
-    paddingTop:5,
-    paddingLeft:50,
+  list: {
+    flex: 2,
+    marginBottom: 2.5,
   },
-  spacer:{
-    paddingTop:20,
+  header: {
+    marginLeft: 20,
+    paddingBottom: 5,
   },
-  buttonView:{
-    paddingLeft:10,
-    paddingRight:10,
-  }
+  headerText: {
+    fontSize: 30,
+    color: '#000',
+  },
+  song: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    marginLeft: 20,
+  },
+  songTitle: {
+    fontSize: 18,
+    paddingLeft: 10,
+    color: '#000',
+  },
+  songDetails: {
+    flexDirection: 'row',
+  },
+  songArtist: {
+    paddingLeft: 10,
+    color: '#000',
+  },
+  albumCover: {
+    width: 50,
+    height: 50,
+  },
 });
