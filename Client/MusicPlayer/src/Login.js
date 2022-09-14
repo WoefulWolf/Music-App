@@ -59,9 +59,6 @@ const Login = ({navigation}) => {
         username = String(Json.nickname);
         // user_id = String(Json['https://dev-mmmro5b5.us.auth0.com/sub']);
         user_id = String(Json.sub);
-        loginsCount = parseInt(
-          Json['https://dev-mmmro5b5.us.auth0.com/loginsCount'],
-        );
         email = String(Json['email']);
         _callback();
       })

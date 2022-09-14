@@ -96,6 +96,8 @@ const songs = [
 
 // main function of this screen
 const Home = ({navigation, route}) => {
+  const {userIDToken, userAccessToken, authUsername, userID} = route.params;
+
   // UI for the library screen
   return (
     <SafeAreaView style={styles.body}>
@@ -116,7 +118,11 @@ const Home = ({navigation, route}) => {
         >
           <Text style={styles.button}>Artists</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Playlists', {userIDToken: userIDToken, userAccessToken: userAccessToken, authUsername: authUsername, userID: userID});
+        }}
+        >
           <Text style={styles.button}>Playlists</Text>
         </TouchableOpacity>
       </View>
