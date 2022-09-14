@@ -15,6 +15,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Songs from './Songs';
 import Library from './Library';
 import Artists from './Artists';
+import ArtistSongs from './ArtistSongs'
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,10 @@ const LibraryStack = () => {
         <Stack.Screen
           name="Artists"
           component={Artists}
+        />
+        <Stack.Screen
+          name="ArtistSongs"
+          component={ArtistSongs}
         />
       </Stack.Navigator>
   );

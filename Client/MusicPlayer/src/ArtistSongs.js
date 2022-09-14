@@ -100,66 +100,60 @@ const songs = [
     albumArt: require('./Assets/Images/Caramelldansen.jpeg'),
   },
 ];
-var artists=[];
+var artistsSongs=[];
 
 // main function of this screen
 const Artists = ({navigation, route}) => {
   // UI for the library screen
   // useEffect(() => {
     console.log("----------------------------------------------------")
+    const {artistName} = route.params;
+    for(var j=0;j<artistsSongs.length;j++){
+        artistsSongs.shift();
+    }
     
-    var bFlag=false;
     for(var i=0;i<songs.length;i++){
-      bFlag=false;
-      for(var k=0;k<artists.length;k++){
-        if(songs[i].artist === artists[k].artist){
-          bFlag=true;
-      }
-    }
-      if(bFlag==false){
+      if(songs[i].artist === artistName){
         let tempItem={
-          artist:songs[i].artist,
-          albumArt:songs[i].albumArt
-        }
-         artists.push(tempItem);
-         //console.log("songs length:"+songs.length);
-       //console.log("artist length:"+artists.length);
-         }
-      
-      
+            id:songs[i].id,
+            title:songs[i].title,
+            albumArt:songs[i].albumArt
+          }
+          artistsSongs.push(tempItem);
+      } 
+    
     }
-  // }, []);
+ //  }, []);
   
   
   return (
     <SafeAreaView style={styles.body}>
       <FlatList
-        data={artists}
+        data={artistsSongs}
         showsVerticalScrollIndicator={false}
         style={styles.list}
         ListHeaderComponent={() => (
           <View style={styles.header}>
             
-            <Text style={styles.headerText}>Artists</Text>
+            <Text style={styles.headerText}>{artistName}</Text>
           </View>
         )}
         renderItem={({item}) => (
-          <View style={styles.song}>
+            <View style={styles.song}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('ArtistSongs', {artistName:item.artist});
+                navigation.navigate('Player', {songIndex: item.id});
               }}>
               <View style={styles.songDetails}>
                 <View>
                   <Image style={styles.albumCover} source={item.albumArt} />
                 </View>
                 <View>
-                  <Text style={styles.songArtist}>{item.artist}</Text>
+                  <Text style={styles.songTitle}>{item.title}</Text>
                 </View>
               </View>
             </TouchableOpacity>
           </View>
-          
         )}
       />
     </SafeAreaView>
@@ -192,9 +186,10 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   songTitle: {
-    fontSize: 18,
     paddingLeft: 10,
     color: '#000',
+    fontSize:20,
+    marginTop:10,
   },
   songDetails: {
     flexDirection: 'row',
