@@ -106,7 +106,7 @@ var artists=[];
 const Artists = ({navigation, route}) => {
   // UI for the library screen
   // useEffect(() => {
-    console.log("----------------------------------------------------")
+    //console.log("----------------------------------------------------")
     
     var bFlag=false;
     for(var i=0;i<songs.length;i++){
