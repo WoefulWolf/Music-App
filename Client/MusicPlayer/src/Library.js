@@ -92,6 +92,55 @@ const songs = [
     title: 'Caramelldansen',
     albumArt: require('./Assets/Images/Caramelldansen.jpeg'),
   },
+  {
+    id: 11,
+    artist: 'ACE',
+    url: require('./Assets/TestMusic/Colony9.wav'),
+    title: 'Colony 9',
+    albumArt: require('./Assets/Images/Xenoblade.jpeg'),
+  },
+  {
+    id: 12,
+    artist: 'ACE',
+    url: require('./Assets/TestMusic/TimeToFight.wav'),
+    title: 'Time To FIght!',
+    albumArt: require('./Assets/Images/Xenoblade.jpeg'),
+  },
+  {
+    id: 13,
+    artist: 'ACE',
+    url: require('./Assets/TestMusic/EngageTheEnemy.wav'),
+    title: 'Engage the Enemy',
+    albumArt: require('./Assets/Images/Xenoblade.jpeg'),
+  },
+  {
+    id: 14,
+    artist: 'ACE',
+    url: require('./Assets/TestMusic/GaurPlain.wav'),
+    title: 'Gaur Plain',
+    albumArt: require('./Assets/Images/Xenoblade.jpeg'),
+  },
+  {
+    id: 15,
+    artist: 'ACE',
+    url: require('./Assets/TestMusic/AnObstacle.wav'),
+    title: 'An Obstacle in Our Path',
+    albumArt: require('./Assets/Images/Xenoblade.jpeg'),
+  },
+  {
+    id: 16,
+    artist: 'ACE',
+    url: require('./Assets/TestMusic/FrontierVillage.wav'),
+    title: 'Frontier Village',
+    albumArt: require('./Assets/Images/Xenoblade.jpeg'),
+  },
+  {
+    id: 17,
+    artist: 'ACE',
+    url: require('./Assets/TestMusic/OurNames.wav'),
+    title: 'You Will Know Our Names',
+    albumArt: require('./Assets/Images/Xenoblade.jpeg'),
+  },
 ];
 
 // main function of this screen
