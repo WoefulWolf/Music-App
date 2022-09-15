@@ -3,8 +3,8 @@ import {
   Text,
   View,
   SafeAreaView,
-  StyleSheet,
   Image,
+  StyleSheet,
   TouchableOpacity,
 } from 'react-native';
 
@@ -12,14 +12,15 @@ const Playlists = ({navigation, route}) => {
   // Variables needed for API calls
   const {userIDToken, userAccessToken, authUsername, userID} = route.params;
 
-  // API call to get all playlists
-  const getPlaylists = async () => {
+  // API call to get a single playlist
+  const getPlaylist = async () => {
     fetch('https://sdp-music-app.herokuapp.com/api/private/', {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + accessToken,
-        request_type: 'GetPlaylists',
+        request_type: 'GetPlaylist',
         id: userID,
+        playlist_id: "1",
       },
     })
       .then(response => response.text())
@@ -44,13 +45,13 @@ const Playlists = ({navigation, route}) => {
               style={styles.backButton}
               source={require('./Assets/Buttons/back-icon.png')}
             />
-            <Text style={styles.backButtonText}>Library</Text>
+            <Text style={styles.backButtonText}>Playlists</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.addButtonView}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('AddPlaylist', {
+              navigation.navigate('AddSong', {
                 userIDToken: userIDToken,
                 userAccessToken: userAccessToken,
                 authUsername: authUsername,
@@ -70,16 +71,10 @@ const Playlists = ({navigation, route}) => {
         }}>
         <Text>Hello, world!</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('ShowPlaylist', {
-            userIDToken: userIDToken,
-            userAccessToken: userAccessToken,
-            authUsername: authUsername,
-            userID: userID,
-          });
+      <TouchableOpacity onPress={() => {
+          navigation.navigate('Player', {userIDToken: userIDToken, userAccessToken: userAccessToken, authUsername: authUsername, userID: userID});
         }}>
-        <Text>View Playlist</Text>
+        <Text>Listen to playlist</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
