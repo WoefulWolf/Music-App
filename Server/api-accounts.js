@@ -46,7 +46,7 @@ class Accounts {
         }
 
         // Get an account from the database
-        const text = "SELECT * FROM accounts WHERE \"User_ID\" = $1";
+        const text = 'SELECT "Email", "Username", "Date_Joined" FROM accounts WHERE "User_ID" = $1';
         const values = [ID];
         const res = await database.Query(text, values);
         return res;

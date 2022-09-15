@@ -17,8 +17,23 @@ class MusicAppAPI {
 
         // Check request type and run the appropriate function
         switch(reqType) {
-            case "GetAccount":  // Get account info
+            case 'GetAccount':  // Get account info
                 res = await accounts.GetAccount(headers.id);
+                break;
+            case 'GetSongs':     // Get all songs
+                res = await songs.GetSongs();
+                break;
+            case 'GetSongByID':
+                res = await songs.GetSongByID(headers.song_id);
+                break;
+            case 'SearchSongByName':
+                res = await songs.SearchSongByName(headers.song_name);
+                break;
+            case 'SearchSongByArtist':
+                res = await songs.SearchSongByArtist(headers.artist);
+                break;
+            case 'SearchSongByAlbum':
+                res = await songs.SearchSongByAlbum(headers.album);
                 break;
             case undefined: // No request type specified
                 res = {
@@ -53,9 +68,12 @@ class MusicAppAPI {
             case 'RegisterAccount': // Register a new account
                 res = await accounts.RegisterAccount(body.id, body.email, body.username);
                 break;
-            case 'AddSong': // Add a new song
-                res = await songs.AddSong(body.artist, body.name, body.albumn);
+            case 'AddListen': // Add a listen to a song
+                res = await songs.AddListen(body.song_id);
                 break;
+            //case 'AddSong': // Add a new song
+            //    res = await songs.AddSong(body.artist, body.name, body.albumn);
+            //    break;
             case undefined: // No request type specified
                 res = {
                     status: 400,

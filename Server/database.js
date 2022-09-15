@@ -43,6 +43,11 @@ class Database {
                 status: 200,
                 body: {"Success": "Insertion successful"},
             };
+        } else if (res.rows.length == 0 && res.command == "UPDATE") { // If no rows were returned and the command was an UPDATE
+            return {
+                status: 200,
+                body: {"Success": "Update successful"},
+            };
         } else {
             //console.log(res);
             return {

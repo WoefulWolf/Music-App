@@ -12,11 +12,10 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Songs from './Songs';
-import Library from './Library';
-import Artists from './Artists';
-import ArtistSongs from './ArtistSongs'
-import PlaylistStack from './PlaylistStack';
+import Playlists from './Playlists';
+import ShowPlaylist from './ShowPlaylist';
+import AddPlaylist from './AddPlaylist';
+import AddSong from './AddSong';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,30 +23,27 @@ const LibraryStack = ({navigation, route}) => {
   const {userIDToken, userAccessToken, authUsername, userID} = route.params;
 
   return (
-      <Stack.Navigator screenOptions={{
-        header: () => null,
+      <Stack.Navigator 
+        screenOptions={{
+          header: () => null,
       }}>
         <Stack.Screen
-          name="Library"
-          component={Library}
+          name="Playlists"
+          component={Playlists}
           initialParams={{userIDToken, userAccessToken, authUsername, userID}}
         />
         <Stack.Screen
-          name="Songs"
-          component={Songs}
+          name="ShowPlaylist"
+          component={ShowPlaylist}
         />
         <Stack.Screen
-          name="Artists"
-          component={Artists}
+          name="AddPlaylist"
+          component={AddPlaylist}
         />
         <Stack.Screen
-          name="ArtistSongs"
-          component={ArtistSongs}
+          name="AddSong"
+          component={AddSong}
           />
-          <Stack.Screen
-          name="PlaylistStack"
-          component={PlaylistStack}
-        />
       </Stack.Navigator>
   );
 };
