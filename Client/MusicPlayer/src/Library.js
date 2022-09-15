@@ -169,7 +169,7 @@ const Home = ({navigation, route}) => {
         </TouchableOpacity>
         <TouchableOpacity
         onPress={() => {
-          navigation.navigate('Playlists', {userIDToken: userIDToken, userAccessToken: userAccessToken, authUsername: authUsername, userID: userID});
+          navigation.navigate('PlaylistStack', {userIDToken: userIDToken, userAccessToken: userAccessToken, authUsername: authUsername, userID: userID});
         }}
         >
           <Text style={styles.button}>Playlists</Text>

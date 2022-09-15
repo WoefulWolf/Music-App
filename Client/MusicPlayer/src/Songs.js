@@ -99,6 +99,15 @@ const Songs = ({navigation, route}) => {
   // UI for the library screen
   return (
     <SafeAreaView style={styles.body}>
+      <View style={styles.backButtonView}>
+        <TouchableOpacity onPress={() => {
+          navigation.goBack();
+        }}
+        style={{flexDirection: 'row'}}>
+          <Image style={styles.backButton} source={require('./Assets/Buttons/back-icon.png')} />
+          <Text style={styles.backButtonText}>Library</Text>
+        </TouchableOpacity>
+      </View>
       <FlatList
         data={songs}
         showsVerticalScrollIndicator={false}
@@ -138,6 +147,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     marginBottom: 75,
+  },
+  backButtonView: {
+    marginLeft: 20,
+    marginBottom: 20,
+    flexDirection: 'row',
+  },
+  backButton: {
+    width: 20,
+    height: 20,
+  },
+  backButtonText: {
+    color: '#000',
+    fontSize: 20,
+    marginLeft: 5,
+    marginBottom: 10,
   },
   list: {
     flex: 2,
