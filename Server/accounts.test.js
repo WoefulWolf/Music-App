@@ -94,7 +94,7 @@ test('Getting a user.', async () => {
     
     const result = await api.ParseGETRequest(headers, res);
     expect(result.status).toEqual(200);
-    expect(result.body[0].User_ID).toEqual("1234567890");
+    expect(result.body[0].Username).toEqual("test");
 });
 
 afterAll(async () => {
