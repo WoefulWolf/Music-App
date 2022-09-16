@@ -10,7 +10,7 @@ import {
 
 const Playlists = ({navigation, route}) => {
   // Variables needed for API calls
-  const {userIDToken, userAccessToken, authUsername, userID} = route.params;
+  const {userIDToken, userAccessToken, authUsername, userID, songs} = route.params;
 
   // API call to get all playlists
   const getPlaylists = async () => {
@@ -55,6 +55,7 @@ const Playlists = ({navigation, route}) => {
                 userAccessToken: userAccessToken,
                 authUsername: authUsername,
                 userID: userID,
+                songs: songs,
               });
             }}>
             <Image
@@ -77,6 +78,7 @@ const Playlists = ({navigation, route}) => {
             userAccessToken: userAccessToken,
             authUsername: authUsername,
             userID: userID,
+            songs: songs,
           });
         }}>
         <Text>View Playlist</Text>

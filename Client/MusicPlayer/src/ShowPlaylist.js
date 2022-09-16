@@ -10,7 +10,7 @@ import {
 
 const Playlists = ({navigation, route}) => {
   // Variables needed for API calls
-  const {userIDToken, userAccessToken, authUsername, userID} = route.params;
+  const {userIDToken, userAccessToken, authUsername, userID, songs} = route.params;
 
   // API call to get a single playlist
   const getPlaylist = async () => {
@@ -56,6 +56,7 @@ const Playlists = ({navigation, route}) => {
                 userAccessToken: userAccessToken,
                 authUsername: authUsername,
                 userID: userID,
+                songs: songs,
               });
             }}>
             <Image

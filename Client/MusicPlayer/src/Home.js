@@ -17,7 +17,7 @@ const Tab = createBottomTabNavigator();
 
 // This is the main function that is called when the app is run
 export default function Home({navigation, route}) {
-  const {userIDToken, userAccessToken, authUsername, userID} = route.params;
+  const {userIDToken, userAccessToken, authUsername, userID, songs} = route.params;
 
   return (
     <Tab.Navigator
@@ -36,7 +36,7 @@ export default function Home({navigation, route}) {
       <Tab.Screen
         name="LibraryStack"
         component={LibraryStack}
-        initialParams={{userIDToken, userAccessToken, authUsername, userID}}
+        initialParams={{userIDToken, userAccessToken, authUsername, userID, songs}}
         options={{
           tabBarIcon: ({focused}) => (
             <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>
@@ -57,7 +57,7 @@ export default function Home({navigation, route}) {
       <Tab.Screen
         name="Player"
         component={Player}
-        initialParams={{songIndex: 0}}
+        initialParams={{songIndex: 0, songs: songs}}
         options={{
           tabBarIcon: ({focused}) => (
             <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>

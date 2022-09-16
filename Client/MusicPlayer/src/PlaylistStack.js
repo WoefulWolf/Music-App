@@ -20,7 +20,7 @@ import AddSong from './AddSong';
 const Stack = createNativeStackNavigator();
 
 const LibraryStack = ({navigation, route}) => {
-  const {userIDToken, userAccessToken, authUsername, userID} = route.params;
+  const {userIDToken, userAccessToken, authUsername, userID, songs} = route.params;
 
   return (
       <Stack.Navigator 
@@ -30,7 +30,7 @@ const LibraryStack = ({navigation, route}) => {
         <Stack.Screen
           name="Playlists"
           component={Playlists}
-          initialParams={{userIDToken, userAccessToken, authUsername, userID}}
+          initialParams={{userIDToken, userAccessToken, authUsername, userID, songs}}
         />
         <Stack.Screen
           name="ShowPlaylist"

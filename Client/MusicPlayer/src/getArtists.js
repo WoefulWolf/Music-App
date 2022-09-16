@@ -217,13 +217,6 @@ const songs = [
       albumArt: require('./Assets/Images/LoveSux.jpeg'),
     },
     {
-      id: 30,
-      artist: 'Avril Lavigne',
-      url: require('./Assets/TestMusic/LoveSux.mp3'),
-      title: 'Love Sux',
-      albumArt: require('./Assets/Images/LoveSux.jpeg'),
-    },
-    {
       id: 31,
       artist: 'Green Day',
       url: require('./Assets/TestMusic/AmericanIdiot.mp3'),

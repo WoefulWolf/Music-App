@@ -16,8 +16,9 @@ const auth0 = new Auth0({
   clientId: 'IM1izBnquKofVNsAXXUWc9Q6fsr0rEPS',
 });
 
-const Login = ({navigation}) => {
+const Login = ({navigation, route}) => {
   let accessToken, idToken, username, user_id, email;
+  const {songs} = route.params;
 
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -72,6 +73,7 @@ const Login = ({navigation}) => {
       userAccessToken: accessToken,
       authUsername: username,
       userID: user_id,
+      songs: songs,
     });
   };
 
@@ -142,6 +144,7 @@ const styles = StyleSheet.create({
   headingText: {
     fontSize: 30,
     fontWeight: 'bold',
+    color: '#000',
   },
   buttonView: {
     justifyContent: 'center',

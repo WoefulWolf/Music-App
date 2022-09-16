@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
@@ -6,11 +6,13 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  TextInput,
 } from 'react-native';
 
 const Playlists = ({navigation, route}) => {
   // Variables needed for API calls
-  const {userIDToken, userAccessToken, authUsername, userID} = route.params;
+  const {userIDToken, userAccessToken, authUsername, userID, songs} = route.params;
+  const [playlistName, setPlaylistName] = useState('');
 
   // API call to create a playlist
   const createPlaylist = async () => {
@@ -46,12 +48,29 @@ const Playlists = ({navigation, route}) => {
           <Text style={styles.backButtonText}>Playlists</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          console.log(userID);
-        }}>
-        <Text>Hello, world!</Text>
-      </TouchableOpacity>
+      <View style={styles.heading}>
+        <Text style={styles.headingText}>Create a new playlist.</Text>
+      </View>
+      <View style={styles.inputView}>
+      <TextInput
+        style={styles.input}
+        placeholder="Playlist Name"
+        placeholderTextColor="#bbbbbb"
+        onChangeText={newText => setPlaylistName(newText)}
+        defaultValue={""}
+        maxLength={30}
+      />
+      </View>
+      <View style={styles.buttonView}>
+        <TouchableOpacity
+          onPress={() => {
+            console.log("Created Playlist");
+            navigation.navigate('Playlists');
+          }}
+          style={styles.button}>
+          <Text style={styles.buttonText}>Create Playlist</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -76,5 +95,45 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 5,
     marginBottom: 10,
+  },
+  heading: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 100,
+    marginBottom: 50,
+  },
+  headingText: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+  inputView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  input: {
+    height: 40,
+    width: 300,
+    borderBottomColor: "#000",
+    borderBottomWidth: 1,
+    marginBottom: 20,
+  },
+  buttonView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  button: {
+    margin: 15,
+    padding: 15,
+    width: 300,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 30,
+    backgroundColor: '#7F055F',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 20,
   },
 });
