@@ -30,10 +30,16 @@ class MusicAppAPI {
                 res = await songs.SearchSongByName(headers.song_name);
                 break;
             case 'SearchSongByArtist':
-                res = await songs.SearchSongByArtist(headers.artist);
+                res = await songs.SearchSongByArtist(headers.artist_name);
                 break;
             case 'SearchSongByAlbum':
-                res = await songs.SearchSongByAlbum(headers.album);
+                res = await songs.SearchSongByAlbum(headers.album_name);
+                break;
+            case 'GetPlaylists': // Get all playlists of a user
+                res = await playlists.GetPlaylists(id);
+                break;
+            case 'GetPlaylistSongs': // Get all songs on a playlist
+                res = await playlists.GetPlaylistSongs(headers.playlist_id);
                 break;
             case undefined: // No request type specified
                 res = {
@@ -71,9 +77,20 @@ class MusicAppAPI {
             case 'AddListen': // Add a listen to a song
                 res = await songs.AddListen(body.song_id);
                 break;
-            //case 'AddSong': // Add a new song
-            //    res = await songs.AddSong(body.artist, body.name, body.albumn);
-            //    break;
+            case 'CreatePlaylist': // Create a new playlist
+                res = await playlists.CreatePlaylist(id, body.playlist_name);
+                break;
+            case 'AddSongToPlaylist': // Add a song to a playlist
+                res = await playlists.AddSongToPlaylist(body.playlist_id, body.song_id);
+                break;
+            case 'DeletePlaylist': // Delete a playlist
+                res = await playlists.DeletePlaylist(body.playlist_id);
+                break;
+            /*
+            case 'AddSong': // Add a new song
+                res = await songs.AddSong(body.artist, body.name, body.albumn);
+                break;
+            */
             case undefined: // No request type specified
                 res = {
                     status: 400,
