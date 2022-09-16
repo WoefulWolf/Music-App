@@ -176,6 +176,7 @@ const styles = StyleSheet.create({
     width: 250,
     height: 250,
     marginTop: 130,
+    borderRadius: 10,
   },
   songTitle: {
     color: 'black',
