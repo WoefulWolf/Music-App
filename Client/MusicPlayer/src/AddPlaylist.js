@@ -19,13 +19,12 @@ const Playlists = ({navigation, route}) => {
     fetch('https://sdp-music-app.herokuapp.com/api/private/', {
       method: 'POST',
       headers: {
-        Authorization: 'Bearer ' + accessToken,
+        Authorization: 'Bearer ' + userAccessToken,
         request_type: 'CreatePlaylist',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: userID,
-        playlist_name: 'Placeholder',
+        playlist_name: playlistName,
       }),
     })
       .then(response => response.text())
@@ -64,8 +63,9 @@ const Playlists = ({navigation, route}) => {
       <View style={styles.buttonView}>
         <TouchableOpacity
           onPress={() => {
-            console.log("Created Playlist");
-            navigation.navigate('Playlists');
+            console.log("This is the playlist name: " + playlistName);
+            createPlaylist();
+            // navigation.navigate('Playlists');
           }}
           style={styles.button}>
           <Text style={styles.buttonText}>Create Playlist</Text>
