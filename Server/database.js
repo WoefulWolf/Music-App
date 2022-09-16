@@ -48,6 +48,11 @@ class Database {
                 status: 200,
                 body: {"Success": "Update successful"},
             };
+        } else if (res.rows.length == 0 && res.command == "DELETE") { // If no rows were returned and the command was an DELETE
+            return {
+                status: 200,
+                body: {"Success": "Delete successful"},
+            };
         } else {
             //console.log(res);
             return {
