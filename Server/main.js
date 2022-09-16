@@ -58,12 +58,12 @@ app.post('/api/private', function (req, res) {
 // Non-authenticated, public requests
 // GET
 app.get('/', function (req, res) {
-    api.ParseGETRequest(req.auth.sub, req.headers, res);
+    api.ParseGETRequest(req.headers.user_id, req.headers, res);
 });
 
 // POST
 app.post('/', function (req, res) {
-    api.ParsePOSTRequest(req.auth.sub, req.headers, req.body, res);
+    api.ParsePOSTRequest(req.headers.user_id, req.headers, req.body, res);
 });
 
 // Start listening for requests once everything has been setup
