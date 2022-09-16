@@ -15,6 +15,7 @@ let arrPlaylists=[];
 
 const Playlists = ({navigation, route}) => {
   const [refresh,setRefresh]=useState(true);
+  const [data, setData] = useState([])
 
   // Variables needed for API calls
   const {userIDToken, authUsername, userID, songs} = route.params;
@@ -31,9 +32,11 @@ const Playlists = ({navigation, route}) => {
     })
       .then(response => response.json())
       .then(json => {
-        //console.log(json);
-        //console.log(json.length)
-        return json;
+        console.log(json);
+        setData(json)
+      })
+      .then(() => {
+        setRefresh(false);
       })
       .catch(error => {
         console.log(error);
@@ -51,16 +54,12 @@ const Playlists = ({navigation, route}) => {
       return arrTemp2;
     }
   }
-  useEffect(() => {
-    getPlaylists().then(json=>{
-      //addPlaylists(json);
-      console.log(json)
-      setRefresh(false);
-    })
-    
 
-    
-  }, [refresh]);
+  useEffect(() => {
+    getPlaylists();
+    setRefresh(false)
+  }, []);
+
   if(refresh==true){
     return(
       <SafeAreaView style={styles.body}>
@@ -122,7 +121,7 @@ const Playlists = ({navigation, route}) => {
           <Text>View Playlist</Text>
         </TouchableOpacity>
         <FlatList
-          data={arrPlaylists}
+          data={data}
           showsVerticalScrollIndicator={false}
           style={styles.list}
           ListHeaderComponent={() => (
@@ -145,7 +144,7 @@ const Playlists = ({navigation, route}) => {
                   });              }}>
                 <View style={styles.songDetails}>
                   <View>
-                    <Text style={styles.songArtist}>{item.PlaylistName}</Text>
+                    <Text style={styles.songArtist}>{item.Playlist_Name}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
