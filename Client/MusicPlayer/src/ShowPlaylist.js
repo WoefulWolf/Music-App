@@ -111,6 +111,7 @@ const Playlists = ({navigation, route}) => {
                   authUsername: authUsername,
                   userID: userID,
                   songs: songs,
+                  playlistID: Playlist_ID,
                 });
               }}>
               <Image

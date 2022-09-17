@@ -12,12 +12,12 @@ import {
 
 const Playlists = ({navigation, route}) => {
   // Variables needed for API calls
-  const {userIDToken, userAccessToken, authUsername, userID, songs, Playlist_ID} =
+  const {userIDToken, userAccessToken, authUsername, userID, songs, playlistID} =
     route.params;
   const [songID, setSongID] = useState(null);
 
   // API call to add a song to a playlist
-  const addSongToPlaylist = async (playlist, song) => {
+  const addSongToPlaylist = async (song) => {
     fetch('https://sdp-music-app.herokuapp.com/api/private/', {
       method: 'POST',
       headers: {
@@ -26,7 +26,7 @@ const Playlists = ({navigation, route}) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        playlist_id: playlist,
+        playlist_id: playlistID,
         song_id: song,
       }),
     })
@@ -99,7 +99,7 @@ const Playlists = ({navigation, route}) => {
               <View style={styles.addButtonView}>
                 <TouchableOpacity
                   onPress={() => {
-                    addSongToPlaylist(1, item.id);
+                    addSongToPlaylist(item.id);
                   }}>
                   <Image
                     style={styles.addButton}
