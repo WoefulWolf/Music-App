@@ -11,15 +11,17 @@ import {
 } from 'react-native';
 
 let PlaylistSongs=[];
-let SongIndexes=[];
+let bFlag=false;
+let noSongs=[];
 
 const Playlists = ({navigation, route}) => {
   const [refresh,setRefresh]=useState(true);
   const [data, setData] = useState([]);
 
   // Variables needed for API calls
-  const {userIDToken, authUsername, userID, Playlist_ID,songs} = route.params;
+  const {userIDToken, authUsername, userID, Playlist_ID,songs,PlaylistName} = route.params;
   console.log("playlistID2:"+Playlist_ID);
+  console.log(PlaylistName);
   const userAccessToken="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkVQeGNQb1dCZWdaQUJ4OFY1VEstMCJ9.eyJpc3MiOiJodHRwczovL2Rldi1tbW1ybzViNS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjMwMjVmZmM4ZDc5ZjdkNTk1ODE1MjlkIiwiYXVkIjpbImh0dHBzOi8vc2RwLW11c2ljLWFwcC5oZXJva3VhcHAuY29tLyIsImh0dHBzOi8vZGV2LW1tbXJvNWI1LnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2NjM0MjU3NDQsImV4cCI6MTY2MzUxMjE0NCwiYXpwIjoiSU0xaXpCbnF1S29mVk5zQVhYVVdjOVE2ZnNyMHJFUFMiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIn0.d94EqR9ahFfJkkDl7neeSP2e29Bp6jDPxzuIB33hUvXMQIYnzuD-AgiboLqFB5PfF-WM4MQClH8hx6gRCwuASyVtqqNCryAmlYBzWFh3rqJKDhWmBE7KlG96yhvgyBuuItXSaNPDEuZ8bfyI-bPGfb0afK-rP4ZFOuXg7Fc88CBrbJVU9qAHgSIcLiKDk9k8-qpIEmfTlfWhlrpweyL5o0AOwfbMD_6gJjTbMJ61VACH9Ng7YPK1Ql73HK3tJGO41OOCIkY5W2sZbIjOW-N-AKRnbhnYRjf-Prta2lBv3N25Ya26xvleWDwMa44H_4C8iza5xAJQtcTsT7pW2iB0Ug";
   // API call to get all playlists
   const GetPlaylistSongs = async () => {
@@ -34,14 +36,37 @@ const Playlists = ({navigation, route}) => {
     })
       .then(response => response.json())
       .then(json => {
+        noSongs.clear;
         console.log(json);
         //console.log(json[0].Album_Cover);
-        setData(json);
         console.log("Json length:"+json.length);
+        bFlag=false;
+        if(typeof json.length !== 'undefined'){
+          setData(json);
+          bFlag=true;
+        }
+        
+        
         
       })
       .then(() => {
-        setRefresh(false);
+        if(bFlag==true){
+          console.log("inside refresh");
+          setRefresh(false);
+        }
+        else{
+          for(var j=0;j<noSongs.length;j++){
+            noSongs.shift();
+          }
+          let tempItem={
+            id:0,
+            Song_Name:"Oops no songs",
+            albumArt:songs[0].albumArt
+          }
+          noSongs.push(tempItem);
+          setData(noSongs);
+        }
+        
       })
       .catch(error => {
         console.log(error);
@@ -113,7 +138,7 @@ const Playlists = ({navigation, route}) => {
           ListHeaderComponent={() => (
             <View style={styles.header}>
               
-              <Text style={styles.headerText}>Playlists</Text>
+              <Text style={styles.headerText}>{PlaylistName}</Text>
             </View>
           )}
           renderItem={({item}) => (

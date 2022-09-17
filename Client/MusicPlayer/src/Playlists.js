@@ -142,6 +142,7 @@ const Playlists = ({navigation, route}) => {
                     userID: userID,
                     songs: songs,
                     Playlist_ID:item.Playlist_ID,
+                    PlaylistName:item.Playlist_Name,
                   });              }}>
                 <View style={styles.songDetails}>
                   <View>
