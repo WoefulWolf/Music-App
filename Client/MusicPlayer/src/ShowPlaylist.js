@@ -1,84 +1,144 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import {
   Text,
   View,
   SafeAreaView,
-  Image,
   StyleSheet,
+  Image,
   TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
 } from 'react-native';
 
-const Playlists = ({navigation, route}) => {
-  // Variables needed for API calls
-  const {userIDToken, userAccessToken, authUsername, userID, songs,Playlist_ID} = route.params;
+let PlaylistSongs=[];
+let SongIndexes=[];
 
-  // API call to get a single playlist
-  const getPlaylist = async () => {
+const Playlists = ({navigation, route}) => {
+  const [refresh,setRefresh]=useState(true);
+  const [data, setData] = useState([]);
+
+  // Variables needed for API calls
+  const {userIDToken, authUsername, userID, Playlist_ID,songs} = route.params;
+  console.log("playlistID2:"+Playlist_ID);
+  const userAccessToken="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkVQeGNQb1dCZWdaQUJ4OFY1VEstMCJ9.eyJpc3MiOiJodHRwczovL2Rldi1tbW1ybzViNS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjMwMjVmZmM4ZDc5ZjdkNTk1ODE1MjlkIiwiYXVkIjpbImh0dHBzOi8vc2RwLW11c2ljLWFwcC5oZXJva3VhcHAuY29tLyIsImh0dHBzOi8vZGV2LW1tbXJvNWI1LnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2NjM0MjU3NDQsImV4cCI6MTY2MzUxMjE0NCwiYXpwIjoiSU0xaXpCbnF1S29mVk5zQVhYVVdjOVE2ZnNyMHJFUFMiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIn0.d94EqR9ahFfJkkDl7neeSP2e29Bp6jDPxzuIB33hUvXMQIYnzuD-AgiboLqFB5PfF-WM4MQClH8hx6gRCwuASyVtqqNCryAmlYBzWFh3rqJKDhWmBE7KlG96yhvgyBuuItXSaNPDEuZ8bfyI-bPGfb0afK-rP4ZFOuXg7Fc88CBrbJVU9qAHgSIcLiKDk9k8-qpIEmfTlfWhlrpweyL5o0AOwfbMD_6gJjTbMJ61VACH9Ng7YPK1Ql73HK3tJGO41OOCIkY5W2sZbIjOW-N-AKRnbhnYRjf-Prta2lBv3N25Ya26xvleWDwMa44H_4C8iza5xAJQtcTsT7pW2iB0Ug";
+  // API call to get all playlists
+  const GetPlaylistSongs = async () => {
     fetch('https://sdp-music-app.herokuapp.com/api/private/', {
       method: 'GET',
       headers: {
-        Authorization: 'Bearer ' + accessToken,
-        request_type: 'GetPlaylist',
-        id: userID,
-        playlist_id: "1",
+        Authorization: 'Bearer ' + userAccessToken,
+        request_type: 'GetPlaylistSongs',
+        playlist_id: Playlist_ID,
+        
       },
     })
-      .then(response => response.text())
-      .then(text => {
-        console.log(text);
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        //console.log(json[0].Album_Cover);
+        setData(json);
+        console.log("Json length:"+json.length);
+        
+      })
+      .then(() => {
+        setRefresh(false);
       })
       .catch(error => {
         console.log(error);
       });
   };
 
-  return (
-    <SafeAreaView style={styles.body}>
-      <View style={styles.ButtonView}>
-        <View style={styles.backButtonView}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.goBack();
-            }}
-            style={{flexDirection: 'row'}}>
-            <Image
-              style={styles.backButton}
-              source={require('./Assets/Buttons/back-icon.png')}
-            />
-            <Text style={styles.backButtonText}>Playlists</Text>
-          </TouchableOpacity>
+  useEffect(() => {
+    GetPlaylistSongs();
+    setRefresh(false)
+  }, []);
+
+  if(refresh==true){
+    return(
+      <SafeAreaView style={styles.body}>
+        <ActivityIndicator size="large" color="#000000"/>
+      </SafeAreaView>
+    )
+  }
+  else if(refresh==false){
+    return (
+      <SafeAreaView style={styles.body}>
+        <View style={styles.ButtonView}>
+          <View style={styles.backButtonView}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+              style={{flexDirection: 'row'}}>
+              <Image
+                style={styles.backButton}
+                source={require('./Assets/Buttons/back-icon.png')}
+              />
+              <Text style={styles.backButtonText}>Playlists</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.addButtonView}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('AddSong', {
+                  userIDToken: userIDToken,
+                  userAccessToken: userAccessToken,
+                  authUsername: authUsername,
+                  userID: userID,
+                  songs: songs,
+                });
+              }}>
+              <Image
+                style={styles.addButton}
+                source={require('./Assets/Buttons/plus-icon.png')}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.addButtonView}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('AddSong', {
-                userIDToken: userIDToken,
-                userAccessToken: userAccessToken,
-                authUsername: authUsername,
-                userID: userID,
-                songs: songs,
-              });
-            }}>
-            <Image
-              style={styles.addButton}
-              source={require('./Assets/Buttons/plus-icon.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <TouchableOpacity
-        onPress={() => {
-          console.log(userID);
-        }}>
-        <Text>Hello, world!</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => {
-          navigation.navigate('Player', {userIDToken: userIDToken, userAccessToken: userAccessToken, authUsername: authUsername, userID: userID});
-        }}>
-        <Text>Listen to playlist</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
-  );
+        <TouchableOpacity
+          onPress={() => {
+            console.log(userID);
+          }}>
+          <Text>Hello, world!</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+            navigation.navigate('Player', {userIDToken: userIDToken, userAccessToken: userAccessToken, authUsername: authUsername, userID: userID});
+          }}>
+          <Text>Listen to playlist</Text>
+        </TouchableOpacity>
+        <FlatList
+          data={data}
+          showsVerticalScrollIndicator={false}
+          style={styles.list}
+          ListHeaderComponent={() => (
+            <View style={styles.header}>
+              
+              <Text style={styles.headerText}>Playlists</Text>
+            </View>
+          )}
+          renderItem={({item}) => (
+            <View style={styles.playlist}>
+              <TouchableOpacity
+                >
+                <View style={styles.songDetails}>
+                <View>
+                  
+                  <Image style={styles.albumCover} source={{uri:item.Album_Cover}} />
+                </View>
+                  <View>
+                    <Text style={styles.songArtist}>{item.Song_Name}</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+            
+          )}
+        />
+      </SafeAreaView>
+    );
+  }
+
+  
 };
 export default Playlists;
 
@@ -111,5 +171,38 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 5,
     marginBottom: 10,
+  },
+  list: {
+    flex: 2,
+    marginBottom: 2.5,
+  },
+  header: {
+    marginLeft: 20,
+    paddingBottom: 5,
+  },
+  headerText: {
+    fontSize: 30,
+    color: '#000',
+  },
+  playlist: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    marginLeft: 20,
+  },
+  songDetails: {
+    flexDirection: 'row',
+    paddingBottom:10,
+    paddingTop:10,
+    paddingLeft:10,
+  },
+  songArtist: {
+    paddingLeft: 10,
+    color: '#000',
+    fontSize:20,
+    marginTop:10,
+  },
+  albumCover: {
+    width: 50,
+    height: 50,
   },
 });

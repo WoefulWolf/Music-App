@@ -19,7 +19,7 @@ const Playlists = ({navigation, route}) => {
 
   // Variables needed for API calls
   const {userIDToken, authUsername, userID, songs} = route.params;
-  const userAccessToken="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkVQeGNQb1dCZWdaQUJ4OFY1VEstMCJ9.eyJpc3MiOiJodHRwczovL2Rldi1tbW1ybzViNS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjMwMjVmZmM4ZDc5ZjdkNTk1ODE1MjlkIiwiYXVkIjpbImh0dHBzOi8vc2RwLW11c2ljLWFwcC5oZXJva3VhcHAuY29tLyIsImh0dHBzOi8vZGV2LW1tbXJvNWI1LnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2NjMzMzUwOTAsImV4cCI6MTY2MzQyMTQ5MCwiYXpwIjoiSU0xaXpCbnF1S29mVk5zQVhYVVdjOVE2ZnNyMHJFUFMiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIn0.MbVd7Xr5UlMN8YvERONJytRS7Abavd0V7wOb9P802wLLhOQnKu9eacObZ7UY_zku6C9H9nCl2Hiu9J99KAzmqicyCncAAqJd1gkxKSGk4v3KyZIiIWhTc_w9Ok0NFfXQhHzS-5k4PiuMgum7YWZ98rgxljuQj47zGbdRIdEYbEkhjHN8gHcN6aB95lYVSRobhaq2iS_KQQbcqjBF3ebYt-FMvwrsjNfipgn5Dw6qWk8_CEnMyjvxjVHiz1YjCB5LPpqkj6vTvwQjjVc9odUigQD90rFs7gqViyXs85DP8Pyuwe_3Fee6Upzwd1_th8kiadYK9YwOTJExOZgCnRcI9Q";
+  const userAccessToken="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkVQeGNQb1dCZWdaQUJ4OFY1VEstMCJ9.eyJpc3MiOiJodHRwczovL2Rldi1tbW1ybzViNS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjMwMjVmZmM4ZDc5ZjdkNTk1ODE1MjlkIiwiYXVkIjpbImh0dHBzOi8vc2RwLW11c2ljLWFwcC5oZXJva3VhcHAuY29tLyIsImh0dHBzOi8vZGV2LW1tbXJvNWI1LnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2NjM0MjU3NDQsImV4cCI6MTY2MzUxMjE0NCwiYXpwIjoiSU0xaXpCbnF1S29mVk5zQVhYVVdjOVE2ZnNyMHJFUFMiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIn0.d94EqR9ahFfJkkDl7neeSP2e29Bp6jDPxzuIB33hUvXMQIYnzuD-AgiboLqFB5PfF-WM4MQClH8hx6gRCwuASyVtqqNCryAmlYBzWFh3rqJKDhWmBE7KlG96yhvgyBuuItXSaNPDEuZ8bfyI-bPGfb0afK-rP4ZFOuXg7Fc88CBrbJVU9qAHgSIcLiKDk9k8-qpIEmfTlfWhlrpweyL5o0AOwfbMD_6gJjTbMJ61VACH9Ng7YPK1Ql73HK3tJGO41OOCIkY5W2sZbIjOW-N-AKRnbhnYRjf-Prta2lBv3N25Ya26xvleWDwMa44H_4C8iza5xAJQtcTsT7pW2iB0Ug";
   // API call to get all playlists
   const getPlaylists = async () => {
     fetch('https://sdp-music-app.herokuapp.com/api/private/', {
@@ -94,6 +94,7 @@ const Playlists = ({navigation, route}) => {
                   userID: userID,
                   songs: songs,
                 });
+
               }}>
               <Image
                 style={styles.addButton}
@@ -140,7 +141,7 @@ const Playlists = ({navigation, route}) => {
                     authUsername: authUsername,
                     userID: userID,
                     songs: songs,
-                    Playlist_ID:item.PlaylistID,
+                    Playlist_ID:item.Playlist_ID,
                   });              }}>
                 <View style={styles.songDetails}>
                   <View>
