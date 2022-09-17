@@ -1,39 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
   SafeAreaView,
   StyleSheet,
   Image,
+  Alert,
   FlatList,
   TouchableOpacity,
 } from 'react-native';
 
 const Playlists = ({navigation, route}) => {
   // Variables needed for API calls
-  const {userIDToken, userAccessToken, authUsername, userID, songs} =
+  const {userIDToken, userAccessToken, authUsername, userID, songs, Playlist_ID} =
     route.params;
+  const [songID, setSongID] = useState(null);
 
   // API call to add a song to a playlist
-  const addSongToPlaylist = async () => {
+  const addSongToPlaylist = async (playlist, song) => {
     fetch('https://sdp-music-app.herokuapp.com/api/private/', {
       method: 'POST',
       headers: {
-        Authorization: 'Bearer ' + accessToken,
-        request_type: 'RegisterAccount',
-        id: userID,
+        Authorization: 'Bearer ' + userAccessToken,
+        request_type: 'AddSongToPlaylist',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        songID: '1',
-        playlistID: '1',
+        playlist_id: playlist,
+        song_id: song,
       }),
     })
       .then(response => response.text())
       .then(text => {
         console.log(text);
+        if (text.includes(`{"Database error":"Key (\\"Playlist_ID\\",`)) {
+          Alert.alert(
+            'Song already in playlist',
+            'This song is already in this playlist.',
+            [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+            {cancelable: false},
+          );
+          
+        }
+        else {
+          Alert.alert(
+            'Song added to playlist',
+            'This song has been added to the playlist.',
+            [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+            {cancelable: false},
+          )
+        }
       })
       .catch(error => {
         console.log(error);
+        Alert.alert(
+          'Error',
+          'There was an error adding the song to the playlist.',
+        );
       });
   };
 
@@ -76,7 +99,7 @@ const Playlists = ({navigation, route}) => {
               <View style={styles.addButtonView}>
                 <TouchableOpacity
                   onPress={() => {
-                    console.log('Added song to playlist');
+                    addSongToPlaylist(1, item.id);
                   }}>
                   <Image
                     style={styles.addButton}
