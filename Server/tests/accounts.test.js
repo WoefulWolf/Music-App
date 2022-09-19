@@ -16,7 +16,7 @@ test('Registering user with bad ID.', async () => {
     
     const result = await api.ParsePOSTRequest(undefined, headers, body, res);
     expect(result.status).toEqual(400);
-    expect(result.body).toEqual({"Invalid ID": "The ID 'undefined' is not valid"});
+    expect(result.body).toEqual({"Invalid user_id": "The user_id 'undefined' is not valid"});
 });
 
 test('Registering user with bad email.', async () => {
@@ -69,7 +69,7 @@ test('Getting a user without specified ID.', async () => {
     
     const result = await api.ParseGETRequest(undefined, headers, res);
     expect(result.status).toEqual(400);
-    expect(result.body).toEqual({"Invalid ID": "The ID 'undefined' is not valid"});
+    expect(result.body).toEqual({"Invalid user_id": "The user_id 'undefined' is not valid"});
 });
 
 test('Getting a non-existent user.', async () => {

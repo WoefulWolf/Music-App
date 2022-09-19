@@ -16,6 +16,16 @@ test('Getting all songs.', async () => {
     expect(result.body.length).toBeGreaterThan(0);
 });
 
+test('Getting song by ID with no ID passed.', async () => {
+    const headers = {
+        request_type: 'GetSongByID',
+    };
+
+    const result = await api.ParseGETRequest(undefined, headers, res);
+    expect(result.status).toEqual(400);
+    expect(result.body).toEqual({"Invalid song_id": "The song_id 'undefined' is not valid"});
+});
+
 test('Getting song by ID.', async () => {
     const headers = {
         request_type: 'GetSongByID',
@@ -35,7 +45,7 @@ test('Searching song with invalid name.', async () => {
 
     const result = await api.ParseGETRequest(undefined, headers, res);
     expect(result.status).toEqual(400);
-    expect(result.body).toEqual({"Invalid name": "The name '" + headers.song_name + "' is not valid"});
+    expect(result.body).toEqual({"Invalid song_name": "The song_name '" + headers.song_name + "' is not valid"});
 });
 
 test('Searching song by name.', async () => {
@@ -57,7 +67,7 @@ test('Searching songs with invalid artist.', async () => {
 
     const result = await api.ParseGETRequest(undefined, headers, res);
     expect(result.status).toEqual(400);
-    expect(result.body).toEqual({"Invalid artist": "The artist '" + headers.artist_name + "' is not valid"});
+    expect(result.body).toEqual({"Invalid artist_name": "The artist_name '" + headers.artist_name + "' is not valid"});
 });
 
 test('Searching song by artist.', async () => {
@@ -79,7 +89,7 @@ test('Searching song with invalid album.', async () => {
 
     const result = await api.ParseGETRequest(undefined, headers, res);
     expect(result.status).toEqual(400);
-    expect(result.body).toEqual({"Invalid album": "The album '" + headers.album_name + "' is not valid"});
+    expect(result.body).toEqual({"Invalid album_name": "The album_name '" + headers.album_name + "' is not valid"});
 });
 
 test('Searching song by album.', async () => {
@@ -94,6 +104,33 @@ test('Searching song by album.', async () => {
 });
 
 // SONGS POST REQUESTS
+test('Adding a listen to non-existent song', async () => {
+    const headers = {
+        request_type: 'AddListen',
+    };
+
+    const body = {
+        song_id: -1,
+    };
+    
+    const result = await api.ParsePOSTRequest(undefined, headers, body, res);
+    expect(result.status).toEqual(404);
+    expect(result.body).toEqual({"No results": "No results were found"});
+});
+
+test('Adding a listen to a song no id', async () => {
+    const headers = {
+        request_type: 'AddListen',
+    };
+
+    const body = {
+    };
+    
+    const result = await api.ParsePOSTRequest(undefined, headers, body, res);
+    expect(result.status).toEqual(400);
+    expect(result.body).toEqual({"Invalid song_id": "The song_id 'undefined' is not valid"});
+});
+
 test('Adding a listen to a song', async () => {
     const headers = {
         request_type: 'AddListen',

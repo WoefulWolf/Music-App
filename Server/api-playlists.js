@@ -3,25 +3,25 @@ const isValid = require("./validation");
 
 class Playlists {
     // Create a playlist
-    CreatePlaylist(user_id, name) {
+    CreatePlaylist(user_id, playlist_name) {
         // Check ID
         if (!isValid.String(user_id)) {
             return {
                 status: 400,
-                body: {"Invalid ID": "The ID '" + user_id + "' is not valid"},
+                body: {"Invalid user_id": "The user_id '" + user_id + "' is not valid"},
             };
         }
 
         // Check the playlist name is valid
-        if (!isValid.String(name)) {
+        if (!isValid.String(playlist_name)) {
             return {
                 status: 400,
-                body: {"Invalid name": "The name '" + name + "' is not valid"},
+                body: {"Invalid playlist_name": "The playlist_name '" + playlist_name + "' is not valid"},
             };
         }
 
         const text = 'INSERT INTO playlists("User_ID", "Playlist_Name") VALUES($1, $2)';
-        const values = [user_id, name];
+        const values = [user_id, playlist_name];
         const res = database.Query(text, values);
         return res;
     }
@@ -32,7 +32,7 @@ class Playlists {
         if (!isValid.String(user_id)) {
             return {
                 status: 400,
-                body: {"Invalid ID": "The ID '" + user_id + "' is not valid"},
+                body: {"Invalid user_id": "The user_id '" + user_id + "' is not valid"},
             };
         }
 
@@ -44,6 +44,14 @@ class Playlists {
 
     // Get the songs on a playlist
     GetPlaylistSongs(playlist_id) {
+        // Check ID
+        if (!isValid.Defined(playlist_id)) {
+            return {
+                status: 400,
+                body: {"Invalid playlist_id": "The playlist_id '" + playlist_id + "' is not valid"},
+            };
+        }
+
         const text = `SELECT songs."Song_ID", songs."Song_Name", songs."Album_ID", albums."Album_Name", albums."Album_Cover", artists."Artist_ID", "Artist_Name", songs."Listens"
         FROM "playlist_songs"
         INNER JOIN "playlists" ON playlist_songs."Playlist_ID" = playlists."Playlist_ID"

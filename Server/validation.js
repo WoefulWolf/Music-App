@@ -1,4 +1,8 @@
 class IsValid {
+    Defined(val) {
+        return val !== undefined;
+    }
+
     String(val) {
         return (typeof val === 'string');
     }

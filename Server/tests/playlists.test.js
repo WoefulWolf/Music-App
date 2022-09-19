@@ -30,7 +30,7 @@ test('Create a playlist with invalid ID.', async () => {
 
     const result = await api.ParsePOSTRequest(12, headers, body, res);
     expect(result.status).toEqual(400);
-    expect(result.body).toEqual({"Invalid ID": "The ID '" + 12 + "' is not valid"});
+    expect(result.body).toEqual({"Invalid user_id": "The user_id '" + 12 + "' is not valid"});
 });
 
 test('Create a playlist with invalid name.', async () => {
@@ -44,7 +44,7 @@ test('Create a playlist with invalid name.', async () => {
 
     const result = await api.ParsePOSTRequest('1234567890', headers, body, res);
     expect(result.status).toEqual(400);
-    expect(result.body).toEqual({"Invalid name": "The name '" + body.playlist_name + "' is not valid"});
+    expect(result.body).toEqual({"Invalid playlist_name": "The playlist_name '" + body.playlist_name + "' is not valid"});
 });
 
 
@@ -79,7 +79,7 @@ test('Get all playlists with invalid ID.', async () => {
 
     const result = await api.ParseGETRequest(12, headers, res);
     expect(result.status).toEqual(400);
-    expect(result.body).toEqual({"Invalid ID": "The ID '" + 12 + "' is not valid"});
+    expect(result.body).toEqual({"Invalid user_id": "The user_id '" + 12 + "' is not valid"});
 });
 
 test('Add song to playlist.', async () => {
@@ -95,6 +95,16 @@ test('Add song to playlist.', async () => {
     const result = await api.ParsePOSTRequest('1234567890', headers, body, res);
     expect(result.status).toEqual(200);
     expect(result.body).toEqual({"Success": "Insertion successful"});
+});
+
+test('Get all songs in playlsit with no ID.', async () => {
+    const headers = {
+        request_type: 'GetPlaylistSongs',
+    };
+
+    const result = await api.ParseGETRequest('1234567890', headers, res);
+    expect(result.status).toEqual(400);
+    expect(result.body).toEqual({"Invalid playlist_id": "The playlist_id 'undefined' is not valid"});
 });
 
 test('Get all songs in playlsit.', async () => {
