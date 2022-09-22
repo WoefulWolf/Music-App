@@ -203,15 +203,15 @@ const songs = [
   {
     id: 27,
     artist: 'Avril Lavigne',
-    url: require('./Assets/TestMusic/BiteMe.mp3'),
-    title: 'Bite Me',
+    url: require('./Assets/TestMusic/BoisLie.mp3'),
+    title: 'Bois Lie',
     albumArt: require('./Assets/Images/LoveSux.jpeg'),
   },
   {
     id: 28,
     artist: 'Avril Lavigne',
-    url: require('./Assets/TestMusic/BoisLie.mp3'),
-    title: 'Bois Lie',
+    url: require('./Assets/TestMusic/BiteMe.mp3'),
+    title: 'Bite Me',
     albumArt: require('./Assets/Images/LoveSux.jpeg'),
   },
   {

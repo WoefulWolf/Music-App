@@ -103,24 +103,6 @@ const Playlists = ({navigation, route}) => {
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity
-          onPress={() => {
-            console.log(userID);
-          }}>
-          <Text>Hello, world!</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('ShowPlaylist', {
-              userIDToken: userIDToken,
-              userAccessToken: userAccessToken,
-              authUsername: authUsername,
-              userID: userID,
-              songs: songs,
-            });
-          }}>
-          <Text>View Playlist</Text>
-        </TouchableOpacity>
         <FlatList
           data={data}
           showsVerticalScrollIndicator={false}
@@ -193,7 +175,7 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 2,
-    marginBottom: 2.5,
+    marginBottom: 50,
   },
   header: {
     marginLeft: 20,
