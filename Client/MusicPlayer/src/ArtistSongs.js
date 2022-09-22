@@ -12,24 +12,44 @@ import {
   TouchableOpacityComponent,
   FlatList,
 } from 'react-native';
-
+import TrackPlayer, {
+  Capability,
+  Event,
+  RepeatMode,
+  State,
+  usePlaybackState,
+  useProgress,
+  useTrackPlayerEvents,
+} from 'react-native-track-player';
 var artistsSongs=[];
 
 // main function of this screen
 const Artists = ({navigation, route}) => {
+
+  const setupPlayer = async (songs) => {
+    await TrackPlayer.setupPlayer();
+    console.log(songs);
+   // TrackPlayer.reset().then(()=>{
+   //   TrackPlayer.add(songs);
+    //})
+    TrackPlayer.add(songs);
+  };
+
   const {songs} = route.params;
   // UI for the library screen
   // useEffect(() => {
     console.log("----------------------------------------------------")
     const {artistName} = route.params;
-    for(var j=0;j<artistsSongs.length;j++){
-        artistsSongs.shift();
+    while(artistsSongs.length>0){
+        artistsSongs.pop();
     }
     
     for(var i=0;i<songs.length;i++){
       if(songs[i].artist === artistName){
         let tempItem={
             id:songs[i].id,
+            artist: songs[i].artist,
+            url: songs[i].url,
             title:songs[i].title,
             albumArt:songs[i].albumArt
           }
@@ -65,7 +85,10 @@ const Artists = ({navigation, route}) => {
             <View style={styles.song}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Player', {songIndex: item.id});
+                console.log(artistsSongs);
+                //TrackPlayer.destroy();
+                //setupPlayer(artistsSongs);
+                navigation.navigate('Player', {songIndex: item.id,songs2: artistsSongs});
               }}>
               <View style={styles.songDetails}>
                 <View>

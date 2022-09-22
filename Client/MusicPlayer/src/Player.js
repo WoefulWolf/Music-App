@@ -35,7 +35,10 @@ const Home = ({route, navigation}) => {
   // function to set up the music player
 const setupPlayer = async () => {
   await TrackPlayer.setupPlayer();
-
+  console.log(songs);
+ // TrackPlayer.reset().then(()=>{
+ //   TrackPlayer.add(songs);
+  //})
   await TrackPlayer.add(songs);
 };
 
@@ -83,6 +86,8 @@ const togglePlayback = async () => {
       TrackPlayer.play();
     });
     console.log(songIndex);
+    //TrackPlayer.reset();
+    //TrackPlayer.add(songs);
 
     return () => TrackPlayer.destroy();
   }, [songIndex]);
