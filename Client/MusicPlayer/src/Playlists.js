@@ -42,6 +42,8 @@ const Playlists = ({navigation, route}) => {
         console.log(error);
       });
   };
+
+  // Get the playlists when the screen is loaded
   const addPlaylists=({arrJson})=>{
     let arrTemp2=[];
     console.log(arrJson.length)
@@ -55,11 +57,13 @@ const Playlists = ({navigation, route}) => {
     }
   }
 
+  // Get the playlists when the screen is loaded
   useEffect(() => {
     getPlaylists();
     setRefresh(false)
   }, []);
 
+  // Render loading icon if the playlists are still loading
   if(refresh==true){//loading indicator
     return(
       <SafeAreaView style={styles.body}>
@@ -67,6 +71,7 @@ const Playlists = ({navigation, route}) => {
       </SafeAreaView>
     )
   }
+  // Render the playlists
   else if(refresh==false){
     return (
       <SafeAreaView style={styles.body}>

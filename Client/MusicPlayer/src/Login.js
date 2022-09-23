@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Auth0 from 'react-native-auth0';
 
+// Initialize the Auth0 client
 const auth0 = new Auth0({
   domain: 'dev-mmmro5b5.us.auth0.com',
   clientId: 'IM1izBnquKofVNsAXXUWc9Q6fsr0rEPS',
@@ -66,6 +67,8 @@ const Login = ({navigation, route}) => {
       .catch(console.error);
   };
 
+  // This function routes the user to the 
+  // Home screen
   const toHome = () => {
     console.log("Successfully logged in");
     navigation.navigate('Home', {
@@ -77,6 +80,7 @@ const Login = ({navigation, route}) => {
     });
   };
 
+  // This function logs the user in
   const onLogin = async _callback => {
     auth0.webAuth
       .authorize({
@@ -92,6 +96,7 @@ const Login = ({navigation, route}) => {
       .catch(error => console.log(error));
   };
 
+  // This function automatically logs the user in
   useEffect(() => {
    onLogin(async function () {
     await getUserProfile(accessToken, async function () {
@@ -100,6 +105,7 @@ const Login = ({navigation, route}) => {
    });
   }, []);
 
+  // Render the login screen
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.heading}>
@@ -130,6 +136,7 @@ const Login = ({navigation, route}) => {
 };
 export default Login;
 
+// Styles for the Login screen
 const styles = StyleSheet.create({
   body: {
     flex: 1,

@@ -17,11 +17,13 @@ import ShowPlaylist from './ShowPlaylist';
 import AddPlaylist from './AddPlaylist';
 import AddSong from './AddSong';
 
+// Stack to store the screens for the Playlists screen
 const Stack = createNativeStackNavigator();
 
 const LibraryStack = ({navigation, route}) => {
   const {userIDToken, userAccessToken, authUsername, userID, songs} = route.params;
 
+  // Add the screens to the stack
   return (
       <Stack.Navigator 
         screenOptions={{

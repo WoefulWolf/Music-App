@@ -36,6 +36,7 @@ const Playlists = ({navigation, route}) => {
       });
   };
 
+  // UI for user to create a playlist
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.backButtonView}>
@@ -76,6 +77,7 @@ const Playlists = ({navigation, route}) => {
 };
 export default Playlists;
 
+// Styles for the UI
 const styles = StyleSheet.create({
   body: {
     flex: 1,

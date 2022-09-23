@@ -73,11 +73,13 @@ const Playlists = ({navigation, route}) => {
       });
   };
 
+  // useEffect hook to call the API call function
   useEffect(() => {
     GetPlaylistSongs();
     setRefresh(false)
   }, []);
 
+  // Function to render a loading icon if the data is not yet loaded
   if(refresh==true){//loading icon
     return(
       <SafeAreaView style={styles.body}>
@@ -85,6 +87,7 @@ const Playlists = ({navigation, route}) => {
       </SafeAreaView>
     )
   }
+  // Function to render the list of playlists
   else if(refresh==false){
     return (
       <SafeAreaView style={styles.body}>
@@ -157,6 +160,7 @@ const Playlists = ({navigation, route}) => {
 };
 export default Playlists;
 
+// Stylesheet for the Playlists screen
 const styles = StyleSheet.create({
   body: {
     flex: 1,

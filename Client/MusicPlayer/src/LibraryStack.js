@@ -18,8 +18,10 @@ import Artists from './Artists';
 import ArtistSongs from './ArtistSongs'
 import PlaylistStack from './PlaylistStack';
 
+// Stack to store the screens for the Library screen
 const Stack = createNativeStackNavigator();
 
+// This function adds the screens to the stack
 const LibraryStack = ({navigation, route}) => {
   const {userIDToken, userAccessToken, authUsername, userID, songs} = route.params;
 
