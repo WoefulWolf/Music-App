@@ -1,1 +1,11 @@
-INSERT INTO public.playlists ("Playlist_ID", "Playlist_Name", "User_ID", "Number_Songs") VALUES (1, 'Car Drives', 'zidanisme', 12);
+INSERT INTO public.playlists ("Playlist_ID", "Playlist_Name", "User_ID") VALUES (1, 'Car Drives', 'auth0|63025ffc8d79f7d59581529d');
+INSERT INTO public.playlists ("Playlist_ID", "Playlist_Name", "User_ID") VALUES (2, 'Meme Songs', 'auth0|63025ffc8d79f7d59581529d');
+INSERT INTO public.playlists ("Playlist_ID", "Playlist_Name", "User_ID") VALUES (3, 'Avril Hits', 'auth0|63025ffc8d79f7d59581529d');
+INSERT INTO public.playlists ("Playlist_ID", "Playlist_Name", "User_ID") VALUES (63, 'BTS', 'auth0|63025ffc8d79f7d59581529d');
+INSERT INTO public.playlists ("Playlist_ID", "Playlist_Name", "User_ID") VALUES (66, 'Randomname', 'auth0|63025ffc8d79f7d59581529d');
+INSERT INTO public.playlists ("Playlist_ID", "Playlist_Name", "User_ID") VALUES (35, 'playlist2', 'auth0|63025ffc8d79f7d59581529d');
+INSERT INTO public.playlists ("Playlist_ID", "Playlist_Name", "User_ID") VALUES (36, 'head boppers', 'auth0|63025ffc8d79f7d59581529d');
+INSERT INTO public.playlists ("Playlist_ID", "Playlist_Name", "User_ID") VALUES (37, 'Test', 'auth0|63025ffc8d79f7d59581529d');
+INSERT INTO public.playlists ("Playlist_ID", "Playlist_Name", "User_ID") VALUES (38, 'Test', 'auth0|63025ffc8d79f7d59581529d');
+INSERT INTO public.playlists ("Playlist_ID", "Playlist_Name", "User_ID") VALUES (39, 'Test', 'auth0|63025ffc8d79f7d59581529d');
+INSERT INTO public.playlists ("Playlist_ID", "Playlist_Name", "User_ID") VALUES (44, '2000s hits', 'auth0|63025ffc8d79f7d59581529d');

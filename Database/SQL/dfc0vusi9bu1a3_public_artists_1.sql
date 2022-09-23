@@ -1,0 +1,14 @@
+UPDATE public.artists SET "Artist_Name" = 'Gorillaz' WHERE "Artist_ID" = 0;
+UPDATE public.artists SET "Artist_Name" = 'Rick Astley' WHERE "Artist_ID" = 1;
+UPDATE public.artists SET "Artist_Name" = 'Darude' WHERE "Artist_ID" = 3;
+UPDATE public.artists SET "Artist_Name" = 'Discord' WHERE "Artist_ID" = 4;
+UPDATE public.artists SET "Artist_Name" = 'Smash Mouth' WHERE "Artist_ID" = 5;
+UPDATE public.artists SET "Artist_Name" = 'Foster The People' WHERE "Artist_ID" = 6;
+UPDATE public.artists SET "Artist_Name" = 'Getter Jaani' WHERE "Artist_ID" = 9;
+UPDATE public.artists SET "Artist_Name" = 'Caramella Girls' WHERE "Artist_ID" = 10;
+UPDATE public.artists SET "Artist_Name" = 'ACE' WHERE "Artist_ID" = 11;
+UPDATE public.artists SET "Artist_Name" = 'Avril Lavigne' WHERE "Artist_ID" = 12;
+UPDATE public.artists SET "Artist_Name" = 'Green Day' WHERE "Artist_ID" = 13;
+UPDATE public.artists SET "Artist_Name" = 'Yes' WHERE "Artist_ID" = 14;
+UPDATE public.artists SET "Artist_Name" = 'Toby Fox' WHERE "Artist_ID" = 2;
+UPDATE public.artists SET "Artist_Name" = 'a-ha' WHERE "Artist_ID" = 7;
