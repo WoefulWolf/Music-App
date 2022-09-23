@@ -43,7 +43,7 @@ const Artists = ({navigation, route}) => {
     while(artistsSongs.length>0){
         artistsSongs.pop();
     }
-    
+    //adds the song information for specfic songs(ie. for certain artists)
     for(var i=0;i<songs.length;i++){
       if(songs[i].artist === artistName){
         let tempItem={
@@ -88,7 +88,7 @@ const Artists = ({navigation, route}) => {
                 console.log(artistsSongs);
                 //TrackPlayer.destroy();
                 //setupPlayer(artistsSongs);
-                navigation.navigate('Player', {songIndex: item.id,songs2: artistsSongs});
+                navigation.navigate('Player', {songIndex: item.id,songs2: artistsSongs});//takes you to the player
               }}>
               <View style={styles.songDetails}>
                 <View>

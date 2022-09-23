@@ -22,7 +22,7 @@ const Playlists = ({navigation, route}) => {
   const {userIDToken, authUsername, userID, Playlist_ID,songs,PlaylistName} = route.params;
   console.log("playlistID2:"+Playlist_ID);
   console.log(PlaylistName);
-  const userAccessToken="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkVQeGNQb1dCZWdaQUJ4OFY1VEstMCJ9.eyJpc3MiOiJodHRwczovL2Rldi1tbW1ybzViNS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjMwMjVmZmM4ZDc5ZjdkNTk1ODE1MjlkIiwiYXVkIjpbImh0dHBzOi8vc2RwLW11c2ljLWFwcC5oZXJva3VhcHAuY29tLyIsImh0dHBzOi8vZGV2LW1tbXJvNWI1LnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2NjM4Njk5ODksImV4cCI6MTY2MzkwNTk4OSwiYXpwIjoiSU0xaXpCbnF1S29mVk5zQVhYVVdjOVE2ZnNyMHJFUFMiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIn0.LUozoBTMDjtVMZKMKcOamxQavm_bCVos6MbX3BtoMPMvIyV5PA5CkP3BS7ATneH5APVR8ILDza_W3dyQerRV1ZtRDvp6TMp8MXEXtNZYnehFJNA2BzOIcoUgGZoRX_PGlao1X_uQ0Qj6S6grNQTe05K_CS7_CrHTIskv98ZRqTFXJiRa2JGp67w9NLEEvqNgtvUo7GHnoLHnULAm2f5OrwfjH8YUEpygAYWBr1wT-BD1Le7w4CPoDlXmCyOHDlg6gaht19VJhmWMMOHes2rupX1wyn1cTMsbRLMsaG71vFhv3vLXsI5_9fRQeSMEdMkq4Jtqsu8dIDE4VBWgQCsaUQ";
+  const userAccessToken="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkVQeGNQb1dCZWdaQUJ4OFY1VEstMCJ9.eyJpc3MiOiJodHRwczovL2Rldi1tbW1ybzViNS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjMwMjVmZmM4ZDc5ZjdkNTk1ODE1MjlkIiwiYXVkIjpbImh0dHBzOi8vc2RwLW11c2ljLWFwcC5oZXJva3VhcHAuY29tLyIsImh0dHBzOi8vZGV2LW1tbXJvNWI1LnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2NjM5MjAxNDQsImV4cCI6MTY2Mzk1NjE0NCwiYXpwIjoiSU0xaXpCbnF1S29mVk5zQVhYVVdjOVE2ZnNyMHJFUFMiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIn0.mH-hjIwpM18YDEuoJHL6jYMaf7ZhGoRgtBj9ukpikX7cy_-J0XD-E58Gz_GgI4GSgWYwuORRLLDTunq0cGliVyjSxcNt3Oha1jF_1TMRqc_4xmx6nF86O7eEhRnGJUaxrVshkjCn3V4GI_AC012XGI7Y1OdXWnwLlI3b_54wwRt19B0e9Uyd2vt0X0fruuHnP7Hn4GIKw3_5WQu5LVhvM89GHuUTz1b4TSZRf5ArtbDOhrNjRlS3s7MOw2Z-NNOVo-Wf4CUkySjl1X-daavWwxXtiwdtIuWsvrSexxC2VFa0WT9-EuoVCStlKg8Mt0rG0sdtBzE1lKvSOgUNHNneSQ";
   // API call to get all playlists
   const GetPlaylistSongs = async () => {
     fetch('https://sdp-music-app.herokuapp.com/api/private/', {
@@ -60,7 +60,7 @@ const Playlists = ({navigation, route}) => {
           }
           let tempItem={
             id:0,
-            Song_Name:"Oops no songs",
+            Song_Name:"Oops no songs",//displays if no songs in db return
             albumArt:songs[0].albumArt
           }
           noSongs.push(tempItem);
@@ -78,7 +78,7 @@ const Playlists = ({navigation, route}) => {
     setRefresh(false)
   }, []);
 
-  if(refresh==true){
+  if(refresh==true){//loading icon
     return(
       <SafeAreaView style={styles.body}>
         <ActivityIndicator size="large" color="#000000"/>
@@ -122,7 +122,7 @@ const Playlists = ({navigation, route}) => {
           </View>
         </View>
         <FlatList
-          data={data}
+          data={data}//renders playlist
           showsVerticalScrollIndicator={false}
           style={styles.list}
           ListHeaderComponent={() => (
