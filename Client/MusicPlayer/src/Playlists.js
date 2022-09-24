@@ -1,4 +1,5 @@
-import React, { useEffect,useState } from 'react';
+import {useIsFocused} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -10,15 +11,15 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
-
-let arrPlaylists=[];
+let arrPlaylists = [];
 
 const Playlists = ({navigation, route}) => {
-  const [refresh,setRefresh]=useState(true);
-  const [data, setData] = useState([])
+  const [refresh, setRefresh] = useState(true);
+  const [data, setData] = useState([]);
 
   // Variables needed for API calls
-  const {userAccessToken, userIDToken, authUsername, userID, songs} = route.params;
+  const {userAccessToken, userIDToken, authUsername, userID, songs} =
+    route.params;
   // const userAccessToken="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkVQeGNQb1dCZWdaQUJ4OFY1VEstMCJ9.eyJpc3MiOiJodHRwczovL2Rldi1tbW1ybzViNS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjMwMjVmZmM4ZDc5ZjdkNTk1ODE1MjlkIiwiYXVkIjpbImh0dHBzOi8vc2RwLW11c2ljLWFwcC5oZXJva3VhcHAuY29tLyIsImh0dHBzOi8vZGV2LW1tbXJvNWI1LnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2NjM5MjAxNDQsImV4cCI6MTY2Mzk1NjE0NCwiYXpwIjoiSU0xaXpCbnF1S29mVk5zQVhYVVdjOVE2ZnNyMHJFUFMiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIn0.mH-hjIwpM18YDEuoJHL6jYMaf7ZhGoRgtBj9ukpikX7cy_-J0XD-E58Gz_GgI4GSgWYwuORRLLDTunq0cGliVyjSxcNt3Oha1jF_1TMRqc_4xmx6nF86O7eEhRnGJUaxrVshkjCn3V4GI_AC012XGI7Y1OdXWnwLlI3b_54wwRt19B0e9Uyd2vt0X0fruuHnP7Hn4GIKw3_5WQu5LVhvM89GHuUTz1b4TSZRf5ArtbDOhrNjRlS3s7MOw2Z-NNOVo-Wf4CUkySjl1X-daavWwxXtiwdtIuWsvrSexxC2VFa0WT9-EuoVCStlKg8Mt0rG0sdtBzE1lKvSOgUNHNneSQ";
   // API call to get all playlists
   const getPlaylists = async () => {
@@ -27,13 +28,12 @@ const Playlists = ({navigation, route}) => {
       headers: {
         Authorization: 'Bearer ' + userAccessToken,
         request_type: 'GetPlaylists',
-        
       },
     })
       .then(response => response.json())
       .then(json => {
         console.log(json);
-        setData(json)//sets the 
+        setData(json); //sets the
       })
       .then(() => {
         setRefresh(false);
@@ -44,35 +44,41 @@ const Playlists = ({navigation, route}) => {
   };
 
   // Get the playlists when the screen is loaded
-  const addPlaylists=({arrJson})=>{
-    let arrTemp2=[];
-    console.log(arrJson.length)
-    for (let i=0;i<arrJson.length;i++){//adds the playlist name to a list for display
-      let tempItem={
-        PlaylistID:arrJson[i].Playlist_ID,
-        PlaylistName:arrJson[i].Playlist_Name,
-      }
+  const addPlaylists = ({arrJson}) => {
+    let arrTemp2 = [];
+    console.log(arrJson.length);
+    for (let i = 0; i < arrJson.length; i++) {
+      //adds the playlist name to a list for display
+      let tempItem = {
+        PlaylistID: arrJson[i].Playlist_ID,
+        PlaylistName: arrJson[i].Playlist_Name,
+      };
       arrTemp2.push(tempItem);
       return arrTemp2;
     }
-  }
+  };
 
   // Get the playlists when the screen is loaded
   useEffect(() => {
-    getPlaylists();
-    setRefresh(false)
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      getPlaylists();
+      setRefresh(false);
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   // Render loading icon if the playlists are still loading
-  if(refresh==true){//loading indicator
-    return(
+  if (refresh == true) {
+    //loading indicator
+    return (
       <SafeAreaView style={styles.body}>
-        <ActivityIndicator size="large" color="#000000"/>
+        <ActivityIndicator size="large" color="#000000" />
       </SafeAreaView>
-    )
+    );
   }
   // Render the playlists
-  else if(refresh==false){
+  else if (refresh == false) {
     return (
       <SafeAreaView style={styles.body}>
         <View style={styles.ButtonView}>
@@ -89,7 +95,7 @@ const Playlists = ({navigation, route}) => {
               <Text style={styles.backButtonText}>Library</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.addButtonView}> 
+          <View style={styles.addButtonView}>
             <TouchableOpacity
               onPress={() => {
                 //goes to addplaylist to create a new playlist
@@ -100,7 +106,6 @@ const Playlists = ({navigation, route}) => {
                   userID: userID,
                   songs: songs,
                 });
-
               }}>
               <Image
                 style={styles.addButton}
@@ -115,23 +120,24 @@ const Playlists = ({navigation, route}) => {
           style={styles.list}
           ListHeaderComponent={() => (
             <View style={styles.header}>
-              
               <Text style={styles.headerText}>Playlists</Text>
             </View>
           )}
           renderItem={({item}) => (
             <View style={styles.playlist}>
               <TouchableOpacity
-                onPress={() => {//goes to showPlaylists with the specific playlist id
+                onPress={() => {
+                  //goes to showPlaylists with the specific playlist id
                   navigation.navigate('ShowPlaylist', {
                     userIDToken: userIDToken,
                     userAccessToken: userAccessToken,
                     authUsername: authUsername,
                     userID: userID,
                     songs: songs,
-                    Playlist_ID:item.Playlist_ID,
-                    PlaylistName:item.Playlist_Name,
-                  });              }}>
+                    Playlist_ID: item.Playlist_ID,
+                    PlaylistName: item.Playlist_Name,
+                  });
+                }}>
                 <View style={styles.songDetails}>
                   <View>
                     <Text style={styles.songArtist}>{item.Playlist_Name}</Text>
@@ -139,13 +145,11 @@ const Playlists = ({navigation, route}) => {
                 </View>
               </TouchableOpacity>
             </View>
-            
           )}
         />
       </SafeAreaView>
     );
   }
-  
 };
 export default Playlists;
 //assorted styles
@@ -198,14 +202,14 @@ const styles = StyleSheet.create({
   },
   songDetails: {
     flexDirection: 'row',
-    paddingBottom:10,
-    paddingTop:10,
-    paddingLeft:10,
+    paddingBottom: 10,
+    paddingTop: 10,
+    paddingLeft: 10,
   },
   songArtist: {
     paddingLeft: 10,
     color: '#000',
-    fontSize:20,
-    marginTop:10,
+    fontSize: 20,
+    marginTop: 10,
   },
 });

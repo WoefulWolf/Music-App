@@ -85,13 +85,13 @@ const Home = ({route, navigation}) => {
       getImage();
       getName();
       TrackPlayer.play();
-    }, [state]);
+    });
     console.log(songIndex);
     //TrackPlayer.reset();
     //TrackPlayer.add(songs);
 
     return () => TrackPlayer.destroy();
-  }, [songIndex]);
+  }, []);
 
   // This function is used to update the UI when the song changes
   useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {

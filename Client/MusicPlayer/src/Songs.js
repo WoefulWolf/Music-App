@@ -12,6 +12,15 @@ import {
   TouchableOpacityComponent,
   FlatList,
 } from 'react-native';
+import TrackPlayer, {
+  Capability,
+  Event,
+  RepeatMode,
+  State,
+  usePlaybackState,
+  useProgress,
+  useTrackPlayerEvents,
+} from 'react-native-track-player';
 
 // main function of this screen
 const Songs = ({navigation, route}) => {
@@ -42,7 +51,11 @@ const Songs = ({navigation, route}) => {
           <View style={styles.song}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Player', {songIndex: item.id});
+                TrackPlayer.reset();
+                TrackPlayer.add(songs);
+                TrackPlayer.skip(item.id);
+                TrackPlayer.play();
+                navigation.navigate('Player');
               }}>
               <View style={styles.songDetails}>
                 <View>

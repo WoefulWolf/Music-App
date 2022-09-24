@@ -66,7 +66,7 @@ const Playlists = ({navigation, route}) => {
           onPress={() => {
             console.log("This is the playlist name: " + playlistName);
             createPlaylist();
-            // navigation.navigate('Playlists');
+            navigation.goBack();
           }}
           style={styles.button}>
           <Text style={styles.buttonText}>Create Playlist</Text>

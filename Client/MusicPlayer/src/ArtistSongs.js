@@ -21,16 +21,15 @@ import TrackPlayer, {
   useProgress,
   useTrackPlayerEvents,
 } from 'react-native-track-player';
-var artistsSongs=[];
+var artistsSongs = [];
 
 // main function of this screen
 const Artists = ({navigation, route}) => {
-
-  const setupPlayer = async (songs) => {
+  const setupPlayer = async songs => {
     await TrackPlayer.setupPlayer();
     console.log(songs);
-   // TrackPlayer.reset().then(()=>{
-   //   TrackPlayer.add(songs);
+    // TrackPlayer.reset().then(()=>{
+    //   TrackPlayer.add(songs);
     //})
     TrackPlayer.add(songs);
   };
@@ -38,36 +37,38 @@ const Artists = ({navigation, route}) => {
   const {songs} = route.params;
   // UI for the library screen
   // useEffect(() => {
-    console.log("----------------------------------------------------")
-    const {artistName} = route.params;
-    while(artistsSongs.length>0){
-        artistsSongs.pop();
+  console.log('----------------------------------------------------');
+  const {artistName} = route.params;
+  while (artistsSongs.length > 0) {
+    artistsSongs.pop();
+  }
+  //adds the song information for specfic songs(ie. for certain artists)
+  for (var i = 0; i < songs.length; i++) {
+    if (songs[i].artist === artistName) {
+      let tempItem = {
+        id: songs[i].id,
+        artist: songs[i].artist,
+        url: songs[i].url,
+        title: songs[i].title,
+        albumArt: songs[i].albumArt,
+      };
+      artistsSongs.push(tempItem);
     }
-    //adds the song information for specfic songs(ie. for certain artists)
-    for(var i=0;i<songs.length;i++){
-      if(songs[i].artist === artistName){
-        let tempItem={
-            id:songs[i].id,
-            artist: songs[i].artist,
-            url: songs[i].url,
-            title:songs[i].title,
-            albumArt:songs[i].albumArt
-          }
-          artistsSongs.push(tempItem);
-      } 
-    
-    }
- //  }, []);
-  
-  
+  }
+  //  }, []);
+
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.backButtonView}>
-        <TouchableOpacity onPress={() => {
-          navigation.goBack();
-        }}
-        style={{flexDirection: 'row'}}>
-          <Image style={styles.backButton} source={require('./Assets/Buttons/back-icon.png')} />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+          style={{flexDirection: 'row'}}>
+          <Image
+            style={styles.backButton}
+            source={require('./Assets/Buttons/back-icon.png')}
+          />
           <Text style={styles.backButtonText}>Artists</Text>
         </TouchableOpacity>
       </View>
@@ -77,18 +78,27 @@ const Artists = ({navigation, route}) => {
         style={styles.list}
         ListHeaderComponent={() => (
           <View style={styles.header}>
-            
             <Text style={styles.headerText}>{artistName}</Text>
           </View>
         )}
         renderItem={({item}) => (
-            <View style={styles.song}>
+          <View style={styles.song}>
             <TouchableOpacity
               onPress={() => {
                 console.log(artistsSongs);
-                //TrackPlayer.destroy();
-                //setupPlayer(artistsSongs);
-                navigation.navigate('Player', {songIndex: item.id,songs2: artistsSongs});//takes you to the player
+                TrackPlayer.reset();
+                TrackPlayer.add(artistsSongs);
+                // TrackPlayer.skip(item.id);
+                {
+                  console.log(artistsSongs[0].id);
+                  console.log(item.id);
+                  console.log(item.id - artistsSongs[0].id);
+                }
+                TrackPlayer.skip(item.id - artistsSongs[0].id);
+                TrackPlayer.play();
+                // TrackPlayer.skip(item.id);
+                // navigation.navigate('Player', {songIndex: item.id, songs: artistsSongs}); //takes you to the player
+                navigation.navigate('Player');
               }}>
               <View style={styles.songDetails}>
                 <View>
@@ -149,24 +159,23 @@ const styles = StyleSheet.create({
   songTitle: {
     paddingLeft: 10,
     color: '#000',
-    fontSize:20,
-    marginTop:10,
+    fontSize: 20,
+    marginTop: 10,
   },
   songDetails: {
     flexDirection: 'row',
-    paddingBottom:10,
-    paddingTop:10,
-    paddingLeft:10,
+    paddingBottom: 10,
+    paddingTop: 10,
+    paddingLeft: 10,
   },
   songArtist: {
     paddingLeft: 10,
     color: '#000',
-    fontSize:20,
-    marginTop:10,
+    fontSize: 20,
+    marginTop: 10,
   },
   albumCover: {
     width: 50,
     height: 50,
   },
-  
 });
