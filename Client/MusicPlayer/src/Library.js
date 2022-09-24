@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   button:{
-    color:'#7F055F',
+    color:'#FF1655',
     fontSize: 25,
   },
   spacer:{

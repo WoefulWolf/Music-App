@@ -25,6 +25,7 @@ const Home = ({route, navigation}) => {
   // all necessary variables are declared here
   const {songIndex, songs} = route.params; // This is the index of the song that was clicked on the previous screen
   const [trackIndex, setTrackIndex] = useState(1);
+  const [state, setState] = useState(true);
   const [currentAlbumCover, setCurrentAlbumCover] = useState(
     require('./Assets/Images/Default_Cover.png'),
   ); // Used to set album cover on rendered UI
@@ -33,27 +34,27 @@ const Home = ({route, navigation}) => {
   const playbackState = usePlaybackState(); // Keeps track of the current playback state of the music player
 
   // function to set up the music player
-const setupPlayer = async () => {
-  await TrackPlayer.setupPlayer();
-  console.log(songs);
- // TrackPlayer.reset().then(()=>{
- //   TrackPlayer.add(songs);
-  //})
-  await TrackPlayer.add(songs);
-};
+  const setupPlayer = async () => {
+    await TrackPlayer.setupPlayer();
+    console.log(songs);
+    // TrackPlayer.reset().then(()=>{
+    //   TrackPlayer.add(songs);
+    //})
+    await TrackPlayer.add(songs);
+  };
 
-// function to update the music player
-const togglePlayback = async () => {
-  const currentTrack = await TrackPlayer.getCurrentTrack();
+  // function to update the music player
+  const togglePlayback = async () => {
+    const currentTrack = await TrackPlayer.getCurrentTrack();
 
-  if (currentTrack !== null) {
-    if (playbackState == State.Paused) {
-      await TrackPlayer.play();
-    } else {
-      await TrackPlayer.pause();
+    if (currentTrack !== null) {
+      if (playbackState == State.Paused) {
+        await TrackPlayer.play();
+      } else {
+        await TrackPlayer.pause();
+      }
     }
-  }
-};
+  };
 
   // This function is used to update the UI when the song changes
   const getImage = async () => {
@@ -84,7 +85,7 @@ const togglePlayback = async () => {
       getImage();
       getName();
       TrackPlayer.play();
-    });
+    }, [state]);
     console.log(songIndex);
     //TrackPlayer.reset();
     //TrackPlayer.add(songs);
@@ -117,24 +118,31 @@ const togglePlayback = async () => {
             source={require('./Assets/Buttons/backward-solid.png')}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            TrackPlayer.play();
-          }}>
-          <Image
-            style={{width: 30, height: 40}}
-            source={require('./Assets/Buttons/play-solid.png')}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => TrackPlayer.pause()}>
-          <Image
-            style={{width: 30, height: 40}}
-            source={require('./Assets/Buttons/pause-solid.png')}
-          />
-        </TouchableOpacity>
+        {state == true ? (
+          <TouchableOpacity
+            style={styles.playButton}
+            onPress={() => {
+              TrackPlayer.pause(), setState(false);
+            }}>
+            <Image
+              style={{width: 30, height: 40}}
+              source={require('./Assets/Buttons/pause-solid.png')}
+            />
+          </TouchableOpacity>
+        ) : state == false ? (
+          <TouchableOpacity
+            style={styles.playButton}
+            onPress={() => {
+              {
+                TrackPlayer.play(), setState(true);
+              }
+            }}>
+            <Image
+              style={{width: 30, height: 40}}
+              source={require('./Assets/Buttons/play-solid.png')}
+            />
+          </TouchableOpacity>
+        ) : null}
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
@@ -176,6 +184,12 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 40,
+  },
+  playButton: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 40,
+    marginHorizontal: 35,
   },
   albumArt: {
     width: 250,

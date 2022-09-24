@@ -109,8 +109,8 @@ const Login = ({navigation, route}) => {
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.heading}>
-        <Text style={styles.headingText}>Millions of songs.</Text>
-        <Text style={styles.headingText}>Free on NotSpotify.</Text>
+        <Text style={styles.headingText}>Millions of songs</Text>
+        <Text style={styles.headingText}>Free on Musical.ly</Text>
       </View>
       <View style={styles.buttonView}>
         <TouchableOpacity
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30,
-    backgroundColor: '#7F055F',
+    backgroundColor: '#FF1655',
   },
   buttonText: {
     color: 'white',

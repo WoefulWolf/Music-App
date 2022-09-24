@@ -46,10 +46,10 @@ export default function Home({navigation, route}) {
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#7F055F' : '#000'
+                  tintColor: focused ? '#FF1655' : '#000'
                 }}
               />
-              <Text style={{color: focused ? '#7F055F' : '#000', fontSize: 12, top: 5}}>Library</Text>
+              <Text style={{color: focused ? '#FF1655' : '#000', fontSize: 12, top: 5}}>Library</Text>
             </View>
           ),
         }}
@@ -67,10 +67,10 @@ export default function Home({navigation, route}) {
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#7F055F' : '#000'
+                  tintColor: focused ? '#FF1655' : '#000'
                 }}
               />
-              <Text style={{color: focused ? '#7F055F' : '#000', fontSize: 12, top: 5}}>Player</Text>
+              <Text style={{color: focused ? '#FF1655' : '#000', fontSize: 12, top: 5}}>Player</Text>
             </View>
           ),
         }}
