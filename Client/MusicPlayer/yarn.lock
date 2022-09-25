@@ -982,6 +982,11 @@
 "@react-native-community/eslint-plugin@^1.1.0":
   "version" "1.2.0"
 
+"@react-native-community/slider@^4.3.1":
+  "integrity" "sha512-1UOKwABK+F2+Vzj7pI3UjRzWXrjI7yNECW/JNvfIXdpaS2/Vf/YH3XEszpG+8ZueEPSxNK2S271NGEWlheaExg=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/slider/-/slider-4.3.1.tgz"
+  "version" "4.3.1"
+
 "@react-native/assets@1.0.0":
   "version" "1.0.0"
 

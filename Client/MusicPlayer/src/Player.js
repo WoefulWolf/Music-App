@@ -1,6 +1,6 @@
 // All imports from react-native, react and any other libraries are imported here
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import TrackPlayer, {
   Capability,
   Event,
@@ -10,18 +10,28 @@ import TrackPlayer, {
   useProgress,
   useTrackPlayerEvents,
 } from 'react-native-track-player';
+import {useTrackPlayerProgress} from 'react-native-track-player/lib/hooks';
+// import {PLAYBACK_TRACK_CHANGED} from 'react-native-track-player/lib/eventTypes';
 import {
   Text,
   View,
+  Dimensions,
   SafeAreaView,
   TouchableOpacity,
   TouchableOpacityComponent,
   StyleSheet,
   Image,
 } from 'react-native';
+import Slider from '@react-native-community/slider';
+
+const {height, width} = Dimensions.get('window');
 
 // main function of the app
 const Home = ({route, navigation}) => {
+  const {position, buffered, duration} = useProgress();
+  const [isSeeking, setIsSeeking] = useState(false);
+  const isMountedRef = useRef(false);
+  const [seek, setSeek] = useState(0);
   // all necessary variables are declared here
   const {songIndex, songs} = route.params; // This is the index of the song that was clicked on the previous screen
   const [trackIndex, setTrackIndex] = useState(1);
@@ -74,6 +84,31 @@ const Home = ({route, navigation}) => {
     setCurrentArtist(trackObject.artist);
   };
 
+  const formatTime = secs => {
+    let minutes = Math.floor(secs / 60);
+    let seconds = Math.ceil(secs - minutes * 60);
+
+    if (seconds < 10) {
+      seconds = `0${seconds}`;
+    }
+
+    if (seconds == 60) {
+      seconds = '00';
+      minutes = minutes + 1;
+    }
+
+    return `${minutes}:${seconds}`;
+  };
+
+  const handleChange = val => {
+    TrackPlayer.seekTo(val);
+    TrackPlayer.play().then(() => {
+      setTimeout(() => {
+        setIsSeeking(false);
+      }, 1000);
+    });
+  };
+
   // This function is used to update the UI when the song changes
   // and setup the player on startup
   useEffect(() => {
@@ -87,10 +122,17 @@ const Home = ({route, navigation}) => {
       TrackPlayer.play();
     });
     console.log(songIndex);
+    if (isMountedRef.current) {
+      TrackPlayer.addEventListener(Event.PlaybackTrackChanged, () => {
+        setIsSeeking(false);
+      });
+    }
     //TrackPlayer.reset();
     //TrackPlayer.add(songs);
-
-    return () => TrackPlayer.destroy();
+    return () => {
+      isMountedRef.current = false;
+      TrackPlayer.destroy();
+    };
   }, []);
 
   // This function is used to update the UI when the song changes
@@ -107,6 +149,34 @@ const Home = ({route, navigation}) => {
       <Image style={styles.albumArt} source={currentAlbumCover} />
       <Text style={styles.songTitle}>{currentTitle}</Text>
       <Text style={styles.artist}>{currentArtist}</Text>
+      <View style={styles.sliderView}>
+        <Slider
+          style={{
+            width: 320,
+            height: 40,
+            Left: 0,
+          }}
+          minimumValue={0}
+          value={isSeeking ? seek : position}
+          onValueChange={value => {
+            TrackPlayer.pause();
+            setIsSeeking(true);
+            setSeek(value);
+          }}
+          maximumValue={duration}
+          minimumTrackTintColor="#000"
+          onSlidingComplete={handleChange}
+          maximumTrackTintColor="rgba(0, 0, 0, .5)"
+          thumbTintColor={'#000'}
+        />
+
+        <View style={styles.timeView}>
+          <Text style={styles.timers}>
+            {formatTime(isSeeking ? seek : position)}
+          </Text>
+          <Text style={styles.timers}>{formatTime(duration)}</Text>
+        </View>
+      </View>
       <View style={styles.row}>
         <TouchableOpacity
           style={styles.button}
@@ -167,6 +237,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#fff',
     marginBottom: 75,
+  },
+  sliderView: {
+    height: 30,
+    marginTop: 40,
+  },
+  timers: {
+    color: '#000',
+    fontSize: 16,
+  },
+  timeView: {
+    marginHorizontal: 3,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   row: {
     flex: 1,
