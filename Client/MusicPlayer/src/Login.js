@@ -58,7 +58,7 @@ const Login = ({navigation, route}) => {
       })
       .then(Json => {
         // username = String(Json['https://dev-mmmro5b5.us.auth0.com/nickname']);
-        username = String(Json.nickname);
+        username = String(Json.name);
         // user_id = String(Json['https://dev-mmmro5b5.us.auth0.com/sub']);
         user_id = String(Json.sub);
         email = String(Json['email']);
