@@ -47,11 +47,17 @@ const Search = ({navigation, route}) => {
         song_name: searchText,
       }
     })
-      .then(response => response.text())
-      .then(text => {
-        console.log(text);
-        setFlatListTitle('Results');
-        processSearchResults(JSON.parse(text));
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        // check if text contains error
+        if (json["No results"]) {
+            setFlatListTitle('No Results');
+        }
+        else {
+            setFlatListTitle('Results');
+        }
+        processSearchResults(json);
       })
       .catch(error => {
         console.log(error);
