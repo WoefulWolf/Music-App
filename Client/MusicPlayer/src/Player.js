@@ -25,6 +25,7 @@ import {
 import Slider from '@react-native-community/slider';
 
 const {height, width} = Dimensions.get('window');
+const buffer = 2;
 
 // main function of the app
 const Home = ({route, navigation}) => {
@@ -45,7 +46,12 @@ const Home = ({route, navigation}) => {
 
   // function to set up the music player
   const setupPlayer = async () => {
-    await TrackPlayer.setupPlayer();
+    await TrackPlayer.setupPlayer({
+      waitForBuffer: true,
+      playBuffer: buffer,
+      minBuffer: buffer * 2,
+      maxBuffer: buffer * 2,
+    });
     console.log(songs);
     // TrackPlayer.reset().then(()=>{
     //   TrackPlayer.add(songs);

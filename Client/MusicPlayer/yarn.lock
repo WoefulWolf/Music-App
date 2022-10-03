@@ -1546,7 +1546,7 @@
 "buffer-from@^1.0.0":
   "version" "1.1.2"
 
-"buffer@^5.5.0":
+"buffer@^5.4.3", "buffer@^5.5.0":
   "version" "5.7.1"
   dependencies:
     "base64-js" "^1.3.1"
@@ -1798,7 +1798,7 @@
     "shebang-command" "^1.2.0"
     "which" "^1.2.9"
 
-"cross-spawn@^7.0.0", "cross-spawn@^7.0.2":
+"cross-spawn@^7.0.0", "cross-spawn@^7.0.2", "cross-spawn@^7.0.3":
   "version" "7.0.3"
   dependencies:
     "path-key" "^3.1.0"
@@ -1818,6 +1818,11 @@
   "version" "2.3.0"
   dependencies:
     "cssom" "~0.3.6"
+
+"dargs@~7.0.0":
+  "integrity" "sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg=="
+  "resolved" "https://registry.npmjs.org/dargs/-/dargs-7.0.0.tgz"
+  "version" "7.0.0"
 
 "data-urls@^2.0.0":
   "version" "2.0.0"
@@ -2212,6 +2217,21 @@
     "signal-exit" "^3.0.2"
     "strip-final-newline" "^2.0.0"
 
+"execa@~5.1.0":
+  "integrity" "sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg=="
+  "resolved" "https://registry.npmjs.org/execa/-/execa-5.1.1.tgz"
+  "version" "5.1.1"
+  dependencies:
+    "cross-spawn" "^7.0.3"
+    "get-stream" "^6.0.0"
+    "human-signals" "^2.1.0"
+    "is-stream" "^2.0.0"
+    "merge-stream" "^2.0.0"
+    "npm-run-path" "^4.0.1"
+    "onetime" "^5.1.2"
+    "signal-exit" "^3.0.3"
+    "strip-final-newline" "^2.0.0"
+
 "exit@^0.1.2":
   "version" "0.1.2"
 
@@ -2425,6 +2445,11 @@
   dependencies:
     "pump" "^3.0.0"
 
+"get-stream@^6.0.0":
+  "integrity" "sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg=="
+  "resolved" "https://registry.npmjs.org/get-stream/-/get-stream-6.0.1.tgz"
+  "version" "6.0.1"
+
 "get-symbol-description@^1.0.0":
   "version" "1.0.0"
   dependencies:
@@ -2569,6 +2594,11 @@
 
 "human-signals@^1.1.1":
   "version" "1.1.1"
+
+"human-signals@^2.1.0":
+  "integrity" "sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw=="
+  "resolved" "https://registry.npmjs.org/human-signals/-/human-signals-2.1.0.tgz"
+  "version" "2.1.0"
 
 "iconv-lite@0.4.24":
   "version" "0.4.24"
@@ -2797,6 +2827,11 @@
 
 "is-unicode-supported@^0.1.0":
   "version" "0.1.0"
+
+"is-unix@~2.0.1":
+  "integrity" "sha512-5aio7Qef7QKjQxdb52cXAmim9Bh3+y3yc9IA2IsXWwZVlc1rRsJHWtBxNwGBu9KqW7PJCbhepNIkfFdilRkHpQ=="
+  "resolved" "https://registry.npmjs.org/is-unix/-/is-unix-2.0.7.tgz"
+  "version" "2.0.7"
 
 "is-weakref@^1.0.2":
   "version" "1.0.2"
@@ -3782,6 +3817,11 @@
   dependencies:
     "minimist" "^1.2.6"
 
+"mkdirp@~1.0.4":
+  "integrity" "sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw=="
+  "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
+  "version" "1.0.4"
+
 "ms@2.0.0":
   "version" "2.0.0"
 
@@ -3829,7 +3869,7 @@
   dependencies:
     "minimatch" "^3.0.2"
 
-"node-fetch@^2.2.0", "node-fetch@^2.6.0":
+"node-fetch@^2.2.0", "node-fetch@^2.6.0", "node-fetch@~2.6.5":
   "version" "2.6.7"
   dependencies:
     "whatwg-url" "^5.0.0"
@@ -3874,7 +3914,7 @@
   dependencies:
     "path-key" "^2.0.0"
 
-"npm-run-path@^4.0.0":
+"npm-run-path@^4.0.0", "npm-run-path@^4.0.1":
   "version" "4.0.1"
   dependencies:
     "path-key" "^3.0.0"
@@ -3967,7 +4007,7 @@
   dependencies:
     "wrappy" "1"
 
-"onetime@^5.1.0":
+"onetime@^5.1.0", "onetime@^5.1.2":
   "version" "5.1.2"
   dependencies:
     "mimic-fn" "^2.1.0"
@@ -4183,6 +4223,8 @@
   "version" "2.1.1"
 
 "punycode@1.3.2":
+  "integrity" "sha512-RofWgt/7fL5wP1Y7fxE7/EmTLzQVnB0ycyibJ0OOHIlJqTNzglYFxVwETOcIoJqJmpDXJ9xImDv+Fq34F/d4Dw=="
+  "resolved" "https://registry.npmjs.org/punycode/-/punycode-1.3.2.tgz"
   "version" "1.3.2"
 
 "query-string@^7.0.0":
@@ -4193,7 +4235,14 @@
     "split-on-first" "^1.0.0"
     "strict-uri-encode" "^2.0.0"
 
+"querystring@^0.2.1":
+  "integrity" "sha512-wkvS7mL/JMugcup3/rMitHmd9ecIGd2lhFhK9N3UUQ450h66d1r3Y9nvXzQAW1Lq+wyx61k/1pfKS5KuKiyEbg=="
+  "resolved" "https://registry.npmjs.org/querystring/-/querystring-0.2.1.tgz"
+  "version" "0.2.1"
+
 "querystring@0.2.0":
+  "integrity" "sha512-X/xY82scca2tau62i9mDyU9K+I+djTMUsvwf7xnUX5GLvVzgJybOJf4Y6o9Zx3oJK/LSXg5tTZBjwzqVPaPO2g=="
+  "resolved" "https://registry.npmjs.org/querystring/-/querystring-0.2.0.tgz"
   "version" "0.2.0"
 
 "querystringify@^2.1.1":
@@ -4254,6 +4303,15 @@
 
 "react-native-track-player@^2.2.0-rc3":
   "version" "2.2.0-rc3"
+
+"react-native-ytdl@^4.8.3":
+  "integrity" "sha512-BEoSEaERkkmaJwmm6rtig5yXmqArSG7QSF/F1xl91YyGmxO2HW/QyJ0f8uch645jiQ9US/6v2dRRJAp6PxXIqQ=="
+  "resolved" "https://registry.npmjs.org/react-native-ytdl/-/react-native-ytdl-4.8.3.tgz"
+  "version" "4.8.3"
+  dependencies:
+    "querystring" "^0.2.1"
+    "url" "~0.10.1"
+    "whatwg-url-without-unicode" "^8.0.0-3"
 
 "react-native@0.69.5":
   "version" "0.69.5"
@@ -4622,7 +4680,7 @@
     "get-intrinsic" "^1.0.2"
     "object-inspect" "^1.9.0"
 
-"signal-exit@^3.0.0", "signal-exit@^3.0.2":
+"signal-exit@^3.0.0", "signal-exit@^3.0.2", "signal-exit@^3.0.3":
   "version" "3.0.7"
 
 "simple-swizzle@^0.2.2":
@@ -5085,6 +5143,14 @@
     "punycode" "1.3.2"
     "querystring" "0.2.0"
 
+"url@~0.10.1":
+  "integrity" "sha512-hzSUW2q06EqL1gKM/a+obYHLIO6ct2hwPuviqTTOcfFVc61UbfJ2Q32+uGL/HCPxKqrdGB5QUwIe7UqlDgwsOQ=="
+  "resolved" "https://registry.npmjs.org/url/-/url-0.10.3.tgz"
+  "version" "0.10.3"
+  dependencies:
+    "punycode" "1.3.2"
+    "querystring" "0.2.0"
+
 "use-latest-callback@^0.1.5":
   "version" "0.1.5"
 
@@ -5152,6 +5218,8 @@
   "version" "3.0.1"
 
 "webidl-conversions@^5.0.0":
+  "integrity" "sha512-VlZwKPCkYKxQgeSbH5EyngOmRp7Ww7I9rQLERETtf5ofd9pGeswWiOtogpEO850jziPRarreGxn5QIiTqpb2wA=="
+  "resolved" "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-5.0.0.tgz"
   "version" "5.0.0"
 
 "webidl-conversions@^6.1.0":
@@ -5167,6 +5235,15 @@
 
 "whatwg-mimetype@^2.3.0":
   "version" "2.3.0"
+
+"whatwg-url-without-unicode@^8.0.0-3":
+  "integrity" "sha512-HoKuzZrUlgpz35YO27XgD28uh/WJH4B0+3ttFqRo//lmq+9T/mIOJ6kqmINI9HpUpz1imRC/nR/lxKpJiv0uig=="
+  "resolved" "https://registry.npmjs.org/whatwg-url-without-unicode/-/whatwg-url-without-unicode-8.0.0-3.tgz"
+  "version" "8.0.0-3"
+  dependencies:
+    "buffer" "^5.4.3"
+    "punycode" "^2.1.1"
+    "webidl-conversions" "^5.0.0"
 
 "whatwg-url@^5.0.0":
   "version" "5.0.0"
@@ -5280,3 +5357,14 @@
 
 "yocto-queue@^0.1.0":
   "version" "0.1.0"
+
+"youtube-dl-exec@^2.1.6":
+  "integrity" "sha512-hIq4FjelHTL6YzOvVXPqMOcI6ztKyCfKTgCqDKKmpNLyt8wkZOXddOVJhPguwP1i5nUfBpBO0WRLeiWJ83ZJUA=="
+  "resolved" "https://registry.npmjs.org/youtube-dl-exec/-/youtube-dl-exec-2.1.6.tgz"
+  "version" "2.1.6"
+  dependencies:
+    "dargs" "~7.0.0"
+    "execa" "~5.1.0"
+    "is-unix" "~2.0.1"
+    "mkdirp" "~1.0.4"
+    "node-fetch" "~2.6.5"

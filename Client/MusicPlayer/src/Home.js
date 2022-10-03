@@ -6,8 +6,8 @@ import {
   View,
 } from 'react-native';
 
-import Library from './Library';
 import Player from './Player';
+import Search from './Search';
 import LibraryStack from './LibraryStack';
 import Profile from './Profile';
 
@@ -29,7 +29,7 @@ export default function Home({navigation, route}) {
         tabBarStyle: {
           position: 'absolute',
           height: 80,
-          paddingBottom: 50
+          paddingBottom: 50,
         }
       }
     }
@@ -51,6 +51,27 @@ export default function Home({navigation, route}) {
                 }}
               />
               <Text style={{color: focused ? '#FF1655' : '#000', fontSize: 12, top: 5}}>Library</Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={Search}
+        initialParams={{userIDToken, userAccessToken, authUsername, userID, songs}}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>
+              <Image 
+                source={require('./Assets/Buttons/search-icon.png')} 
+                resizeMode='contain'
+                style={{
+                  width: 25,
+                  height: 25,
+                  tintColor: focused ? '#FF1655' : '#000'
+                }}
+              />
+              <Text style={{color: focused ? '#FF1655' : '#000', fontSize: 12, top: 5}}>Search</Text>
             </View>
           ),
         }}
