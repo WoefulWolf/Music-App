@@ -34,7 +34,7 @@ test('Getting song by ID.', async () => {
 
     const result = await api.ParseGETRequest(undefined, headers, res);
     expect(result.status).toEqual(200);
-    expect(result.body[0].Song_Name).toEqual("Never Gonna Give You Up");
+    expect(result.body[0].Song_Name).toEqual("Shake It Off");
 });
 
 test('Searching song with invalid name.', async () => {
@@ -51,12 +51,12 @@ test('Searching song with invalid name.', async () => {
 test('Searching song by name.', async () => {
     const headers = {
         request_type: 'SearchSongByName',
-        song_name: 'Never Gonna Give',
+        song_name: 'Shake It Off',
     };
 
     const result = await api.ParseGETRequest(undefined, headers, res);
     expect(result.status).toEqual(200);
-    expect(result.body[0].Song_Name).toEqual("Never Gonna Give You Up");
+    expect(result.body[0].Song_Name).toEqual("Shake It Off");
 });
 
 test('Searching songs with invalid artist.', async () => {
@@ -73,12 +73,12 @@ test('Searching songs with invalid artist.', async () => {
 test('Searching song by artist.', async () => {
     const headers = {
         request_type: 'SearchSongByArtist',
-        artist_name: 'Astley',
+        artist_name: 'Taylor',
     };
 
     const result = await api.ParseGETRequest(undefined, headers, res);
     expect(result.status).toEqual(200);
-    expect(result.body[0].Song_Name).toEqual("Never Gonna Give You Up");
+    expect(result.body[0].Song_Name).toEqual("Shake It Off");
 });
 
 test('Searching song with invalid album.', async () => {
@@ -95,12 +95,12 @@ test('Searching song with invalid album.', async () => {
 test('Searching song by album.', async () => {
     const headers = {
         request_type: 'SearchSongByAlbum',
-        album_name: 'Xenoblade',
+        album_name: '1989',
     };
 
     const result = await api.ParseGETRequest(undefined, headers, res);
     expect(result.status).toEqual(200);
-    expect(result.body.length).toEqual(7);
+    expect(result.body.length).toBeGreaterThan(0);
 });
 
 // SONGS POST REQUESTS
