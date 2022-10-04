@@ -52,7 +52,7 @@ class Playlists {
             };
         }
 
-        const text = `SELECT songs."Song_ID", songs."Song_Name", songs."Album_ID", albums."Album_Name", albums."Album_Cover", artists."Artist_ID", "Artist_Name", songs."Listens"
+        const text = `SELECT songs."Song_ID", songs."Song_URL", songs."Song_Name", songs."Album_ID", albums."Album_Name", albums."Album_Cover", artists."Artist_ID", "Artist_Name", songs."Listens"
         FROM "playlist_songs"
         INNER JOIN "playlists" ON playlist_songs."Playlist_ID" = playlists."Playlist_ID"
         INNER JOIN "songs" ON songs."Song_ID" = playlist_songs."Song_ID"
