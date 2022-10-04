@@ -152,7 +152,7 @@ const Home = ({route, navigation}) => {
   // The UI is rendered here
   return (
     <SafeAreaView style={styles.body}>
-      <Image style={styles.albumArt} source={currentAlbumCover} />
+      <Image style={styles.albumArt} source={{uri: currentAlbumCover}} />
       <Text style={styles.songTitle}>{currentTitle}</Text>
       <Text style={styles.artist}>{currentArtist}</Text>
       <View style={styles.sliderView}>

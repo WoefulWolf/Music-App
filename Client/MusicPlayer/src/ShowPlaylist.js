@@ -18,6 +18,7 @@ import TrackPlayer, {
   useProgress,
   useTrackPlayerEvents,
 } from 'react-native-track-player';
+import ytdl from 'react-native-ytdl';
 
 let bFlag = false;
 let noSongs = [];
@@ -85,14 +86,36 @@ const Playlists = ({navigation, route}) => {
 
   const generatePlaylistArray = async (dataArr, songsArr) => {
     let PlaylistSongs = [];
-
+    console.log(data);
     for (let i = 0; i < dataArr.length; i++) {
-      for (let j = 0; j < songsArr.length; j++) {
-        if (dataArr[i].Song_ID == songsArr[j].id) {
-          PlaylistSongs.push(songsArr[j]);
-        }
-      }
+      let youtubeURL = "https://www.youtube.com/watch?v=" + dataArr[i].Song_URL;
+      const urls = await ytdl(youtubeURL, {
+        // quality: 'lowest',
+        // filter: "audioonly",
+        requestOptions: {
+          headers: {
+            cookie: 'SIDCC=AEf-XMSTqdOOqVQhPeRSG0lg_v0JQdpgjSU3wlm8EYlZRQofecJTWxhaoj9aMabz6CCFd55HQmQ; __Secure-1PSIDCC=AEf-XMTuxI83mIEQ5jQQmPNJ35Db7VYH99zeP8blqfhhAYfIzOLoBSYofZ5EerqaqMxAx39rqg; __Secure-3PSIDCC=AEf-XMTdsRPz_93IWWwW7tmGNKjAih1orv8p3uG6Rdf8vJTFxhf6ZXyy300BYAFaltw3l8jX5g; PREF=f6=40000080&tz=Africa.Johannesburg&f4=4000000; YSC=72RSxWR99tM; APISID=_MhT0CG7nUuF42iJ/AUUamKnSwpAcYkgfP; HSID=AOgShjL-bdGhPYguR; SAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; SID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7xenDXFVcCXCdDJhFZZ4tTzw.; SSID=AoQGOLsofjbYAH4MU; __Secure-1PAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; __Secure-1PSID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7x7Ljzqlhwpd9QilqnEMkFtQ.; __Secure-3PAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; __Secure-3PSID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7xJFRZHgHRas3Qdmcmv8vBOA.; LOGIN_INFO=AFmmF2swQwIfL8s8n-jDfGdFYzXwrQxFfoOtTxxhXEsOariQZtqXlwIgKHLmF8bq5qs8MB8tJdhSx4uYQs_w6gIYnE2pPHzOvkM:QUQ3MjNmeDlRNVdSaGhiTVEyS2pra1RYNzdCMVQ5X0J1dlVlb2VDcVlGdkxLMm9meVVsSzEwMUJ4R25VRjVKLTdUdGNuREs1WXJjc19iSURZVkNhcHB5ZnJRSlBmRF9wclRlYkJ4dHEtTzdsbHFkWTJOdHUtcEEwazNFLWJoUElTZWhZNVZJTUwycTJFbVRFS3A4enEzZmVnZE1RMDkzaEZR; VISITOR_INFO1_LIVE=4IybVPnbCOM'
+          },
+        },
+      });
+
+      let tempItem = {
+        id: dataArr[i].Song_ID,
+        url: urls[0].url,
+        title: dataArr[i].Song_Name,
+        artist: dataArr[i].Artist_Name,
+        albumArt: dataArr[i].Album_Cover,
+      };
+      PlaylistSongs.push(tempItem);
     }
+
+    // for (let i = 0; i < dataArr.length; i++) {
+    //   for (let j = 0; j < songsArr.length; j++) {
+    //     if (dataArr[i].Song_ID == songsArr[j].id) {
+    //       PlaylistSongs.push(songsArr[j]);
+    //     }
+    //   }
+    // }
     return PlaylistSongs;
   };
 
@@ -173,7 +196,7 @@ const Playlists = ({navigation, route}) => {
             <View style={styles.playlist}>
               <TouchableOpacity
                 onPress={() => {
-                  generatePlaylistArray(data, songs).then(PlaylistSongs => {
+                   generatePlaylistArray(data, songs).then(PlaylistSongs => {
                     getIndex(PlaylistSongs, item.Song_ID).then(index => {
                       TrackPlayer.reset();
                       TrackPlayer.add(PlaylistSongs);
