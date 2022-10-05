@@ -40,7 +40,7 @@ class Songs {
 
         const text = `SELECT songs."Song_ID", songs."Song_URL", songs."Song_Name", songs."Album_ID", albums."Album_Name", albums."Album_Cover", artists."Artist_ID", "Artist_Name", songs."Listens"
         FROM "songs" INNER JOIN "albums" ON songs."Album_ID" = albums."Album_ID" INNER JOIN "artists" ON artists."Artist_ID" = songs."Artist_ID"
-        WHERE songs."Song_Name" LIKE $1`;
+        WHERE songs."Song_Name" ILIKE $1`;
         const values = ["%" + song_name + "%"];
         const res = database.Query(text, values);
         return res;
@@ -58,7 +58,7 @@ class Songs {
 
         const text = `SELECT songs."Song_ID", songs."Song_URL", songs."Song_Name", songs."Album_ID", albums."Album_Name", albums."Album_Cover", artists."Artist_ID", "Artist_Name", songs."Listens"
         FROM "songs" INNER JOIN "albums" ON songs."Album_ID" = albums."Album_ID" INNER JOIN "artists" ON artists."Artist_ID" = songs."Artist_ID"
-        WHERE artists."Artist_Name" LIKE $1`;
+        WHERE artists."Artist_Name" ILIKE $1`;
         const values = ["%" + artist_name + "%"];
         const res = database.Query(text, values);
         return res;
@@ -76,7 +76,7 @@ class Songs {
 
         const text = `SELECT songs."Song_ID", songs."Song_URL", songs."Song_Name", songs."Album_ID", albums."Album_Name", albums."Album_Cover", artists."Artist_ID", "Artist_Name", songs."Listens"
         FROM "songs" INNER JOIN "albums" ON songs."Album_ID" = albums."Album_ID" INNER JOIN "artists" ON artists."Artist_ID" = songs."Artist_ID"
-        WHERE albums."Album_Name" LIKE $1`;
+        WHERE albums."Album_Name" ILIKE $1`;
         const values = ["%" + album_name + "%"];
         const res = database.Query(text, values);
         return res;

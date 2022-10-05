@@ -51,7 +51,7 @@ test('Searching song with invalid name.', async () => {
 test('Searching song by name.', async () => {
     const headers = {
         request_type: 'SearchSongByName',
-        song_name: 'Shake It Off',
+        song_name: 'shake it',
     };
 
     const result = await api.ParseGETRequest(undefined, headers, res);
@@ -73,7 +73,7 @@ test('Searching songs with invalid artist.', async () => {
 test('Searching song by artist.', async () => {
     const headers = {
         request_type: 'SearchSongByArtist',
-        artist_name: 'Taylor',
+        artist_name: 'taylor',
     };
 
     const result = await api.ParseGETRequest(undefined, headers, res);
