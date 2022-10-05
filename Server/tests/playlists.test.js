@@ -62,6 +62,26 @@ test('Create a playlist.', async () => {
     expect(result.body).toEqual({"Success": "Insertion successful"});
 });
 
+test('Get liked songs playlist ID with invalid user', async () => {
+    const headers = {
+        request_type: 'GetLikedSongsID',
+    };
+
+    const result = await api.ParseGETRequest(12, headers, res);
+    expect(result.status).toEqual(400);
+    expect(result.body).toEqual({"Invalid user_id": "The user_id '" + 12 + "' is not valid"});
+});
+
+test('Get liked songs playlist ID', async () => {
+    const headers = {
+        request_type: 'GetLikedSongsID',
+    };
+
+    const result = await api.ParseGETRequest('1234567890', headers, res);
+    expect(result.status).toEqual(200);
+    expect(result.body.length).toBeGreaterThan(0);
+});
+
 test('Get all playlists.', async () => {
     const headers = {
         request_type: 'GetPlaylists',
@@ -118,19 +138,24 @@ test('Get all songs in playlsit.', async () => {
     expect(result.body.length).toBeGreaterThan(0);
 });
 
-test('Delete a playlist.', async () => {
+test('Delete all my playlist.', async () => {
+    const get_playlists_headers = {
+        request_type: 'GetPlaylists',
+    };
+
+    const my_playlists = await api.ParseGETRequest('1234567890', get_playlists_headers, res);
+    
     const headers = {
         request_type: 'DeletePlaylist',
     };
 
-    const body = {
-        playlist_id: test_playlist_id,
-    }
+    for (let i = 0; i < my_playlists.body.length; i++) {
+        let body = {
+            playlist_id: my_playlists.body[i].Playlist_ID,
+        }
 
-    if (typeof test_playlist_id === 'undefined') {
-        fail('test_playlist_id undefined.');
-    } else {
         const result = await api.ParsePOSTRequest('123456789', headers, body, res);
+
         expect(result.status).toEqual(200);
         expect(result.body).toEqual({"Success": "Delete successful"});
     }
