@@ -38,6 +38,9 @@ class MusicAppAPI {
             case 'GetPlaylists': // Get all playlists of a user
                 res = await playlists.GetPlaylists(user_id);
                 break;
+            case 'GetLikedSongsID': // Get liked songs playlist ID of a user
+                res = await playlists.GetLikedSongsID(user_id);
+                break;
             case 'GetPlaylistSongs': // Get all songs on a playlist
                 res = await playlists.GetPlaylistSongs(headers.playlist_id);
                 break;

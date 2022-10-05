@@ -42,6 +42,21 @@ class Playlists {
         return res;
     }
 
+    GetLikedSongsID(user_id) {
+        // Check ID
+        if (!isValid.String(user_id)) {
+            return {
+                status: 400,
+                body: {"Invalid user_id": "The user_id '" + user_id + "' is not valid"},
+            };
+        }
+
+        const text = 'SELECT "Playlist_ID" FROM playlists WHERE "User_ID" = $1 AND "Playlist_Name" = $2';
+        const values = [user_id, "liked_songs_generated"];
+        const res = database.Query(text, values);
+        return res;
+    }
+
     // Get the songs on a playlist
     GetPlaylistSongs(playlist_id) {
         // Check ID
