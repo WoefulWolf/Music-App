@@ -36,8 +36,8 @@ class Playlists {
             };
         }
 
-        const text = 'SELECT "Playlist_ID", "Playlist_Name" FROM playlists WHERE "User_ID" = $1';
-        const values = [user_id];
+        const text = 'SELECT "Playlist_ID", "Playlist_Name" FROM playlists WHERE "User_ID" = $1 AND "Playlist_Name" != $2';
+        const values = [user_id, "liked_songs_generated"];
         const res = database.Query(text, values);
         return res;
     }
