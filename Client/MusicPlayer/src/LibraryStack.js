@@ -36,6 +36,7 @@ const LibraryStack = ({navigation, route}) => {
         />
         <Stack.Screen
           name="Songs"
+          initialParams={{userIDToken, userAccessToken, authUsername, userID, songs}}
           component={Songs}
         />
         <Stack.Screen

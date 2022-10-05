@@ -7,6 +7,7 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  Alert,
   FlatList,
 } from 'react-native';
 
@@ -34,6 +35,70 @@ const Search = ({navigation, route}) => {
       searchResults.push(result);
     }
     setSearchResults(searchResults);
+  }
+
+   // API call to add a song to a playlist
+   const addSongToPlaylist = async (song, id) => {
+    console.log(" adding to db: " + song + ' ' + id);
+    fetch('https://sdp-music-app.herokuapp.com/api/private/', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + userAccessToken,
+        request_type: 'AddSongToPlaylist',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        playlist_id: id,
+        song_id: song,
+      }),
+    })
+      .then(response => response.text())
+      .then(text => {
+        console.log(text);
+        if (text.includes(`{"Database error":"Key (\\"Playlist_ID\\",`)) {
+          Alert.alert(
+            'Song already in playlist',
+            'This song is already in this playlist.',
+            [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+            {cancelable: false},
+          );
+          
+        }
+        else {
+          Alert.alert(
+            'Song has been liked',
+            'This song has been added to your liked songs.',
+            [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+            {cancelable: false},
+          )
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        Alert.alert(
+          'Error',
+          'There was an error liking the song.',
+        );
+      });
+  };
+
+  const getLikedID = async (song) => {
+    fetch('https://sdp-music-app.herokuapp.com/api/private/', {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + userAccessToken,
+        request_type: 'GetLikedSongsID',
+      }
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log("We return: " + json[0].Playlist_ID);
+        addSongToPlaylist(song, json[0].Playlist_ID)
+        return json[0].Playlist_ID;
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   // Function to make GET request to search
@@ -103,21 +168,30 @@ const Search = ({navigation, route}) => {
         )}
         renderItem={({item}) => (
           <View style={styles.song}>
-            <TouchableOpacity
-              onPress={() => {
-                console.log("Pressed");
-              }}>
-              <View style={styles.songDetails}>
-                <View>
-                  <Image style={styles.albumCover} source={{uri: item.albumCover}} />
-                </View>
-                <View>
-                  <Text style={styles.songTitle}>{item.title}</Text>
-                  <Text style={styles.songArtist}>{item.artist}</Text>
-                </View>
+          <View style={styles.row}>
+            <View style={styles.songDetails}>
+              <View>
+                <Image style={styles.albumCover} source={{uri: item.albumCover}} />
               </View>
-            </TouchableOpacity>
+              <View>
+                <Text style={styles.songTitle}>{item.title}</Text>
+                <Text style={styles.songArtist}>{item.artist}</Text>
+              </View>
+            </View>
+            <View style={styles.addButtonView}>
+              <TouchableOpacity
+                onPress={() => {
+                  getLikedID(item.id);
+                  // console.log(item.id);
+                }}>
+                <Image
+                  style={styles.addButton}
+                  source={require('./Assets/Buttons/like-icon.png')}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
+        </View>
         )}
       />
     </SafeAreaView>
@@ -168,6 +242,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#000',
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   song: {
     paddingTop: 15,
     paddingBottom: 15,
@@ -188,5 +267,12 @@ const styles = StyleSheet.create({
   albumCover: {
     width: 50,
     height: 50,
+  },
+  addButtonView: {
+    marginRight: 30,
+  },
+  addButton: {
+    width: 20,
+    height: 20,
   },
 });
