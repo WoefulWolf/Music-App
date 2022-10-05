@@ -1,6 +1,8 @@
 const database = require("./database");
 const isValid = require("./validation");
 
+const playlists = require("./api-playlists");
+
 class Accounts {
     async RegisterAccount(user_id, email, username) {
         // Check fields for validity
@@ -32,6 +34,10 @@ class Accounts {
         const text = "INSERT INTO accounts(\"Email\", \"Username\", \"User_ID\", \"Date_Joined\") VALUES($1, $2, $3, CURRENT_DATE)";
         const values = [email, username, user_id];
         const res = await database.Query(text, values);
+
+        // Create their generated liked songs playlist
+        const playlist_res = await playlists.CreatePlaylist(user_id, "liked_songs_generated");
+
         return res;
     }
 
