@@ -35,8 +35,12 @@ class Accounts {
         const values = [email, username, user_id];
         const res = await database.Query(text, values);
 
-        // Create their generated liked songs playlist
-        const playlist_res = await playlists.CreatePlaylist(user_id, "liked_songs_generated");
+        // Create their generated liked songs playlist if it doesn't exist
+        const liked_songs_id = await playlists.GetLikedSongsID(user_id);
+
+        if (liked_songs_id.status === 404) {
+            await playlists.CreatePlaylist(user_id, "liked_songs_generated");
+        }
 
         return res;
     }

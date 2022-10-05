@@ -62,26 +62,6 @@ test('Create a playlist.', async () => {
     expect(result.body).toEqual({"Success": "Insertion successful"});
 });
 
-test('Get liked songs playlist ID with invalid user', async () => {
-    const headers = {
-        request_type: 'GetLikedSongsID',
-    };
-
-    const result = await api.ParseGETRequest(12, headers, res);
-    expect(result.status).toEqual(400);
-    expect(result.body).toEqual({"Invalid user_id": "The user_id '" + 12 + "' is not valid"});
-});
-
-test('Get liked songs playlist ID', async () => {
-    const headers = {
-        request_type: 'GetLikedSongsID',
-    };
-
-    const result = await api.ParseGETRequest('1234567890', headers, res);
-    expect(result.status).toEqual(200);
-    expect(result.body.length).toBeGreaterThan(0);
-});
-
 test('Get all playlists.', async () => {
     const headers = {
         request_type: 'GetPlaylists',
@@ -127,10 +107,30 @@ test('Get all songs in playlsit with no ID.', async () => {
     expect(result.body).toEqual({"Invalid playlist_id": "The playlist_id 'undefined' is not valid"});
 });
 
-test('Get all songs in playlsit.', async () => {
+test('Get all songs in playlist.', async () => {
     const headers = {
         request_type: 'GetPlaylistSongs',
         playlist_id: test_playlist_id,
+    };
+
+    const result = await api.ParseGETRequest('1234567890', headers, res);
+    expect(result.status).toEqual(200);
+    expect(result.body.length).toBeGreaterThan(0);
+});
+
+test('Get liked songs playlist ID with invalid user', async () => {
+    const headers = {
+        request_type: 'GetLikedSongsID',
+    };
+
+    const result = await api.ParseGETRequest(12, headers, res);
+    expect(result.status).toEqual(400);
+    expect(result.body).toEqual({"Invalid user_id": "The user_id '" + 12 + "' is not valid"});
+});
+
+test('Get liked songs playlist ID', async () => {
+    const headers = {
+        request_type: 'GetLikedSongsID',
     };
 
     const result = await api.ParseGETRequest('1234567890', headers, res);
