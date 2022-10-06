@@ -19,6 +19,28 @@ const auth0 = new Auth0({
 
 const Profile = ({navigation, route}) => {
   const {userIDToken, userAccessToken, authUsername, userID} = route.params;
+
+  const getPlaylists = async () => {
+    fetch('https://sdp-music-app.herokuapp.com/api/private/', {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + userAccessToken,
+        request_type: 'GetPlaylists',
+      },
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json)
+        console.log("returns: " + json);
+      })
+      .then(() => {
+        setRefresh(false);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   return (
     <View
       style={{
@@ -40,6 +62,7 @@ const Profile = ({navigation, route}) => {
               navigation.navigate('Login');
             })
             .catch(error => console.log(error));
+          // getPlaylists();
         }}>
         <Text style={{color: "#000"}}>Logout</Text>
       </TouchableOpacity>

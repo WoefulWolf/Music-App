@@ -71,6 +71,7 @@ const Login = ({navigation, route}) => {
   // Home screen
   const toHome = () => {
     console.log("Successfully logged in");
+    console.log("Your Access Token is: " + accessToken);
     navigation.navigate('Home', {
       userIDToken: idToken,
       userAccessToken: accessToken,
