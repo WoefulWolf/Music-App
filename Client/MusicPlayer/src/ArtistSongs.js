@@ -21,10 +21,31 @@ import TrackPlayer, {
   useProgress,
   useTrackPlayerEvents,
 } from 'react-native-track-player';
+import ytdl from 'react-native-ytdl';
 var artistsSongs = [];
 
 // main function of this screen
 const Artists = ({navigation, route}) => {
+  const [refresh, setRefresh] = useState(true);
+  const [data, setData] = useState([]);
+  const {
+    userAccessToken,
+    userIDToken,
+    authUsername,
+    userID,
+  } = route.params;
+
+  const getUrls = async (tempURL) =>{
+    let youtubeURL = "https://www.youtube.com/watch?v=" + tempURL;
+    const urls = await ytdl(youtubeURL, {
+      requestOptions: {
+      headers: {
+        cookie: 'SIDCC=AEf-XMSTqdOOqVQhPeRSG0lg_v0JQdpgjSU3wlm8EYlZRQofecJTWxhaoj9aMabz6CCFd55HQmQ; __Secure-1PSIDCC=AEf- XMTuxI83mIEQ5jQQmPNJ35Db7VYH99zeP8blqfhhAYfIzOLoBSYofZ5EerqaqMxAx39rqg; __Secure-3PSIDCC=AEf-XMTdsRPz_93IWWwW7tmGNKjAih1orv8p3uG6Rdf8vJTFxhf6ZXyy300BYAFaltw3l8jX5g; PREF=f6=40000080&tz=Africa.Johannesburg&f4=4000000; YSC=72RSxWR99tM; APISID=_MhT0CG7nUuF42iJ/AUUamKnSwpAcYkgfP; HSID=AOgShjL-bdGhPYguR; SAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; SID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7xenDXFVcCXCdDJhFZZ4tTzw.; SSID=AoQGOLsofjbYAH4MU; __Secure-1PAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; __Secure-1PSID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7x7Ljzqlhwpd9QilqnEMkFtQ.; __Secure-3PAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; __Secure-3PSID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7xJFRZHgHRas3Qdmcmv8vBOA.; LOGIN_INFO=AFmmF2swQwIfL8s8n-jDfGdFYzXwrQxFfoOtTxxhXEsOariQZtqXlwIgKHLmF8bq5qs8MB8tJdhSx4uYQs_w6gIYnE2pPHzOvkM:QUQ3MjNmeDlRNVdSaGhiTVEyS2pra1RYNzdCMVQ5X0J1dlVlb2VDcVlGdkxLMm9meVVsSzEwMUJ4R25VRjVKLTdUdGNuREs1WXJjc19iSURZVkNhcHB5ZnJRSlBmRF9wclRlYkJ4dHEtTzdsbHFkWTJOdHUtcEEwazNFLWJoUElTZWhZNVZJTUwycTJFbVRFS3A4enEzZmVnZE1RMDkzaEZR; VISITOR_INFO1_LIVE=4IybVPnbCOM'
+        },
+      },
+    });
+    return urls[0].url;
+  }
   const setupPlayer = async songs => {
     await TrackPlayer.setupPlayer();
     console.log(songs);
@@ -33,7 +54,13 @@ const Artists = ({navigation, route}) => {
     //})
     TrackPlayer.add(songs);
   };
-
+  const getIndex = async (Arr, songID) => {
+    for (let i = 0; i < Arr.length; i++) {
+      if (Arr[i].id == songID) {
+        return i;
+      }
+    }
+  };
   const {songs} = route.params;
   // UI for the library screen
   // useEffect(() => {
@@ -44,13 +71,14 @@ const Artists = ({navigation, route}) => {
   }
   //adds the song information for specfic songs(ie. for certain artists)
   for (var i = 0; i < songs.length; i++) {
-    if (songs[i].artist === artistName) {
+    if (songs[i].Artist_Name === artistName) {
+      
       let tempItem = {
-        id: songs[i].id,
-        artist: songs[i].artist,
-        url: songs[i].url,
-        title: songs[i].title,
-        albumArt: songs[i].albumArt,
+        id: songs[i].Song_ID,
+        artist: songs[i].Artist_Name,
+        url: getUrls(songs[i].Song_URL),
+        title: songs[i].Song_Name,
+        albumArt: songs[i].Album_Cover,
       };
       artistsSongs.push(tempItem);
     }
@@ -86,19 +114,14 @@ const Artists = ({navigation, route}) => {
             <TouchableOpacity
               onPress={() => {
                 console.log(artistsSongs);
-                TrackPlayer.reset();
-                TrackPlayer.add(artistsSongs);
-                // TrackPlayer.skip(item.id);
-                {
-                  console.log(artistsSongs[0].id);
-                  console.log(item.id);
-                  console.log(item.id - artistsSongs[0].id);
-                }
-                TrackPlayer.skip(item.id - artistsSongs[0].id);
-                TrackPlayer.play();
-                // TrackPlayer.skip(item.id);
-                // navigation.navigate('Player', {songIndex: item.id, songs: artistsSongs}); //takes you to the player
-                navigation.navigate('Player');
+                getIndex(artistsSongs, item.id).then(index => {
+                  
+                  TrackPlayer.reset(); // removes the current queue of songs
+                  TrackPlayer.add(artistsSongs); // adds array of songs to be played
+                  TrackPlayer.skip(index); // skips to the correctly generated index
+                  TrackPlayer.play(); // plays the songs
+                  navigation.navigate('Player'); // takes user to player
+                });
               }}>
               <View style={styles.songDetails}>
                 <View>

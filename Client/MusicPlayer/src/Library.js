@@ -35,7 +35,7 @@ const Home = ({navigation, route}) => {
         <View style={styles.buttonText}>
         <TouchableOpacity
         onPress={() => {
-          navigation.navigate('Artists', {songs: songs});
+          navigation.navigate('Artists', {userIDToken:userIDToken, userAccessToken:userAccessToken, authUsername:authUsername, userID:userID, songs:songs});
         }}
         >
           <Text style={styles.button}>Artists</Text>
