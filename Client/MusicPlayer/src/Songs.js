@@ -104,6 +104,7 @@ const Playlists = ({navigation, route}) => {
     console.log(data);
     for (let i = 0; i < dataArr.length; i++) {
       let youtubeURL = "https://www.youtube.com/watch?v=" + dataArr[i].Song_URL;
+      console.log(youtubeURL);
       const urls = await ytdl(youtubeURL, {
         // quality: 'lowest',
         // filter: "audioonly",
@@ -113,7 +114,7 @@ const Playlists = ({navigation, route}) => {
           },
         },
       });
-
+      console.log(urls);
       let tempItem = {
         id: dataArr[i].Song_ID,
         url: urls[0].url,
@@ -145,6 +146,7 @@ const Playlists = ({navigation, route}) => {
   // useEffect hook to call the API call function
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
+      console.log(userAccessToken);
       getLikedID()
       // GetPlaylistSongs();
       setRefresh(false);
