@@ -59,19 +59,6 @@ const Home = ({route, navigation}) => {
     await TrackPlayer.add(songs);
   };
 
-  // function to update the music player
-  const togglePlayback = async () => {
-    const currentTrack = await TrackPlayer.getCurrentTrack();
-
-    if (currentTrack !== null) {
-      if (playbackState == State.Paused) {
-        await TrackPlayer.play();
-      } else {
-        await TrackPlayer.pause();
-      }
-    }
-  };
-
   // This function is used to update the UI when the song changes
   const getImage = async () => {
     let trackIndex = await TrackPlayer.getCurrentTrack();
@@ -119,11 +106,10 @@ const Home = ({route, navigation}) => {
     const playerState = await TrackPlayer.getState();
     if (playerState == State.Playing) {
       setState(true);
-    }
-    else {
+    } else {
       setState(false);
     }
-  }
+  };
 
   // This function is used to update the UI when the song changes
   // and setup the player on startup
@@ -161,88 +147,104 @@ const Home = ({route, navigation}) => {
   });
 
   // The UI is rendered here
-  return (
-    <SafeAreaView style={styles.body}>
-      <Image style={styles.albumArt} source={{uri: currentAlbumCover}} />
-      <Text style={styles.songTitle}>{currentTitle}</Text>
-      <Text style={styles.artist}>{currentArtist}</Text>
-      <View style={styles.sliderView}>
-        <Slider
-          style={{
-            width: 320,
-            height: 40,
-            Left: 0,
-          }}
-          minimumValue={0}
-          value={isSeeking ? seek : position}
-          onValueChange={value => {
-            TrackPlayer.pause();
-            setIsSeeking(true);
-            setSeek(value);
-          }}
-          maximumValue={duration}
-          minimumTrackTintColor="#000"
-          onSlidingComplete={handleChange}
-          maximumTrackTintColor="rgba(0, 0, 0, .5)"
-          thumbTintColor={'#000'}
-        />
 
-        <View style={styles.timeView}>
-          <Text style={styles.timers}>
-            {formatTime(isSeeking ? seek : position)}
-          </Text>
-          <Text style={styles.timers}>{formatTime(duration)}</Text>
+  if (songs.length == 0) {
+    return (
+      <SafeAreaView style={styles.body}>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: 'bold',
+            color: '#000',
+          }}>
+          No songs in queue.
+        </Text>
+      </SafeAreaView>
+    );
+  } else {
+    return (
+      <SafeAreaView style={styles.body}>
+        <Image style={styles.albumArt} source={{uri: currentAlbumCover}} />
+        <Text style={styles.songTitle}>{currentTitle}</Text>
+        <Text style={styles.artist}>{currentArtist}</Text>
+        <View style={styles.sliderView}>
+          <Slider
+            style={{
+              width: 320,
+              height: 40,
+              Left: 0,
+            }}
+            minimumValue={0}
+            value={isSeeking ? seek : position}
+            onValueChange={value => {
+              TrackPlayer.pause();
+              setIsSeeking(true);
+              setSeek(value);
+            }}
+            maximumValue={duration}
+            minimumTrackTintColor="#000"
+            onSlidingComplete={handleChange}
+            maximumTrackTintColor="rgba(0, 0, 0, .5)"
+            thumbTintColor={'#000'}
+          />
+
+          <View style={styles.timeView}>
+            <Text style={styles.timers}>
+              {formatTime(isSeeking ? seek : position)}
+            </Text>
+            <Text style={styles.timers}>{formatTime(duration)}</Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.row}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            TrackPlayer.skipToPrevious();
-          }}>
-          <Image
-            style={{width: 40, height: 40}}
-            source={require('./Assets/Buttons/backward-solid.png')}
-          />
-        </TouchableOpacity>
-        {state == true ? (
+        <View style={styles.row}>
           <TouchableOpacity
-            style={styles.playButton}
+            style={styles.button}
             onPress={() => {
-              TrackPlayer.pause(), setState(false);
+              TrackPlayer.skipToPrevious();
             }}>
             <Image
-              style={{width: 30, height: 40}}
-              source={require('./Assets/Buttons/pause-solid.png')}
+              style={{width: 40, height: 40}}
+              source={require('./Assets/Buttons/backward-solid.png')}
             />
           </TouchableOpacity>
-        ) : state == false ? (
+          {state == true ? (
+            <TouchableOpacity
+              style={styles.playButton}
+              onPress={() => {
+                TrackPlayer.pause(), setState(false);
+              }}>
+              <Image
+                style={{width: 30, height: 40}}
+                source={require('./Assets/Buttons/pause-solid.png')}
+              />
+            </TouchableOpacity>
+          ) : state == false ? (
+            <TouchableOpacity
+              style={styles.playButton}
+              onPress={() => {
+                {
+                  TrackPlayer.play(), setState(true);
+                }
+              }}>
+              <Image
+                style={{width: 30, height: 40}}
+                source={require('./Assets/Buttons/play-solid.png')}
+              />
+            </TouchableOpacity>
+          ) : null}
           <TouchableOpacity
-            style={styles.playButton}
+            style={styles.button}
             onPress={() => {
-              {
-                TrackPlayer.play(), setState(true);
-              }
+              TrackPlayer.skipToNext();
             }}>
             <Image
-              style={{width: 30, height: 40}}
-              source={require('./Assets/Buttons/play-solid.png')}
+              style={{width: 40, height: 40}}
+              source={require('./Assets/Buttons/forward-solid.png')}
             />
           </TouchableOpacity>
-        ) : null}
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            TrackPlayer.skipToNext();
-          }}>
-          <Image
-            style={{width: 40, height: 40}}
-            source={require('./Assets/Buttons/forward-solid.png')}
-          />
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
-  );
+        </View>
+      </SafeAreaView>
+    );
+  }
 };
 
 // styles for the UI

@@ -202,7 +202,7 @@ const Playlists = ({navigation, route}) => {
                       TrackPlayer.add(PlaylistSongs);
                       TrackPlayer.skip(index);
                       TrackPlayer.play();
-                      navigation.navigate('Player');
+                      navigation.navigate('Player', {songs : [1]});
                     });
                   });
 
