@@ -2,12 +2,22 @@
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Login from './Login';
 import Home from './Home';
 import Library from './Library';
+import TrackPlayer, {
+  Capability,
+  Event,
+  RepeatMode,
+  State,
+  usePlaybackState,
+  useProgress,
+  useTrackPlayerEvents,
+} from 'react-native-track-player';
 
 const Stack = createNativeStackNavigator();
+const buffer = 2;
 
 // Array of songs in the library with their respective properties
 const songs = [
@@ -293,12 +303,35 @@ All new pages should be added in the stack navigator below.
 
 // This is the main function that is called when the app is run
 const App = () => {
+
+  // function to set up the music player
+  const setupPlayer = async () => {
+    await TrackPlayer.setupPlayer({
+      waitForBuffer: true,
+      playBuffer: buffer,
+      minBuffer: buffer * 2,
+      maxBuffer: buffer * 2,
+    });
+    // TrackPlayer.reset().then(()=>{
+    //   TrackPlayer.add(songs);
+    //})
+    await TrackPlayer.add(songs);
+  };
+
+  useEffect(() => {
+    setupPlayer().then(() => {
+      console.log('Player setup');
+    });
+    return () => {
+      TrackPlayer.destroy();
+    };
+  }, []);
   // This return statement is responsible for displaying the screens
   // It is made up of a stack that contains all the screens
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{
+        screenOptions={{  
           header: () => null,
         }}>
         <Stack.Screen name="Login" component={Login} initialParams={{songs: songs}}/>

@@ -175,7 +175,7 @@ const Artists = ({navigation, route}) => {
               }}>
               <View style={styles.songDetails}>
                 <View>
-                  <Image style={styles.albumCover} source={item.albumArt} />
+                  <Image style={styles.albumCover} source={{uri: item.albumArt}} />
                 </View>
                 <View>
                   <Text style={styles.songTitle}>{item.title}</Text>

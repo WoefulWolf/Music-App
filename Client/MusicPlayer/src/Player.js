@@ -46,13 +46,13 @@ const Home = ({route, navigation}) => {
 
   // function to set up the music player
   const setupPlayer = async () => {
-    await TrackPlayer.setupPlayer({
-      waitForBuffer: true,
-      playBuffer: buffer,
-      minBuffer: buffer * 2,
-      maxBuffer: buffer * 2,
-    });
-    console.log(songs);
+    // await TrackPlayer.setupPlayer({
+    //   waitForBuffer: true,
+    //   playBuffer: buffer,
+    //   minBuffer: buffer * 2,
+    //   maxBuffer: buffer * 2,
+    // });
+    // console.log(songs);
     // TrackPlayer.reset().then(()=>{
     //   TrackPlayer.add(songs);
     //})
@@ -115,9 +115,20 @@ const Home = ({route, navigation}) => {
     });
   };
 
+  const ifPlaying = async () => {
+    const playerState = await TrackPlayer.getState();
+    if (playerState == State.Playing) {
+      setState(true);
+    }
+    else {
+      setState(false);
+    }
+  }
+
   // This function is used to update the UI when the song changes
   // and setup the player on startup
   useEffect(() => {
+    ifPlaying();
     if (songIndex === 'undefined') {
       songIndex = 0;
     }
@@ -137,7 +148,7 @@ const Home = ({route, navigation}) => {
     //TrackPlayer.add(songs);
     return () => {
       isMountedRef.current = false;
-      TrackPlayer.destroy();
+      // TrackPlayer.destroy();
     };
   }, []);
 

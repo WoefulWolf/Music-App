@@ -38,7 +38,7 @@ export default function Home({navigation, route}) {
       <Tab.Screen
         name="LibraryStack"
         component={LibraryStack}
-        initialParams={{userIDToken, userAccessToken: AccToken, authUsername, userID, songs}}
+        initialParams={{userIDToken, userAccessToken, authUsername, userID, songs}}
         options={{
           tabBarIcon: ({focused}) => (
             <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>
@@ -59,7 +59,7 @@ export default function Home({navigation, route}) {
       <Tab.Screen
         name="Search"
         component={Search}
-        initialParams={{userIDToken, userAccessToken: AccToken, authUsername, userID, songs}}
+        initialParams={{userIDToken, userAccessToken, authUsername, userID, songs}}
         options={{
           tabBarIcon: ({focused}) => (
             <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>
@@ -101,7 +101,7 @@ export default function Home({navigation, route}) {
       <Tab.Screen
         name="Profile"
         component={Profile}
-        initialParams={{userIDToken, userAccessToken: AccToken, authUsername, userID, songs}}
+        initialParams={{userIDToken, userAccessToken, authUsername, userID, songs}}
         options={{
           tabBarIcon: ({focused}) => (
             <View style={{alignItems: 'center', justifyContent: 'center', top: 10}}>
