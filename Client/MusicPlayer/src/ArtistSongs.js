@@ -56,6 +56,9 @@ const Artists = ({navigation, route}) => {
   const generatePlaylistArray = async (dataArr, songsArr) => {
     let PlaylistSongs = [];
     //console.log(data);
+    while (PlaylistSongs.length > 0) {
+      PlaylistSongs.shift();
+    }
     for (let i = 0; i < dataArr.length; i++) {
       let youtubeURL = "https://www.youtube.com/watch?v=" + dataArr[i].url;
       console.log(youtubeURL);
@@ -111,7 +114,7 @@ const Artists = ({navigation, route}) => {
   console.log('----------------------------------------------------');
   
   while (artistsSongs.length > 0) {
-    artistsSongs.pop();
+    artistsSongs.shift();
   }
   //adds the song information for specfic songs(ie. for certain artists)
   for (var i = 0; i < songs.length; i++) {
