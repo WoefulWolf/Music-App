@@ -11,7 +11,8 @@ import {
 
 const Playlists = ({navigation, route}) => {
   // Variables needed for API calls
-  const {userIDToken, userAccessToken, authUsername, userID, songs} = route.params;
+  const {userIDToken, userAccessToken, authUsername, userID, songs} =
+    route.params;
   const [playlistName, setPlaylistName] = useState('');
 
   // API call to create a playlist
@@ -40,11 +41,15 @@ const Playlists = ({navigation, route}) => {
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.backButtonView}>
-        <TouchableOpacity onPress={() => {
-          navigation.goBack();
-        }}
-        style={{flexDirection: 'row'}}>
-          <Image style={styles.backButton} source={require('./Assets/Buttons/back-icon.png')} />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+          style={{flexDirection: 'row'}}>
+          <Image
+            style={styles.backButton}
+            source={require('./Assets/Buttons/back-icon.png')}
+          />
           <Text style={styles.backButtonText}>Playlists</Text>
         </TouchableOpacity>
       </View>
@@ -52,19 +57,19 @@ const Playlists = ({navigation, route}) => {
         <Text style={styles.headingText}>Create a new playlist.</Text>
       </View>
       <View style={styles.inputView}>
-      <TextInput
-        style={styles.input}
-        placeholder="Playlist Name"
-        placeholderTextColor="#bbbbbb"
-        onChangeText={newText => setPlaylistName(newText)}
-        defaultValue={""}
-        maxLength={30}
-      />
+        <TextInput
+          style={styles.input}
+          placeholder="Playlist Name"
+          placeholderTextColor="#bbbbbb"
+          onChangeText={newText => setPlaylistName(newText)}
+          defaultValue={''}
+          maxLength={30}
+        />
       </View>
       <View style={styles.buttonView}>
         <TouchableOpacity
           onPress={() => {
-            console.log("This is the playlist name: " + playlistName);
+            console.log('This is the playlist name: ' + playlistName);
             createPlaylist();
             navigation.goBack();
           }}
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     width: 300,
-    borderBottomColor: "#000",
+    borderBottomColor: '#000',
     borderBottomWidth: 1,
     marginBottom: 20,
   },

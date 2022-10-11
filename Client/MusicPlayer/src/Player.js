@@ -11,7 +11,6 @@ import TrackPlayer, {
   useTrackPlayerEvents,
 } from 'react-native-track-player';
 import {useTrackPlayerProgress} from 'react-native-track-player/lib/hooks';
-// import {PLAYBACK_TRACK_CHANGED} from 'react-native-track-player/lib/eventTypes';
 import {
   Text,
   View,
@@ -24,22 +23,23 @@ import {
 } from 'react-native';
 import Slider from '@react-native-community/slider';
 
+// constants declared here
 const {height, width} = Dimensions.get('window');
 const buffer = 2;
 
 // main function of the app
 const Home = ({route, navigation}) => {
+  // all necessary variables are declared here
   const {position, buffered, duration} = useProgress();
   const [isSeeking, setIsSeeking] = useState(false);
   const isMountedRef = useRef(false);
   const [seek, setSeek] = useState(0);
-  // all necessary variables are declared here
-  const {songIndex, songs} = route.params; // This is the index of the song that was clicked on the previous screen
+  const {songIndex, songs} = route.params;
   const [trackIndex, setTrackIndex] = useState(1);
   const [state, setState] = useState(true);
   const [currentAlbumCover, setCurrentAlbumCover] = useState(
     require('./Assets/Images/Default_Cover.png'),
-  ); // Used to set album cover on rendered UI
+  );
   const [currentTitle, setCurrentTitle] = useState('Song Name'); // Used to set song title on rendered UI
   const [currentArtist, setCurrentArtist] = useState('Artist Name'); // Used to set artist name on rendered UI
   const playbackState = usePlaybackState(); // Keeps track of the current playback state of the music player
@@ -77,6 +77,7 @@ const Home = ({route, navigation}) => {
     setCurrentArtist(trackObject.artist);
   };
 
+  // This function formats the time of the scrub bar
   const formatTime = secs => {
     let minutes = Math.floor(secs / 60);
     let seconds = Math.ceil(secs - minutes * 60);
@@ -93,6 +94,7 @@ const Home = ({route, navigation}) => {
     return `${minutes}:${seconds}`;
   };
 
+  // This function is used to update the UI when the song changes
   const handleChange = val => {
     TrackPlayer.seekTo(val);
     TrackPlayer.play().then(() => {
@@ -102,6 +104,7 @@ const Home = ({route, navigation}) => {
     });
   };
 
+  // Check if player is playing
   const ifPlaying = async () => {
     const playerState = await TrackPlayer.getState();
     if (playerState == State.Playing) {
@@ -114,21 +117,23 @@ const Home = ({route, navigation}) => {
   // This function is used to update the UI when the song changes
   // and setup the player on startup
   useEffect(() => {
-    ifPlaying();
-    if (songIndex === 'undefined') {
-      songIndex = 0;
-    }
-    setupPlayer().then(() => {
-      TrackPlayer.skip(songIndex);
-      getImage();
-      getName();
-      TrackPlayer.play();
-    });
-    console.log(songIndex);
-    if (isMountedRef.current) {
-      TrackPlayer.addEventListener(Event.PlaybackTrackChanged, () => {
-        setIsSeeking(false);
+    if (songs.length != 0) {
+      ifPlaying();
+      if (songIndex === 'undefined') {
+        songIndex = 0;
+      }
+      setupPlayer().then(() => {
+        TrackPlayer.skip(songIndex);
+        getImage();
+        getName();
+        TrackPlayer.play();
       });
+      console.log(songIndex);
+      if (isMountedRef.current) {
+        TrackPlayer.addEventListener(Event.PlaybackTrackChanged, () => {
+          setIsSeeking(false);
+        });
+      }
     }
     //TrackPlayer.reset();
     //TrackPlayer.add(songs);
@@ -161,7 +166,8 @@ const Home = ({route, navigation}) => {
         </Text>
       </SafeAreaView>
     );
-  } else {
+  } 
+  else {
     return (
       <SafeAreaView style={styles.body}>
         <Image style={styles.albumArt} source={{uri: currentAlbumCover}} />

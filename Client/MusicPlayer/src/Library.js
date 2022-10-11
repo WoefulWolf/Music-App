@@ -15,7 +15,8 @@ import {
 
 // main function of this screen
 const Home = ({navigation, route}) => {
-  const {userIDToken, userAccessToken, authUsername, userID, songs} = route.params;
+  const {userIDToken, userAccessToken, authUsername, userID, songs} =
+    route.params;
 
   // UI for the library screen
   return (
@@ -23,46 +24,61 @@ const Home = ({navigation, route}) => {
       <View style={styles.spacer}></View>
       <View style={styles.buttonView}>
         <View style={styles.buttonText}>
-        <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Songs', {songs: songs});
-        }}
-        >
-          <Text style={styles.button}>Songs</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Songs', {songs: songs});
+            }}>
+            <Text style={styles.button}>Songs</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.buttonText}>
-        <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Artists', {userIDToken:userIDToken, userAccessToken:userAccessToken, authUsername:authUsername, userID:userID, songs:songs});
-        }}
-        >
-          <Text style={styles.button}>Artists</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Artists', {
+                userIDToken: userIDToken,
+                userAccessToken: userAccessToken,
+                authUsername: authUsername,
+                userID: userID,
+                songs: songs,
+              });
+            }}>
+            <Text style={styles.button}>Artists</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.buttonText}>
-        <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('PlaylistStack', {userIDToken: userIDToken, userAccessToken: userAccessToken, authUsername: authUsername, userID: userID, songs: songs});
-        }}
-        >
-          <Text style={styles.button}>Playlists</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('PlaylistStack', {
+                userIDToken: userIDToken,
+                userAccessToken: userAccessToken,
+                authUsername: authUsername,
+                userID: userID,
+                songs: songs,
+              });
+            }}>
+            <Text style={styles.button}>Playlists</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.recommendations}>
         <Text style={styles.recommendationsText}>Developers' Choice</Text>
         <Text style={styles.recommendationsText}>Meme Playlist:</Text>
         <View style={styles.imageView}>
-          <TouchableOpacity onPress={() => {
-            navigation.navigate('Player', {songs: songs, songIndex: 1})
-          }}>
-        <Image style={styles.recommendationsImage} source={require('./Assets/Images/Rickroll.jpeg')} />
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Player', {songs: songs, songIndex: 1});
+            }}>
+            <Image
+              style={styles.recommendationsImage}
+              source={require('./Assets/Images/Rickroll.jpeg')}
+            />
+          </TouchableOpacity>
         </View>
-        <Text style={styles.recommendationsText}>Featuring: Never Gonna Give You Up</Text>
+        <Text style={styles.recommendationsText}>
+          Featuring: Never Gonna Give You Up
+        </Text>
         <Text style={styles.recommendationsText}>By Rick Astley</Text>
       </View>
     </SafeAreaView>
@@ -85,14 +101,14 @@ const styles = StyleSheet.create({
     paddingLeft: 25,
     paddingBottom: 10,
   },
-  button:{
-    color:'#FF1655',
+  button: {
+    color: '#FF1655',
     fontSize: 25,
   },
-  spacer:{
+  spacer: {
     paddingTop: 20,
   },
-  buttonView:{
+  buttonView: {
     paddingLeft: 10,
     paddingRight: 10,
   },

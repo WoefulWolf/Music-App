@@ -23,40 +23,36 @@ import ytdl from 'react-native-ytdl';
 let bFlag = false;
 let noSongs = [];
 
-const Playlists = ({navigation, route}) => {
+const Songs = ({navigation, route}) => {
   const [refresh, setRefresh] = useState(true);
   const [data, setData] = useState([]);
 
   // Variables needed for API calls
-  const {
-    userAccessToken,
-    userIDToken,
-    authUsername,
-    userID,
-    songs,
-  } = route.params;
+  const {userAccessToken, userIDToken, authUsername, userID, songs} =
+    route.params;
 
+  // get the id of a user's liked songs playlist
   const getLikedID = async () => {
     fetch('https://sdp-music-app.herokuapp.com/api/private/', {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + userAccessToken,
         request_type: 'GetLikedSongsID',
-      }
+      },
     })
       .then(response => response.json())
       .then(json => {
-        console.log("We return: " + json[0].Playlist_ID);
+        console.log('We return: ' + json[0].Playlist_ID);
         GetPlaylistSongs(json[0].Playlist_ID);
         return json[0].Playlist_ID;
       })
       .catch(error => {
         console.log(error);
       });
-  }
+  };
   // const userAccessToken="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkVQeGNQb1dCZWdaQUJ4OFY1VEstMCJ9.eyJpc3MiOiJodHRwczovL2Rldi1tbW1ybzViNS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjMwMjVmZmM4ZDc5ZjdkNTk1ODE1MjlkIiwiYXVkIjpbImh0dHBzOi8vc2RwLW11c2ljLWFwcC5oZXJva3VhcHAuY29tLyIsImh0dHBzOi8vZGV2LW1tbXJvNWI1LnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2NjM5MjAxNDQsImV4cCI6MTY2Mzk1NjE0NCwiYXpwIjoiSU0xaXpCbnF1S29mVk5zQVhYVVdjOVE2ZnNyMHJFUFMiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIn0.mH-hjIwpM18YDEuoJHL6jYMaf7ZhGoRgtBj9ukpikX7cy_-J0XD-E58Gz_GgI4GSgWYwuORRLLDTunq0cGliVyjSxcNt3Oha1jF_1TMRqc_4xmx6nF86O7eEhRnGJUaxrVshkjCn3V4GI_AC012XGI7Y1OdXWnwLlI3b_54wwRt19B0e9Uyd2vt0X0fruuHnP7Hn4GIKw3_5WQu5LVhvM89GHuUTz1b4TSZRf5ArtbDOhrNjRlS3s7MOw2Z-NNOVo-Wf4CUkySjl1X-daavWwxXtiwdtIuWsvrSexxC2VFa0WT9-EuoVCStlKg8Mt0rG0sdtBzE1lKvSOgUNHNneSQ";
   // API call to get all playlists
-  const GetPlaylistSongs = async (likedID) => {
+  const GetPlaylistSongs = async likedID => {
     fetch('https://sdp-music-app.herokuapp.com/api/private/', {
       method: 'GET',
       headers: {
@@ -99,18 +95,20 @@ const Playlists = ({navigation, route}) => {
       });
   };
 
+  // generate an array of songs to be played
   const generatePlaylistArray = async (dataArr, songsArr) => {
     let PlaylistSongs = [];
     console.log(data);
     for (let i = 0; i < dataArr.length; i++) {
-      let youtubeURL = "https://www.youtube.com/watch?v=" + dataArr[i].Song_URL;
+      let youtubeURL = 'https://www.youtube.com/watch?v=' + dataArr[i].Song_URL;
       console.log(youtubeURL);
       const urls = await ytdl(youtubeURL, {
-        // quality: 'lowest',
-        // filter: "audioonly",
+        quality: 'lowestvideo',
+        filter: 'audio',
         requestOptions: {
           headers: {
-            cookie: 'SIDCC=AEf-XMSTqdOOqVQhPeRSG0lg_v0JQdpgjSU3wlm8EYlZRQofecJTWxhaoj9aMabz6CCFd55HQmQ; __Secure-1PSIDCC=AEf-XMTuxI83mIEQ5jQQmPNJ35Db7VYH99zeP8blqfhhAYfIzOLoBSYofZ5EerqaqMxAx39rqg; __Secure-3PSIDCC=AEf-XMTdsRPz_93IWWwW7tmGNKjAih1orv8p3uG6Rdf8vJTFxhf6ZXyy300BYAFaltw3l8jX5g; PREF=f6=40000080&tz=Africa.Johannesburg&f4=4000000; YSC=72RSxWR99tM; APISID=_MhT0CG7nUuF42iJ/AUUamKnSwpAcYkgfP; HSID=AOgShjL-bdGhPYguR; SAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; SID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7xenDXFVcCXCdDJhFZZ4tTzw.; SSID=AoQGOLsofjbYAH4MU; __Secure-1PAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; __Secure-1PSID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7x7Ljzqlhwpd9QilqnEMkFtQ.; __Secure-3PAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; __Secure-3PSID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7xJFRZHgHRas3Qdmcmv8vBOA.; LOGIN_INFO=AFmmF2swQwIfL8s8n-jDfGdFYzXwrQxFfoOtTxxhXEsOariQZtqXlwIgKHLmF8bq5qs8MB8tJdhSx4uYQs_w6gIYnE2pPHzOvkM:QUQ3MjNmeDlRNVdSaGhiTVEyS2pra1RYNzdCMVQ5X0J1dlVlb2VDcVlGdkxLMm9meVVsSzEwMUJ4R25VRjVKLTdUdGNuREs1WXJjc19iSURZVkNhcHB5ZnJRSlBmRF9wclRlYkJ4dHEtTzdsbHFkWTJOdHUtcEEwazNFLWJoUElTZWhZNVZJTUwycTJFbVRFS3A4enEzZmVnZE1RMDkzaEZR; VISITOR_INFO1_LIVE=4IybVPnbCOM'
+            cookie:
+              'SIDCC=AEf-XMSTqdOOqVQhPeRSG0lg_v0JQdpgjSU3wlm8EYlZRQofecJTWxhaoj9aMabz6CCFd55HQmQ; __Secure-1PSIDCC=AEf-XMTuxI83mIEQ5jQQmPNJ35Db7VYH99zeP8blqfhhAYfIzOLoBSYofZ5EerqaqMxAx39rqg; __Secure-3PSIDCC=AEf-XMTdsRPz_93IWWwW7tmGNKjAih1orv8p3uG6Rdf8vJTFxhf6ZXyy300BYAFaltw3l8jX5g; PREF=f6=40000080&tz=Africa.Johannesburg&f4=4000000; YSC=72RSxWR99tM; APISID=_MhT0CG7nUuF42iJ/AUUamKnSwpAcYkgfP; HSID=AOgShjL-bdGhPYguR; SAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; SID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7xenDXFVcCXCdDJhFZZ4tTzw.; SSID=AoQGOLsofjbYAH4MU; __Secure-1PAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; __Secure-1PSID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7x7Ljzqlhwpd9QilqnEMkFtQ.; __Secure-3PAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; __Secure-3PSID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7xJFRZHgHRas3Qdmcmv8vBOA.; LOGIN_INFO=AFmmF2swQwIfL8s8n-jDfGdFYzXwrQxFfoOtTxxhXEsOariQZtqXlwIgKHLmF8bq5qs8MB8tJdhSx4uYQs_w6gIYnE2pPHzOvkM:QUQ3MjNmeDlRNVdSaGhiTVEyS2pra1RYNzdCMVQ5X0J1dlVlb2VDcVlGdkxLMm9meVVsSzEwMUJ4R25VRjVKLTdUdGNuREs1WXJjc19iSURZVkNhcHB5ZnJRSlBmRF9wclRlYkJ4dHEtTzdsbHFkWTJOdHUtcEEwazNFLWJoUElTZWhZNVZJTUwycTJFbVRFS3A4enEzZmVnZE1RMDkzaEZR; VISITOR_INFO1_LIVE=4IybVPnbCOM',
           },
         },
       });
@@ -135,6 +133,7 @@ const Playlists = ({navigation, route}) => {
     return PlaylistSongs;
   };
 
+  // calculate the index of the song to start playing first
   const getIndex = async (playlistArr, songID) => {
     for (let i = 0; i < playlistArr.length; i++) {
       if (playlistArr[i].id == songID) {
@@ -147,7 +146,7 @@ const Playlists = ({navigation, route}) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       console.log(userAccessToken);
-      getLikedID()
+      getLikedID();
       // GetPlaylistSongs();
       setRefresh(false);
     });
@@ -196,13 +195,13 @@ const Playlists = ({navigation, route}) => {
             <View style={styles.playlist}>
               <TouchableOpacity
                 onPress={() => {
-                   generatePlaylistArray(data, songs).then(PlaylistSongs => {
+                  generatePlaylistArray(data, songs).then(PlaylistSongs => {
                     getIndex(PlaylistSongs, item.Song_ID).then(index => {
                       TrackPlayer.reset();
                       TrackPlayer.add(PlaylistSongs);
                       TrackPlayer.skip(index);
                       TrackPlayer.play();
-                      navigation.navigate('Player', {songs : [1]});
+                      navigation.navigate('Player', {songs: [1]});
                     });
                   });
 
@@ -234,7 +233,7 @@ const Playlists = ({navigation, route}) => {
     );
   }
 };
-export default Playlists;
+export default Songs;
 
 // Stylesheet for the Playlists screen
 const styles = StyleSheet.create({

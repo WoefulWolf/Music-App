@@ -67,11 +67,11 @@ const Login = ({navigation, route}) => {
       .catch(console.error);
   };
 
-  // This function routes the user to the 
+  // This function routes the user to the
   // Home screen
   const toHome = () => {
-    console.log("Successfully logged in");
-    console.log("Your Access Token is: " + accessToken);
+    console.log('Successfully logged in');
+    console.log('Your Access Token is: ' + accessToken);
     navigation.navigate('Home', {
       userIDToken: idToken,
       userAccessToken: accessToken,
@@ -99,11 +99,11 @@ const Login = ({navigation, route}) => {
 
   // This function automatically logs the user in
   useEffect(() => {
-   onLogin(async function () {
-    await getUserProfile(accessToken, async function () {
-      await addUserToDatabase(toHome())
-    })
-   });
+    onLogin(async function () {
+      await getUserProfile(accessToken, async function () {
+        await addUserToDatabase(toHome());
+      });
+    });
   }, []);
 
   // Render the login screen

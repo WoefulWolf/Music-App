@@ -33,10 +33,9 @@ const Playlists = ({navigation, route}) => {
       .then(response => response.json())
       .then(json => {
         console.log(json);
-        if (json["No results"]) {
+        if (json['No results']) {
           setData([]);
-        }
-        else {
+        } else {
           setData(json);
         }
       })

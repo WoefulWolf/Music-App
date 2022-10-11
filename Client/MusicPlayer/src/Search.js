@@ -12,13 +12,15 @@ import {
 } from 'react-native';
 
 const Search = ({navigation, route}) => {
-  const {userIDToken, userAccessToken, authUsername, userID, songs} = route.params;
+  // Variables declared here
+  const {userIDToken, userAccessToken, authUsername, userID, songs} =
+    route.params;
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [flatListTitle, setFlatListTitle] = useState('');
 
-  // Process the search results 
-  const processSearchResults = (results) => {
+  // Process the search results
+  const processSearchResults = results => {
     let searchResults = [];
     let result = {};
     for (let i = 0; i < results.length; i++) {
@@ -35,11 +37,11 @@ const Search = ({navigation, route}) => {
       searchResults.push(result);
     }
     setSearchResults(searchResults);
-  }
+  };
 
-   // API call to add a song to a playlist
-   const addSongToPlaylist = async (song, id) => {
-    console.log(" adding to db: " + song + ' ' + id);
+  // API call to add a song to a playlist
+  const addSongToPlaylist = async (song, id) => {
+    console.log(' adding to db: ' + song + ' ' + id);
     fetch('https://sdp-music-app.herokuapp.com/api/private/', {
       method: 'POST',
       headers: {
@@ -62,44 +64,40 @@ const Search = ({navigation, route}) => {
             [{text: 'OK', onPress: () => console.log('OK Pressed')}],
             {cancelable: false},
           );
-          
-        }
-        else {
+        } else {
           Alert.alert(
             'Song has been liked',
             'This song has been added to your liked songs.',
             [{text: 'OK', onPress: () => console.log('OK Pressed')}],
             {cancelable: false},
-          )
+          );
         }
       })
       .catch(error => {
         console.log(error);
-        Alert.alert(
-          'Error',
-          'There was an error liking the song.',
-        );
+        Alert.alert('Error', 'There was an error liking the song.');
       });
   };
 
-  const getLikedID = async (song) => {
+  // get the id of a user's liked songs playlist
+  const getLikedID = async song => {
     fetch('https://sdp-music-app.herokuapp.com/api/private/', {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + userAccessToken,
         request_type: 'GetLikedSongsID',
-      }
+      },
     })
       .then(response => response.json())
       .then(json => {
-        console.log("We return: " + json[0].Playlist_ID);
-        addSongToPlaylist(song, json[0].Playlist_ID)
+        console.log('We return: ' + json[0].Playlist_ID);
+        addSongToPlaylist(song, json[0].Playlist_ID);
         return json[0].Playlist_ID;
       })
       .catch(error => {
         console.log(error);
       });
-  }
+  };
 
   // Function to make GET request to search
   // for songs by song name
@@ -110,29 +108,26 @@ const Search = ({navigation, route}) => {
         Authorization: 'Bearer ' + userAccessToken,
         request_type: 'SearchSongByName',
         song_name: searchText,
-      }
+      },
     })
       .then(response => response.json())
       .then(json => {
         console.log(json);
         // check if text contains error
-        if (json["No results"]) {
-            setFlatListTitle('No Results');
-        }
-        else {
-            setFlatListTitle('Results');
+        if (json['No results']) {
+          setFlatListTitle('No Results');
+        } else {
+          setFlatListTitle('Results');
         }
         processSearchResults(json);
       })
       .catch(error => {
         console.log(error);
-        Alert.alert(
-          'Error',
-          'There was an error searching for songs.',
-        );
+        Alert.alert('Error', 'There was an error searching for songs.');
       });
-  }
+  };
 
+  // render the UI here
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.searchBar}>
@@ -143,7 +138,9 @@ const Search = ({navigation, route}) => {
           onChangeText={newText => setSearchText(newText)}
           defaultValue={''}
           maxLength={30}
-          ref={input => {this.textInput = input}}
+          ref={input => {
+            this.textInput = input;
+          }}
         />
         <TouchableOpacity
           onPress={() => {
@@ -168,30 +165,33 @@ const Search = ({navigation, route}) => {
         )}
         renderItem={({item}) => (
           <View style={styles.song}>
-          <View style={styles.row}>
-            <View style={styles.songDetails}>
-              <View>
-                <Image style={styles.albumCover} source={{uri: item.albumCover}} />
+            <View style={styles.row}>
+              <View style={styles.songDetails}>
+                <View>
+                  <Image
+                    style={styles.albumCover}
+                    source={{uri: item.albumCover}}
+                  />
+                </View>
+                <View>
+                  <Text style={styles.songTitle}>{item.title}</Text>
+                  <Text style={styles.songArtist}>{item.artist}</Text>
+                </View>
               </View>
-              <View>
-                <Text style={styles.songTitle}>{item.title}</Text>
-                <Text style={styles.songArtist}>{item.artist}</Text>
+              <View style={styles.addButtonView}>
+                <TouchableOpacity
+                  onPress={() => {
+                    getLikedID(item.id);
+                    // console.log(item.id);
+                  }}>
+                  <Image
+                    style={styles.addButton}
+                    source={require('./Assets/Buttons/like-icon.png')}
+                  />
+                </TouchableOpacity>
               </View>
-            </View>
-            <View style={styles.addButtonView}>
-              <TouchableOpacity
-                onPress={() => {
-                  getLikedID(item.id);
-                  // console.log(item.id);
-                }}>
-                <Image
-                  style={styles.addButton}
-                  source={require('./Assets/Buttons/like-icon.png')}
-                />
-              </TouchableOpacity>
             </View>
           </View>
-        </View>
         )}
       />
     </SafeAreaView>
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
   searchBar: {
     backgroundColor: '#EEEEEE',
     borderRadius: 15,
-    marginHorizontal: 30,
+    marginHorizontal: 20,
     marginTop: 15,
     flexDirection: 'row',
   },
