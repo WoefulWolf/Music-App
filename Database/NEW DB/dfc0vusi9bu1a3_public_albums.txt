@@ -1,0 +1,192 @@
++--------+--------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------+
+|Album_ID|Album_Name                                                                            |Artist_ID|Album_Cover                                                                       |
++--------+--------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------+
+|1       |1989                                                                                  |1        |https://lastfm.freetls.fastly.net/i/u/300x300/b71ba6cf5881d8cf143e0ad0b4f28d9f.png|
+|2       |All Too Well: The Short Film                                                          |1        |https://lastfm.freetls.fastly.net/i/u/300x300/7db4aee8c311c85e95aad4a5cbef395a.jpg|
+|3       |Fearless                                                                              |1        |https://lastfm.freetls.fastly.net/i/u/300x300/d8888f990ce044e4c856550a7041c83e.jpg|
+|4       |Red                                                                                   |1        |https://lastfm.freetls.fastly.net/i/u/300x300/ad99371a89ed925f63ee3737b4bf9908.jpg|
+|5       |Red Karaoke                                                                           |1        |https://lastfm.freetls.fastly.net/i/u/300x300/ce33a1b7ae05742f6d0646bef146f0dc.jpg|
+|6       |the "ladies lunching" chapter                                                         |1        |https://lastfm.freetls.fastly.net/i/u/300x300/154aba55423f3db99addb6c475454e80.jpg|
+|7       |Lover                                                                                 |1        |https://lastfm.freetls.fastly.net/i/u/300x300/d3f083370c371a3ba1cddafaf193c27d.jpg|
+|8       |evermore (deluxe version)                                                             |1        |https://lastfm.freetls.fastly.net/i/u/300x300/2b1ed6bdaba7aa57d94c1bdfb805e972.jpg|
+|9       |Time                                                                                  |1        |https://lastfm.freetls.fastly.net/i/u/300x300/71514573e0f14814c135dfd39193cd45.png|
+|10      |evermore                                                                              |1        |https://lastfm.freetls.fastly.net/i/u/300x300/3fc71aa25ab1242571c841c75f764d10.jpg|
+|11      |Lover (Deluxe Edition)                                                                |1        |https://lastfm.freetls.fastly.net/i/u/300x300/41e946737b157ea0e88b7c0551acc604.jpg|
+|12      |Speak Now                                                                             |1        |https://lastfm.freetls.fastly.net/i/u/300x300/a9ff4f81e3402e5fdd3c8e85681ad606.jpg|
+|13      |reputation                                                                            |1        |https://lastfm.freetls.fastly.net/i/u/300x300/8554f8f708e7de9ff25f9fc0e6257706.jpg|
+|14      |Look What You Made Me Do                                                              |1        |https://lastfm.freetls.fastly.net/i/u/300x300/d7eeb2af66bcabe47459f89b1b7934c3.jpg|
+|15      |Fearless: Platinum Edition                                                            |1        |https://lastfm.freetls.fastly.net/i/u/300x300/79d31e2240028ecf5bf6894c4bbf98cd.png|
+|16      |Taylor Swift                                                                          |1        |https://lastfm.freetls.fastly.net/i/u/300x300/bca070b0f73ef2816729c60abb8b95ac.jpg|
+|17      |End Game                                                                              |1        |https://lastfm.freetls.fastly.net/i/u/300x300/ef84e68b27c398e51a5de2f2a866230a.jpg|
+|18      |=                                                                                     |2        |https://lastfm.freetls.fastly.net/i/u/300x300/cb28e94e9867ea7388dc9b5b8eeab8f9.jpg|
+|19      |Born to Die - The Paradise Edition                                                    |3        |https://lastfm.freetls.fastly.net/i/u/300x300/9a55c36dbb36490bdc061bad570ef94d.jpg|
+|20      |Blue Banisters                                                                        |3        |https://lastfm.freetls.fastly.net/i/u/300x300/5b7e18b6cd74e1c61ceb45a678a6e13d.jpg|
+|21      |Born to Die                                                                           |3        |https://lastfm.freetls.fastly.net/i/u/300x300/b7a5287d053725c9660816261d1d807f.jpg|
+|22      |Ultraviolence                                                                         |3        |https://lastfm.freetls.fastly.net/i/u/300x300/97ae7fe956f2b5f316845fe7976fc4e0.jpg|
+|23      |Lust For Life                                                                         |3        |https://lastfm.freetls.fastly.net/i/u/300x300/4ca041ff63553413cf62722ccc486246.jpg|
+|24      |Born To Die - The Paradise Edition (Special Version)                                  |3        |https://lastfm.freetls.fastly.net/i/u/300x300/9a55c36dbb36490bdc061bad570ef94d.jpg|
+|25      |Norman Fucking Rockwell! [Explicit]                                                   |3        |https://lastfm.freetls.fastly.net/i/u/300x300/205213d326ea653404997065e9ceb3fe.jpg|
+|26      |Lust for Life                                                                         |3        |https://lastfm.freetls.fastly.net/i/u/300x300/4ca041ff63553413cf62722ccc486246.jpg|
+|27      |Born To Die                                                                           |3        |https://lastfm.freetls.fastly.net/i/u/300x300/9a55c36dbb36490bdc061bad570ef94d.jpg|
+|28      |Honeymoon                                                                             |3        |https://lastfm.freetls.fastly.net/i/u/300x300/590644cb7094ec5f1a7ad304e90c914e.jpg|
+|29      |Norman Fucking Rockwell!                                                              |3        |https://lastfm.freetls.fastly.net/i/u/300x300/b66c572f7d89374dd746d7b02fc324b5.png|
+|30      |Wildflower Wildfire - Single                                                          |3        |https://lastfm.freetls.fastly.net/i/u/300x300/4c5149a96ffbb83b4b18a44b20cff2b6.jpg|
+|31      |The Better Life                                                                       |4        |https://lastfm.freetls.fastly.net/i/u/300x300/c2f5e2cb9d1f454b9990a77a690bd84b.png|
+|32      |Away from the Sun                                                                     |4        |https://lastfm.freetls.fastly.net/i/u/300x300/056ec23d90254b70b62aa84ce14876aa.png|
+|33      |Greatest Hits                                                                         |5        |https://lastfm.freetls.fastly.net/i/u/300x300/7ff4599dc712769dd262fcff394a61cc.jpg|
+|34      |Meteora                                                                               |5        |https://lastfm.freetls.fastly.net/i/u/300x300/b636ff6f39f8dd435c89fc7bd2e002f8.jpg|
+|35      |Minutes to Midnight                                                                   |5        |https://lastfm.freetls.fastly.net/i/u/300x300/185a38ca7368d2c9ad9cb9ea95ae05f4.jpg|
+|36      |Silver Side Up                                                                        |6        |https://lastfm.freetls.fastly.net/i/u/300x300/80649fca746c7014df458258f983d63d.jpg|
+|37      |All The Right Reasons                                                                 |6        |https://lastfm.freetls.fastly.net/i/u/300x300/e55ef79c3e5347d4c7e85c44ef1487be.jpg|
+|38      |The Long Road                                                                         |6        |https://lastfm.freetls.fastly.net/i/u/300x300/ef37f4e43576427fc2d2c2042eee820d.png|
+|39      |Audioslave                                                                            |7        |https://lastfm.freetls.fastly.net/i/u/300x300/ed071004b3a64afb8b2a8397aad1bed4.png|
+|40      |Out of Exile                                                                          |7        |https://lastfm.freetls.fastly.net/i/u/300x300/815b1a1f78e3cb564ae23e4852d1de4a.jpg|
+|41      |Fallen                                                                                |8        |https://lastfm.freetls.fastly.net/i/u/300x300/709c71461153419d86742071e16426c8.png|
+|42      |Elephant                                                                              |9        |https://lastfm.freetls.fastly.net/i/u/300x300/4834c1de5bae49f594bd2f2df1f16286.png|
+|43      |Believers Never Die - Greatest Hits                                                   |10       |https://lastfm.freetls.fastly.net/i/u/300x300/190429befa66419db3510a86774006cb.png|
+|44      |From Under the Cork Tree                                                              |10       |https://lastfm.freetls.fastly.net/i/u/300x300/73ff2d6aea6d465ac6b9a697ce4c6168.png|
+|45      |By the Way                                                                            |11       |https://lastfm.freetls.fastly.net/i/u/300x300/e6605f39212f48d1b3968e78b5423456.png|
+|46      |Stadium Arcadium                                                                      |11       |https://lastfm.freetls.fastly.net/i/u/300x300/fb7d1a6c6e5240c48159d08b17ea022b.png|
+|47      |Echoes, Silence, Patience & Grace                                                     |12       |https://lastfm.freetls.fastly.net/i/u/300x300/a1a33e78e5ee4efab5827b28776795fb.png|
+|48      |In Your Honor                                                                         |12       |https://lastfm.freetls.fastly.net/i/u/300x300/a3b076a45d944b508d4455556b96b5ad.png|
+|49      |One by One                                                                            |12       |https://lastfm.freetls.fastly.net/i/u/300x300/c163489f35ce47d3a3ec6be7f8b39178.png|
+|50      |The Sickness                                                                          |13       |https://lastfm.freetls.fastly.net/i/u/300x300/61b929a6ca07482ba86ee85bd6fbe4a6.png|
+|51      |Indestructible (Deluxe Digital Release)                                               |13       |https://lastfm.freetls.fastly.net/i/u/300x300/4fe09361eb8a41e18eb06279bb8bceb6.png|
+|52      |Rise and Fall, Rage and Grace                                                         |14       |https://lastfm.freetls.fastly.net/i/u/300x300/e91fba45bbea0b861c29bde540ff980a.png|
+|53      |Conspiracy of One                                                                     |14       |https://lastfm.freetls.fastly.net/i/u/300x300/38e3900fd1e24c78cc977ac23767ca88.png|
+|54      |Break the Cycle                                                                       |15       |https://lastfm.freetls.fastly.net/i/u/300x300/8e3a4cf5a123da1eb70c18cec6adc3bd.png|
+|55      |14 Shades of Grey                                                                     |15       |https://lastfm.freetls.fastly.net/i/u/300x300/8ff2400e68ea425e8bbc473c22b3be74.png|
+|56      |Make Yourself                                                                         |16       |https://lastfm.freetls.fastly.net/i/u/300x300/4384d762a0d44a45aa5f35ebcade8eef.png|
+|57      |Bullet in a Bible                                                                     |17       |https://lastfm.freetls.fastly.net/i/u/300x300/19ac07537e21e1bad10947ea53878f1c.jpg|
+|58      |American Idiot                                                                        |17       |https://lastfm.freetls.fastly.net/i/u/300x300/dc89e2bfc86868ed5175d4c2be624096.jpg|
+|59      |Satellite                                                                             |18       |https://lastfm.freetls.fastly.net/i/u/300x300/51d14dbf831a42e5c21f58d3e6034aa9.png|
+|60      |The Sound of Madness                                                                  |19       |https://lastfm.freetls.fastly.net/i/u/300x300/51e2eb6913cffb979f3979739374a457.jpg|
+|61      |Us and Them                                                                           |19       |https://lastfm.freetls.fastly.net/i/u/300x300/bf05d6f9330344b0953bf4c6da202d9e.jpg|
+|62      |Contraband                                                                            |20       |https://lastfm.freetls.fastly.net/i/u/300x300/6e68381ec8293f76ca4a5995dbd50a28.jpg|
+|63      |Finding Beauty in Negative Spaces                                                     |21       |https://lastfm.freetls.fastly.net/i/u/300x300/0c7646db6d754068afdfba51ee460fd9.png|
+|64      |Karma & Effect                                                                        |21       |https://lastfm.freetls.fastly.net/i/u/300x300/a1290b612ecc4f4883ea280c3bb0871c.jpg|
+|65      |One-X                                                                                 |22       |https://lastfm.freetls.fastly.net/i/u/300x300/7d574c73804709ed8983e6261af8f1f7.jpg|
+|66      |Crush                                                                                 |23       |https://lastfm.freetls.fastly.net/i/u/300x300/17633748ce267254f57e200e0ba3b86b.png|
+|67      |Viva la Vida or Death and All His Friends                                             |24       |https://lastfm.freetls.fastly.net/i/u/300x300/c8933ae124dd49eb928ed9cf45d9fd5b.png|
+|68      |Hot Fuss                                                                              |25       |https://lastfm.freetls.fastly.net/i/u/300x300/d83c5d906703a8c8042285d0902d9cf4.png|
+|69      |The Black Parade                                                                      |26       |https://lastfm.freetls.fastly.net/i/u/300x300/7675defb2787ce67cd030081eb8ff77c.png|
+|70      |The Resistance                                                                        |27       |https://lastfm.freetls.fastly.net/i/u/300x300/dd4c95317aaa3537dbf0a8dc4d9c7d79.png|
+|71      |Weathered                                                                             |28       |https://lastfm.freetls.fastly.net/i/u/300x300/397a546626eecdfbd55527580a5dbc2a.png|
+|72      |Human Clay                                                                            |28       |https://lastfm.freetls.fastly.net/i/u/300x300/c4010ccecd184dc48916e4010e82d26c.png|
+|73      |Faceless                                                                              |29       |https://lastfm.freetls.fastly.net/i/u/300x300/7edb32e7079a4f1eaf522b05e85cae03.png|
+|74      |The Gift of Game                                                                      |30       |https://lastfm.freetls.fastly.net/i/u/300x300/e17e8ab11291469a84bc869d59b9cf09.png|
+|75      |All That You Can't Leave Behind                                                       |31       |https://lastfm.freetls.fastly.net/i/u/300x300/08903e8de53947859fbac649e3d011e1.png|
+|76      |Get Born                                                                              |32       |https://lastfm.freetls.fastly.net/i/u/300x300/22765d073954a2e392c5faafb3fddb45.png|
+|77      |The Modern Age                                                                        |33       |https://lastfm.freetls.fastly.net/i/u/300x300/3dd6242e6b034d01b1d7d9ffb91b1c90.png|
+|78      |Daughtry                                                                              |34       |https://lastfm.freetls.fastly.net/i/u/300x300/28926f035afa400ea1fb16b5b686b45c.png|
+|79      |Phobia                                                                                |35       |https://lastfm.freetls.fastly.net/i/u/300x300/2e5b0bc8cf774381c37c150f159e58c4.png|
+|80      |Greatest Hits                                                                         |36       |https://lastfm.freetls.fastly.net/i/u/300x300/b6bdf6d2572045fb95a4f00ffb43af66.jpg|
+|81      |Come What(ever) May                                                                   |37       |https://lastfm.freetls.fastly.net/i/u/300x300/30343f165ec1e8d88ab16ff7b580a2fd.jpg|
+|82      |Make Believe                                                                          |38       |https://lastfm.freetls.fastly.net/i/u/300x300/1c8439b16ed4ca4e0bac727e7b325581.jpg|
+|83      |Hash Pipe                                                                             |38       |https://lastfm.freetls.fastly.net/i/u/300x300/bc35ef5541e642bbb8f52bf3d21ba126.jpg|
+|84      |Just Push Play                                                                        |39       |https://lastfm.freetls.fastly.net/i/u/300x300/35cf2fbd90387a2567b80f363d574cbe.png|
+|85      |Ocean Avenue                                                                          |40       |https://lastfm.freetls.fastly.net/i/u/300x300/0b24302cfb804914c9cc2ee0834d7d47.png|
+|86      |No Name Face                                                                          |41       |https://lastfm.freetls.fastly.net/i/u/300x300/17921ec65047e55febc547aed844d094.png|
+|87      |Black Rain (Expanded Edition)                                                         |42       |https://lastfm.freetls.fastly.net/i/u/300x300/600468a17ffb5a0178fda288a8cd161b.png|
+|88      |Wonder What's Next                                                                    |43       |https://lastfm.freetls.fastly.net/i/u/300x300/24f29ce7397843bc9afbc96c7409b99b.png|
+|89      |Stiff Upper Lip                                                                       |44       |https://lastfm.freetls.fastly.net/i/u/300x300/cba38950aa26456b848af3f809f5107e.png|
+|90      |I Disappear                                                                           |45       |https://lastfm.freetls.fastly.net/i/u/300x300/4fef6d80298f4220c231247e3bd99f56.png|
+|91      |Death Magnetic                                                                        |45       |https://lastfm.freetls.fastly.net/i/u/300x300/bb80178de028c2e7b1897ff87cbdd58e.png|
+|92      |Bleed American                                                                        |46       |https://lastfm.freetls.fastly.net/i/u/300x300/5f6bed4795106f6a5ace9295accf4493.jpg|
+|93      |Famous                                                                                |47       |https://lastfm.freetls.fastly.net/i/u/300x300/3e71bf4310694162c19cd90fa6ef20c2.png|
+|94      |No Pads, No Helmets... Just Balls                                                     |48       |https://lastfm.freetls.fastly.net/i/u/300x300/26a25561e8ecb5ed37ea3e5260156d22.jpg|
+|95      |Gravity                                                                               |49       |https://lastfm.freetls.fastly.net/i/u/300x300/a55d0509b80a472395dc18507d714800.png|
+|96      |Broken Boy Soldiers                                                                   |50       |https://lastfm.freetls.fastly.net/i/u/300x300/396438cc58f2beea968a17d9b4c8bce4.png|
+|97      |Backspacer                                                                            |51       |https://lastfm.freetls.fastly.net/i/u/300x300/3c2c7235d48443e1a84338030ca6e0d9.png|
+|98      |Attack on Titan (Original Soundtrack)                                                 |52       |https://lastfm.freetls.fastly.net/i/u/300x300/5a5fb065e10f4e88ce81d3057bac6b73.jpg|
+|99      |TVアニメ「進撃の巨人」Season 2 オリジナルサウンドトラック                                                    |53       |https://lastfm.freetls.fastly.net/i/u/300x300/0e84ece45ba93863907867545f18069b.jpg|
+|100     |劇場版「進撃の巨人」後編~自由の翼~エンディングテーマ theDOGS produced by 澤野弘之                                  |53       |https://lastfm.freetls.fastly.net/i/u/300x300/34097f11613fcb759882fd0dfcc56dc2.jpg|
+|101     |Sword Art Online the Movie -Progressive- Aria of a Starless Night Original Sound Track|54       |https://lastfm.freetls.fastly.net/i/u/300x300/8454f1131b80a49ab01e2fd0d9f24e7d.png|
+|102     |.hack//SIGN ORIGINAL SOUND & SONG TRACK2                                              |55       |https://lastfm.freetls.fastly.net/i/u/300x300/c99d808d33b4da9c1ebdbdcfbd813e54.png|
+|103     |PandoraHearts オリジナルサウンドトラック2                                                          |55       |https://lastfm.freetls.fastly.net/i/u/300x300/8ed4cc1d9aa948eec868123ecc306293.png|
+|104     |BORN PINK                                                                             |56       |https://lastfm.freetls.fastly.net/i/u/300x300/b1da75b2bb4e24371262130c628fc00e.jpg|
+|105     |Pink Venom                                                                            |56       |https://lastfm.freetls.fastly.net/i/u/300x300/1386df18af239aa912623b9f035a3a8a.jpg|
+|106     |AS IF IT'S YOUR LAST -KR Ver.-                                                        |56       |https://lastfm.freetls.fastly.net/i/u/300x300/4cb334ff1c4f6d4e5aa4c2e6d2e1cf4d.jpg|
+|107     |SQUARE TWO                                                                            |56       |https://lastfm.freetls.fastly.net/i/u/300x300/f919847d9088c5472eddb395e3d42a93.png|
+|108     |BLACKPINK IN YOUR AREA                                                                |56       |https://lastfm.freetls.fastly.net/i/u/300x300/cb31d13d768cc8c0a8a39d3130742535.png|
+|109     |THE ALBUM                                                                             |56       |https://lastfm.freetls.fastly.net/i/u/300x300/2b346bdcc6f56e7d1f1c546b13cdacfb.png|
+|110     |Lovesick Girls                                                                        |56       |https://lastfm.freetls.fastly.net/i/u/300x300/eff02664f896688137e3249812bdaba7.jpg|
+|111     |Ready For Love                                                                        |56       |https://lastfm.freetls.fastly.net/i/u/300x300/35066d1cce97f224608e1481ea76e2c5.jpg|
+|112     |KILL THIS LOVE                                                                        |56       |https://lastfm.freetls.fastly.net/i/u/300x300/1975eaa135b07d0301db7d684da98f8e.png|
+|113     |SQUARE UP                                                                             |56       |https://lastfm.freetls.fastly.net/i/u/300x300/cb31d13d768cc8c0a8a39d3130742535.png|
+|114     |BLACKPINK 2021 'THE SHOW' LIVE                                                        |56       |https://lastfm.freetls.fastly.net/i/u/300x300/eff02664f896688137e3249812bdaba7.jpg|
+|115     |DDU-DU DDU-DU (Remix) [JP Ver.]                                                       |56       |https://lastfm.freetls.fastly.net/i/u/300x300/cb31d13d768cc8c0a8a39d3130742535.png|
+|116     |Hold The Girl                                                                         |57       |https://lastfm.freetls.fastly.net/i/u/300x300/4757902c3eec5c976f8bf7a02d13982e.jpg|
+|117     |SAWAYAMA                                                                              |57       |https://lastfm.freetls.fastly.net/i/u/300x300/a0edf262beeeca9eab5699e26be65c5f.jpg|
+|118     |Let Go                                                                                |58       |https://lastfm.freetls.fastly.net/i/u/300x300/5196120dec2446b840ca061ed819f300.jpg|
+|119     |Control Room · Live EP                                                                |58       |https://lastfm.freetls.fastly.net/i/u/300x300/ccd3d99d17894771c79b3c97ea0772e0.png|
+|120     |Goodbye Lullaby                                                                       |58       |https://lastfm.freetls.fastly.net/i/u/300x300/9b1cf7d6dbc64763a122024ac86d1cd3.png|
+|121     |Love It When You Hate Me                                                              |58       |https://lastfm.freetls.fastly.net/i/u/300x300/a0afed38b4e45e8c36b21f145be8cdca.png|
+|122     |The Softer Side                                                                       |58       |https://lastfm.freetls.fastly.net/i/u/300x300/4ea7d8c397104ec4ce41939341693335.jpg|
+|123     |Avril Lavigne                                                                         |58       |https://lastfm.freetls.fastly.net/i/u/300x300/b299e9a74bb0777fd56f7319d8e5e3f8.png|
+|124     |Bite Me                                                                               |58       |https://lastfm.freetls.fastly.net/i/u/300x300/6077e4b63ea81ded2746fb4ddbef5c91.png|
+|125     |Under My Skin                                                                         |58       |https://lastfm.freetls.fastly.net/i/u/300x300/a0beb5604cbf4731ae6856863b82761a.png|
+|126     |We Are Warriors                                                                       |58       |https://lastfm.freetls.fastly.net/i/u/300x300/9c86194036a9f9f9a5d189e61372c2ba.png|
+|127     |Hot                                                                                   |58       |https://lastfm.freetls.fastly.net/i/u/300x300/a338fe1cc4324c4dccb5374a80da1b24.png|
+|128     |Love Sux                                                                              |58       |https://lastfm.freetls.fastly.net/i/u/300x300/197a5944313e6e0f91c0687de99f621f.png|
+|129     |Alice                                                                                 |58       |https://lastfm.freetls.fastly.net/i/u/300x300/022eae87cd89488a8da99e027b05c63a.png|
+|130     |Keep Holding On                                                                       |58       |https://lastfm.freetls.fastly.net/i/u/300x300/719e10f15d586eb8c5417da6c984b069.png|
+|131     |Let Go (20th Anniversary Edition)                                                     |58       |https://lastfm.freetls.fastly.net/i/u/300x300/b484dea816c911055daac108b5fe263a.jpg|
+|132     |Fly                                                                                   |58       |https://lastfm.freetls.fastly.net/i/u/300x300/1442ea92edfefbd8c9e8e1240852f5ba.jpg|
+|133     |American Wedding                                                                      |58       |https://lastfm.freetls.fastly.net/i/u/300x300/f04849c8672a19e10578a7ed397cfc48.png|
+|134     |Avril Lavigne (Expanded Edition)                                                      |58       |https://lastfm.freetls.fastly.net/i/u/300x300/b299e9a74bb0777fd56f7319d8e5e3f8.png|
+|135     |Bored                                                                                 |59       |https://lastfm.freetls.fastly.net/i/u/300x300/8bccd9c4336ffdbe502671287bc1b85c.jpg|
+|136     |Guitar Songs                                                                          |59       |https://lastfm.freetls.fastly.net/i/u/300x300/951a8387b598c0bbe4aa53b3627c0f35.jpg|
+|137     |NDA                                                                                   |59       |https://lastfm.freetls.fastly.net/i/u/300x300/b3fe6ae4c23b0d24ca313475dbaffbf3.jpg|
+|138     |Happier Than Ever: Acapellas                                                          |59       |https://lastfm.freetls.fastly.net/i/u/300x300/0954c526dfcf3189834d383179d4728d.png|
+|139     |Happier Than Ever                                                                     |59       |https://lastfm.freetls.fastly.net/i/u/300x300/0f0bd3c40aaf60b9900d74fb70b6ad09.jpg|
+|140     |my boy                                                                                |59       |https://lastfm.freetls.fastly.net/i/u/300x300/8937bb7aa463b2ce97f466ee9c93c00e.jpg|
+|141     |dont smile at me                                                                      |59       |https://lastfm.freetls.fastly.net/i/u/300x300/271b0a5eaeda187d5d768e3b4310fa3f.jpg|
+|142     |bitches broken hearts                                                                 |59       |https://lastfm.freetls.fastly.net/i/u/300x300/2e01f5ad1d34c9b0fff863a52823b63d.jpg|
+|143     |Six Feet Under                                                                        |59       |https://lastfm.freetls.fastly.net/i/u/300x300/398ed3dbd32bd7dd9721695e2d187ed1.jpg|
+|144     |WHEN WE ALL FALL ASLEEP, WHERE DO WE GO?                                              |59       |https://lastfm.freetls.fastly.net/i/u/300x300/ee8173de0f04cbbb282fc62a5583fda9.jpg|
+|145     |Shinigami Eyes                                                                        |60       |https://lastfm.freetls.fastly.net/i/u/300x300/d73273e78eb1b29dbca52b4157da1708.jpg|
+|146     |abcdefu (chill)                                                                       |61       |https://lastfm.freetls.fastly.net/i/u/300x300/b5a31e3dc91414d110dc009a88b81d9a.png|
+|147     |Madonna                                                                               |62       |https://lastfm.freetls.fastly.net/i/u/300x300/e579eddd569c6084597c35e715dc6dd4.jpg|
+|148     |Daddy's Home                                                                          |63       |https://lastfm.freetls.fastly.net/i/u/300x300/39c91ab844ec76c72823d3343d0480de.jpg|
+|149     |The Nowhere Inn                                                                       |63       |https://lastfm.freetls.fastly.net/i/u/300x300/3bcf16e1f315613e31b60d08c8337c5c.jpg|
+|150     |MASSEDUCTION                                                                          |63       |https://lastfm.freetls.fastly.net/i/u/300x300/daf17bc1013ebe92f8f2b230bfbd5b5e.jpg|
+|151     |Growing Up                                                                            |64       |https://lastfm.freetls.fastly.net/i/u/300x300/b3731afc603b537c71cf2f640fd1ce1f.jpg|
+|152     |Clementine                                                                            |65       |https://lastfm.freetls.fastly.net/i/u/300x300/8294e0c188988a6290bd47faa91cd853.jpg|
+|153     |Public Storage                                                                        |66       |https://lastfm.freetls.fastly.net/i/u/300x300/09232883ee96fc9bfd6e39081b083d2d.jpg|
+|154     |Wet Leg                                                                               |67       |https://lastfm.freetls.fastly.net/i/u/300x300/14e7090ffabb2ecd5e9bf8c8f5a108b9.jpg|
+|155     |Melodrama                                                                             |68       |https://lastfm.freetls.fastly.net/i/u/300x300/fdef4c7536c03d0a5a6689e4b1fa9b42.jpg|
+|156     |Paramore                                                                              |69       |https://lastfm.freetls.fastly.net/i/u/300x300/bebe11f4ddf3dee473b26c7e2d5c9ff6.png|
+|157     |the masquerade (IV)                                                                   |70       |https://lastfm.freetls.fastly.net/i/u/300x300/86b616a3cb87e0bb88c88fecade357ba.jpg|
+|158     |Immunity                                                                              |71       |https://lastfm.freetls.fastly.net/i/u/300x300/73e6abff1b50d7d05a6d02857240263c.jpg|
+|159     |Immunity [Explicit]                                                                   |71       |https://lastfm.freetls.fastly.net/i/u/300x300/73e6abff1b50d7d05a6d02857240263c.jpg|
+|160     |1950                                                                                  |72       |https://lastfm.freetls.fastly.net/i/u/300x300/b72c62600103a570a47fa446289650b1.jpg|
+|161     |Every Where Is Some Where                                                             |73       |https://lastfm.freetls.fastly.net/i/u/300x300/fef8029419def9662c7e977cd474e9b5.jpg|
+|162     |Love Monster                                                                          |74       |https://lastfm.freetls.fastly.net/i/u/300x300/8943cecaa7e2ebe1cc77b3b42827a2d5.jpg|
+|163     |Eyelid Movies                                                                         |75       |https://lastfm.freetls.fastly.net/i/u/300x300/752618f76e5c3e5bc09a5e7acf5f4ac2.jpg|
+|164     |Ceremony                                                                              |75       |https://lastfm.freetls.fastly.net/i/u/300x300/89a7bdb8a1a88eff53b2561bcdf834d2.jpg|
+|165     |Dream                                                                                 |76       |https://lastfm.freetls.fastly.net/i/u/300x300/fef938ca23ed832d56d7809b61a130ec.jpg|
+|166     |I Know Alone                                                                          |77       |https://lastfm.freetls.fastly.net/i/u/300x300/6385f1b3fef00f856a4e7c63336599ad.jpg|
+|167     |Simmer                                                                                |78       |https://lastfm.freetls.fastly.net/i/u/300x300/f1d2cf09c675c9b5f4c9698920403b12.jpg|
+|168     |Seventeen                                                                             |79       |https://lastfm.freetls.fastly.net/i/u/300x300/d450aebd30fc5a0e29f2d84b9f55a4c4.jpg|
+|169     |Miracle                                                                               |80       |https://lastfm.freetls.fastly.net/i/u/300x300/410fd34ba550934cfdc3ff1ca7a004dd.jpg|
+|170     |Hallucinations - Single                                                               |81       |https://lastfm.freetls.fastly.net/i/u/300x300/8bce4b7522e59dd22d6d7c19ad07b5e6.png|
+|171     |Monday                                                                                |82       |https://lastfm.freetls.fastly.net/i/u/300x300/589c89e808f023d1abb51113ab8d99b2.jpg|
+|172     |Learn To Live - Single                                                                |83       |https://lastfm.freetls.fastly.net/i/u/300x300/d8ba54ec14282dce1392912c9cfb1d8b.jpg|
+|173     |Smile                                                                                 |84       |https://lastfm.freetls.fastly.net/i/u/300x300/2d891d8f816ed3819580eca2d7210407.jpg|
+|174     |Terra Firma                                                                           |85       |https://lastfm.freetls.fastly.net/i/u/300x300/b15ed3095e2ddb6a1c08064379ab6b60.png|
+|175     |Flow State                                                                            |85       |https://lastfm.freetls.fastly.net/i/u/300x300/b3e14bb599460ccb6e719ae526159c22.jpg|
+|176     |please put me in a medically induced coma                                             |86       |https://lastfm.freetls.fastly.net/i/u/300x300/04c212c3da4285b7397b7c68766e2591.png|
+|177     |Fall to Pieces - Single                                                               |87       |https://lastfm.freetls.fastly.net/i/u/300x300/53bd96866604c52ea6edacb00b777267.jpg|
+|178     |decide to be happy                                                                    |88       |https://lastfm.freetls.fastly.net/i/u/300x300/c2615cea62855d171c446674b28b54aa.jpg|
+|179     |Shake the Spirit                                                                      |89       |https://lastfm.freetls.fastly.net/i/u/300x300/5fe3de63eef79b62509a60a9dcfdeaa4.jpg|
+|180     |Rockstar                                                                              |90       |https://lastfm.freetls.fastly.net/i/u/300x300/75a5e0f9cb1be5935306d81777304207.jpg|
+|181     |Questions                                                                             |91       |https://lastfm.freetls.fastly.net/i/u/300x300/928debf9b865f26220744edf6fdd0a1e.png|
+|182     |Death Of A Cheerleader                                                                |92       |https://lastfm.freetls.fastly.net/i/u/300x300/629cd979bf8b6244fa0abadd2261dc41.jpg|
+|183     |Take Me To The Disco [Explicit]                                                       |93       |https://lastfm.freetls.fastly.net/i/u/300x300/ab0438e2a7742cbecb56f188180396b0.jpg|
+|184     |When My Heart Felt Volcanic                                                           |94       |https://lastfm.freetls.fastly.net/i/u/300x300/f79d41cfb12ee44b40a1632f0fccdb18.jpg|
+|185     |Supermoon - EP                                                                        |95       |https://lastfm.freetls.fastly.net/i/u/300x300/66db17b66317be235ffb4695bc9ab4df.jpg|
+|186     |Temporary Things Taking Up Space [Explicit]                                           |96       |https://lastfm.freetls.fastly.net/i/u/300x300/7e18fab1eb09de2ee7c6412053f29774.jpg|
+|187     |Intentions                                                                            |97       |https://lastfm.freetls.fastly.net/i/u/300x300/524b4b2d247ddd5432550ebe8fd1d6bf.jpg|
+|188     |The Girly-Sound Tapes                                                                 |98       |https://lastfm.freetls.fastly.net/i/u/300x300/38465858f84f6434faa1ce90f286ddbf.jpg|
++--------+--------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------+

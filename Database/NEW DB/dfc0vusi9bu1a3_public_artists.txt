@@ -1,0 +1,102 @@
++---------+---------------------+
+|Artist_ID|Artist_Name          |
++---------+---------------------+
+|1        |Taylor Swift         |
+|2        |Ed Sheeran           |
+|3        |Lana Del Rey         |
+|4        |3 Doors Down         |
+|5        |Linkin Park          |
+|6        |Nickelback           |
+|7        |Audioslave           |
+|8        |Evanescence          |
+|9        |The White Stripes    |
+|10       |Fall Out Boy         |
+|11       |Red Hot Chili Peppers|
+|12       |Foo Fighters         |
+|13       |Disturbed            |
+|14       |The Offspring        |
+|15       |Staind               |
+|16       |Incubus              |
+|17       |Green Day            |
+|18       |P.O.D.               |
+|19       |Shinedown            |
+|20       |Velvet Revolver      |
+|21       |Seether              |
+|22       |Three Days Grace     |
+|23       |Bon Jovi             |
+|24       |Coldplay             |
+|25       |The Killers          |
+|26       |My Chemical Romance  |
+|27       |Muse                 |
+|28       |Creed                |
+|29       |Godsmack             |
+|30       |Crazy Town           |
+|31       |U2                   |
+|32       |Jet                  |
+|33       |The Strokes          |
+|34       |Daughtry             |
+|35       |Breaking Benjamin    |
+|36       |Good Charlotte       |
+|37       |Stone Sour           |
+|38       |Weezer               |
+|39       |Aerosmith            |
+|40       |Yellowcard           |
+|41       |Lifehouse            |
+|42       |Ozzy Osbourne        |
+|43       |Chevelle             |
+|44       |AC/DC                |
+|45       |Metallica            |
+|46       |Jimmy Eat World      |
+|47       |Puddle of Mudd       |
+|48       |Simple Plan          |
+|49       |Our Lady Peace       |
+|50       |The Raconteurs       |
+|51       |Pearl Jam            |
+|52       |Hiroyuki Sawano      |
+|53       |澤野弘之                 |
+|54       |Yuki Kajiura         |
+|55       |梶浦由記                 |
+|56       |BLACKPINK            |
+|57       |Rina Sawayama        |
+|58       |Avril Lavigne        |
+|59       |Billie Eilish        |
+|60       |Grimes               |
+|61       |GAYLE                |
+|62       |Snail Mail           |
+|63       |St. Vincent          |
+|64       |The Linda Lindas     |
+|65       |Wet                  |
+|66       |Hana Vu              |
+|67       |Wet Leg              |
+|68       |Lorde                |
+|69       |Paramore             |
+|70       |mxmtoon              |
+|71       |Clairo               |
+|72       |King Princess        |
+|73       |K.Flay               |
+|74       |Amy Shark            |
+|75       |Phantogram           |
+|76       |Bishop Briggs        |
+|77       |HAIM                 |
+|78       |Hayley Williams      |
+|79       |Sharon Van Etten     |
+|80       |CHVRCHES             |
+|81       |PVRIS                |
+|82       |The Regrettes        |
+|83       |Alice Merton         |
+|84       |Wolf Alice           |
+|85       |Tash Sultana         |
+|86       |carolesdaughter      |
+|87       |Pale Waves           |
+|88       |MisterWives          |
+|89       |Elle King            |
+|90       |Mallrat              |
+|91       |Middle Kids          |
+|92       |Pom Pom Squad        |
+|93       |Meg Myers            |
+|94       |The Aces             |
+|95       |Charly Bliss         |
+|96       |Dead Sara            |
+|97       |Valeras              |
+|98       |Liz Phair            |
++---------+---------------------+
