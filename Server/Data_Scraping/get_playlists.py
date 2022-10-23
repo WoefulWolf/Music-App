@@ -8,13 +8,13 @@ load_dotenv("../.env")
 from ytmusicapi import YTMusic
 import pylast
 
+# Setup LastFM API
 lastfm_network = pylast.LastFMNetwork(
     api_key = os.getenv('LASTFM_API_KEY'),
     api_secret = os.getenv('LASTFM_SECRET'),
 )
 
-exit()
-
+# Get album title and thumbnail from LastFM
 def lastfm_get_album_title_thumbnail(artist, track):
     try:
         lastfm_track = pylast.Track(artist, track, lastfm_network)
@@ -28,19 +28,24 @@ def lastfm_get_album_title_thumbnail(artist, track):
         return None, None
     return lastfm_album.title, lastfm_album.get_cover_image()
 
+# Scrape a playlist
 def scrape(playlist_id, outfile):
+    # Get YouTube Music playlist data from ID
     ytmusic = YTMusic()
     playlist = ytmusic.get_playlist(playlist_id)
 
     try:
+        # Load existing data if it exists
         f = open(outfile, "r")
         data = json.load(f)
         f.close()
         print("Loaded data from existing file!")
     except:
+        # Create new data if it doesn't exist
         data = {}
         print("Started new data file!")
 
+    # For each track in playlist
     for track in playlist["tracks"]:
         title = track["title"]
         title = re.sub("[\(\[].*?[\)\]]", "", title)
@@ -51,6 +56,7 @@ def scrape(playlist_id, outfile):
         
         print("[!] Processing", artist, "-", title, "... [!]")
 
+        # Get album title and thumbnail from LastFM
         if track["album"] == None:
             print("\tCouldn't find album on YouTube, trying LastFM...")
             album, thumbnail = lastfm_get_album_title_thumbnail(artist, title)
@@ -65,6 +71,7 @@ def scrape(playlist_id, outfile):
             else:
                 print("\tFound thumbnail on LastFM!")
         else:
+            # Get album title and thumbnail from YouTube
             print("\tFound album on YouTube!")
             album = track["album"]["name"]
             if "thumbnails" not in track["album"]:
@@ -78,6 +85,7 @@ def scrape(playlist_id, outfile):
             else:
                 thumbnail = track["album"]["thumbnails"][-1]["url"]
 
+
         if artist not in data:
             data[artist] = {}
             data[artist]["albums"] = []
@@ -89,6 +97,7 @@ def scrape(playlist_id, outfile):
                 album_exists = True
                 break
 
+        # If album doesn't exist, add it
         if not album_exists:
             data[artist]["albums"].append({
                 "name": album,
@@ -97,7 +106,6 @@ def scrape(playlist_id, outfile):
             })
 
         # Add track to album if it doesn't exist in album already
-        
         for album_data in data[artist]["albums"]:
             if album_data["name"] != album:
                 continue
@@ -122,6 +130,7 @@ def scrape(playlist_id, outfile):
     with open(outfile, "w") as outfile:
         json.dump(data, outfile, indent = 4)
 
+# For each playlist ID in txt
 def main():
     input_file = open("playlists.txt", "r")
     playlists = input_file.readlines()
