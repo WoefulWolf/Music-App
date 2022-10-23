@@ -145,6 +145,47 @@ test('Adding a listen to a song', async () => {
     expect(result.body).toEqual({"Success": "Update successful"});
 });
 
+test('Adding a song by URL with no URL', async () => {
+    const headers = {
+        request_type: 'AddSongByURL',
+    };
+
+    const body = {
+    };
+
+    const result = await api.ParsePOSTRequest(undefined, headers, body, res);
+    expect(result.status).toEqual(400);
+    expect(result.body).toEqual({"Invalid song_url": "The song_url 'undefined' is not valid"});
+});
+
+test('Adding a song by URL with invalid URL', async () => {
+    const headers = {
+        request_type: 'AddSongByURL',
+    };
+
+    const body = {
+        song_url: 'https://www.youtube.com/watch?v=AAAAA',
+    };
+
+    const result = await api.ParsePOSTRequest(undefined, headers, body, res);
+    expect(result.status).toEqual(400);
+    expect(result.body).toEqual({"Invalid song_url": "The song_url '" + body.song_url + "' is not valid"});
+});
+
+test('Adding a song by URL', async () => {
+    const headers = {
+        request_type: 'AddSongByURL',
+    };
+
+    const body = {
+        song_url: 'https://www.youtube.com/watch?v=mvxQYPR4lmU',
+    };
+
+    const result = await api.ParsePOSTRequest(undefined, headers, body, res);
+    expect(result.status).toEqual(500);
+    expect(result.body).toEqual({"Database error": "Key (\"Song_URL\")=(mvxQYPR4lmU) already exists."});
+});
+
 afterAll(async () => {
     await api.Shutdown();
 });
