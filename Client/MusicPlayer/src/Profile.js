@@ -70,6 +70,17 @@ const Profile = ({navigation, route}) => {
         }}>
         <Text style={{color: '#000'}}>Logout</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('RequestSong', {
+            userIDToken,
+            userAccessToken,
+            authUsername,
+            userID
+          });
+        }}>
+        <Text style={{color: '#000', marginTop: 250}}>Request a song?</Text>
+      </TouchableOpacity>
     </View>
   );
 };

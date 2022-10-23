@@ -32,6 +32,7 @@ const Home = ({route, navigation}) => {
   // all necessary variables are declared here
   const {position, buffered, duration} = useProgress();
   const [isSeeking, setIsSeeking] = useState(false);
+  const [isLooping, setIsLooping] = useState(false);
   const isMountedRef = useRef(false);
   const [seek, setSeek] = useState(0);
   const {songIndex, songs} = route.params;
@@ -246,6 +247,29 @@ const Home = ({route, navigation}) => {
               style={{width: 40, height: 40}}
               source={require('./Assets/Buttons/forward-solid.png')}
             />
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              console.log("Pressed");
+              setIsLooping(!isLooping);
+              if (isLooping) {
+                TrackPlayer.setRepeatMode(RepeatMode.Off);
+              }
+              else {
+                TrackPlayer.setRepeatMode(RepeatMode.Track);
+              }
+            }}
+          >
+            <Text style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+              color: isLooping ? '#FF1655' : '#000',
+            }}>
+              {isLooping ? "Repeat: On" : "Repeat: Off"}
+            </Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

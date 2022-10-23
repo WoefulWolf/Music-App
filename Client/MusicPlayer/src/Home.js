@@ -5,7 +5,7 @@ import {Text, Image, View} from 'react-native';
 import Player from './Player';
 import Search from './Search';
 import LibraryStack from './LibraryStack';
-import Profile from './Profile';
+import ProfileStack from './ProfileStack';
 
 // this file is responsible for creating the bottom tab navigator
 // it is used to switch between the library and player screens
@@ -131,8 +131,8 @@ export default function Home({navigation, route}) {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="ProfileStack"
+        component={ProfileStack}
         initialParams={{
           userIDToken,
           userAccessToken,

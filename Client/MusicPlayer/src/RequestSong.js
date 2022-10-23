@@ -5,15 +5,16 @@ import {
   SafeAreaView,
   Image,
   StyleSheet,
+  Alert,
   TouchableOpacity,
   TextInput,
 } from 'react-native';
 
-const Playlists = ({navigation, route}) => {
+const RequestSong = ({navigation, route}) => {
   // Variables needed for API calls
-  const {userIDToken, userAccessToken, authUsername, userID, songs} =
+  const {userIDToken, userAccessToken, authUsername, userID} =
     route.params;
-  const [playlistName, setPlaylistName] = useState('');
+  const [url, setUrl] = useState('');
 
   // API call to create a playlist
   const createPlaylist = async () => {
@@ -50,37 +51,52 @@ const Playlists = ({navigation, route}) => {
             style={styles.backButton}
             source={require('./Assets/Buttons/back-icon.png')}
           />
-          <Text style={styles.backButtonText}>Playlists</Text>
+          <Text style={styles.backButtonText}>Profile</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.heading}>
-        <Text style={styles.headingText}>Create a new playlist.</Text>
+        <Text style={styles.headingText}>Request a song.</Text>
       </View>
       <View style={styles.inputView}>
         <TextInput
           style={styles.input}
-          placeholder="Playlist Name"
+          placeholder="Enter a valid YouTube URL"
           placeholderTextColor="#bbbbbb"
-          onChangeText={newText => setPlaylistName(newText)}
+          onChangeText={newText => setUrl(newText)}
           defaultValue={''}
-          maxLength={30}
+          maxLength={60}
         />
       </View>
       <View style={styles.buttonView}>
         <TouchableOpacity
           onPress={() => {
-            console.log('This is the playlist name: ' + playlistName);
-            createPlaylist();
-            navigation.goBack();
+            console.log('This is the URL: ' + url);
+            // check if text contains either https://www.youtube.com/watch
+            // or https://music.youtube.com/watch
+            // or https://youtube.com/watch
+            
+            // first convert the url to lower case
+            // setUrl(url.toLowerCase());
+            // console.log('This is the URL: ' + url);
+            // console.log(url.includes('https://www.youtube.com/watch'));
+
+            if(url.toLowerCase().includes('https://m.youtube.com/watch') == false) {
+                Alert.alert("Invalid URL", "URL should be of the form https://www.youtube.com/watch?v=VIDEO_ID");
+            }
+            else{
+                Alert.alert("Success", "Your request has been submitted.");
+            }
+
+            // navigation.goBack();
           }}
           style={styles.button}>
-          <Text style={styles.buttonText}>Create Playlist</Text>
+          <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 };
-export default Playlists;
+export default RequestSong;
 
 // Styles for the UI
 const styles = StyleSheet.create({
