@@ -89,11 +89,10 @@ class MusicAppAPI {
             case 'DeletePlaylist': // Delete a playlist
                 res = await playlists.DeletePlaylist(body.playlist_id);
                 break;
-            /*
-            case 'AddSong': // Add a new song
-                res = await songs.AddSong(body.artist, body.name, body.albumn);
+            
+            case 'AddSongByURL': // Add a new song by URL
+                res = await songs.AddSongByURL(body.song_url);
                 break;
-            */
             case undefined: // No request type specified
                 res = {
                     status: 400,

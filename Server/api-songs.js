@@ -1,6 +1,8 @@
 const database = require("./database");
 const isValid = require("./validation");
 
+const axios = require('axios');
+
 class Songs {
     // Get all songs
     GetSongs() {
@@ -104,6 +106,45 @@ class Songs {
 
         const text = 'UPDATE songs SET "Listens" = "Listens" + 1 WHERE "Song_ID" = $1';
         const values = [song_id];
+        const res = database.Query(text, values);
+        return res;
+    }
+
+    async AddSongByURL(song_url) {
+        // Check URL
+        if (!isValid.String(song_url)) {
+            return {
+                status: 400,
+                body: {"Invalid song_url": "The song_url '" + song_url + "' is not valid"},
+            };
+        }
+
+        // Extract ID from URL
+        const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+        const song_id = song_url.match(regExp)[7];
+
+        //console.log(song_id);
+    
+        const response = await axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + song_id + "&key=" + process.env.YT_API_KEY);
+        //console.log(response.data.items[0].snippet);
+
+        // Check if song exists
+        if (response.data.items.length == 0) {
+            return {
+                status: 400,
+                body: {"Invalid song_url": "The song_url '" + song_url + "' is not valid"},
+            };
+        }
+
+        let song_name = response.data.items[0].snippet.title;
+        song_name = song_name.replace(/ *\([^)]*\) */g, "");
+        song_name = song_name.trim();
+
+        const artist_id = 99;
+        const album_id = 189;
+
+        const text = 'INSERT INTO songs("Song_Name", "Album_ID", "Artist_ID", "Song_URL") VALUES($1, $2, $3, $4)';
+        const values = [song_name, album_id, artist_id, song_id];
         const res = database.Query(text, values);
         return res;
     }
