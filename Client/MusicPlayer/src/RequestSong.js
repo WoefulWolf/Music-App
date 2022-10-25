@@ -12,26 +12,39 @@ import {
 
 const RequestSong = ({navigation, route}) => {
   // Variables needed for API calls
-  const {userIDToken, userAccessToken, authUsername, userID} =
-    route.params;
+  const {userIDToken, userAccessToken, authUsername, userID} = route.params;
   const [url, setUrl] = useState('');
 
-  // API call to create a playlist
-  const createPlaylist = async () => {
+  // API call to request a song
+  const reqSong = async songURL => {
     fetch('https://sdp-music-app.herokuapp.com/api/private/', {
       method: 'POST',
       headers: {
         Authorization: 'Bearer ' + userAccessToken,
-        request_type: 'CreatePlaylist',
+        request_type: 'AddSongByURL',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        playlist_name: playlistName,
+        song_url: songURL,
       }),
     })
       .then(response => response.text())
       .then(text => {
-        console.log(text);
+        if (text.includes(`already exists`)) {
+          Alert.alert(
+            'Song already exists',
+            'This song has been requested by a previous user.',
+            [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+            {cancelable: false},
+          );
+        } else {
+          Alert.alert(
+            'Success',
+            'Your song has successfully been requested.',
+            [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+            {cancelable: false},
+          );
+        }
       })
       .catch(error => {
         console.log(error);
@@ -71,20 +84,23 @@ const RequestSong = ({navigation, route}) => {
         <TouchableOpacity
           onPress={() => {
             console.log('This is the URL: ' + url);
-            // check if text contains either https://www.youtube.com/watch
-            // or https://music.youtube.com/watch
-            // or https://youtube.com/watch
-            
-            // first convert the url to lower case
-            // setUrl(url.toLowerCase());
-            // console.log('This is the URL: ' + url);
-            // console.log(url.includes('https://www.youtube.com/watch'));
 
-            if(url.toLowerCase().includes('https://m.youtube.com/watch') == false) {
-                Alert.alert("Invalid URL", "URL should be of the form https://www.youtube.com/watch?v=VIDEO_ID");
-            }
-            else{
-                Alert.alert("Success", "Your request has been submitted.");
+            lowerURL = url.toLowerCase();
+
+            console.log('This is the URL we are checking: ' + lowerURL);
+
+            if (
+              lowerURL.includes('https://www.youtube.com/watch') ||
+              lowerURL.includes('https://m.youtube.com/watch') ||
+              lowerURL.includes('https://music.youtube.com/watch') ||
+              lowerURL.includes('https://youtu.be/watch')
+            ) {
+              console.log('Valid URL - Request sent');
+              reqSong(lowerURL);
+
+            } else {
+              console.log('Invalid URL - Cannot make request');
+              Alert.alert("Invalid URL", "Please enter a valid YouTube URL");
             }
 
             // navigation.goBack();
