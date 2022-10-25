@@ -30,6 +30,7 @@ const RequestSong = ({navigation, route}) => {
     })
       .then(response => response.text())
       .then(text => {
+        console.log(text);
         if (text.includes(`already exists`)) {
           Alert.alert(
             'Song already exists',
@@ -37,7 +38,16 @@ const RequestSong = ({navigation, route}) => {
             [{text: 'OK', onPress: () => console.log('OK Pressed')}],
             {cancelable: false},
           );
-        } else {
+        } 
+        else if (text.includes(`Invalid song_url`)) {
+          Alert.alert(
+            'Invalid URL',
+            'Cannot process the URL.',
+            [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+            {cancelable: false},
+          );
+        }
+        else {
           Alert.alert(
             'Success',
             'Your song has successfully been requested.',
@@ -85,7 +95,7 @@ const RequestSong = ({navigation, route}) => {
           onPress={() => {
             console.log('This is the URL: ' + url);
 
-            lowerURL = url.toLowerCase();
+            lowerURL = url
 
             console.log('This is the URL we are checking: ' + lowerURL);
 
@@ -93,7 +103,7 @@ const RequestSong = ({navigation, route}) => {
               lowerURL.includes('https://www.youtube.com/watch') ||
               lowerURL.includes('https://m.youtube.com/watch') ||
               lowerURL.includes('https://music.youtube.com/watch') ||
-              lowerURL.includes('https://youtu.be/watch')
+              lowerURL.includes('https://youtu.be/')
             ) {
               console.log('Valid URL - Request sent');
               reqSong(lowerURL);
