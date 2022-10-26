@@ -156,7 +156,7 @@ const Artists = ({navigation, route}) => {
             <TouchableOpacity
               onPress={() => {
                 console.log("=============================data before shuffle");
-                console.log(daartistsSongsta);
+                console.log(artistsSongs);
                 shufflePlaylist2(artistsSongs);
                 console.log("=============================data after shuffle");
                 console.log(artistsSongs);
