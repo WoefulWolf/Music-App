@@ -122,11 +122,8 @@ class Songs {
         // Extract ID from URL
         const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
         const song_id = song_url.match(regExp)[7];
-
-        //console.log(song_id);
     
         const response = await axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + song_id + "&key=" + process.env.YT_API_KEY);
-        //console.log(response.data.items[0].snippet);
 
         // Check if song exists
         if (response.data.items.length == 0) {
@@ -136,12 +133,64 @@ class Songs {
             };
         }
 
+        // Get the channel's profile thumbnail
+        const channel_id = response.data.items[0].snippet.channelId;
+        const channel_response = await axios.get("https://www.googleapis.com/youtube/v3/channels?part=snippet&id=" + channel_id + "&key=" + process.env.YT_API_KEY);
+        const channel_thumbnails = channel_response.data.items[0].snippet.thumbnails;
+        // Get thumbnail with highest resolution
+        var channel_thumbnail = channel_thumbnails.default.url;
+        var current_res = 0;
+        for (const thumb in channel_thumbnails) {
+            if (channel_thumbnails[thumb].width > current_res) {
+                channel_thumbnail = channel_thumbnails[thumb].url;
+                current_res = channel_thumbnails[thumb].width;
+            }
+        }
+
         let song_name = response.data.items[0].snippet.title;
-        song_name = song_name.replace(/ *\([^)]*\) */g, "");
+        song_name = song_name.replace(/ *\([^)]*\) */g, "");    // Remove round brackets
+        song_name = song_name.replace(/ *\[[^)]*\] */g, "");    // Remove square brackets
+        song_name = song_name.replace(/ *\{[^)]*\} */g, "");    // Remove curly brackets
         song_name = song_name.trim();
 
-        const artist_id = 99;
-        const album_id = 189;
+        let artist_name = response.data.items[0].snippet.channelTitle;
+        artist_name = artist_name.replace("VEVO", "");
+        artist_name = artist_name.replace(/ *\([^)]*\) */g, "");    // Remove round brackets
+        artist_name = artist_name.replace(/ *\[[^)]*\] */g, "");    // Remove square brackets
+        artist_name = artist_name.replace(/ *\{[^)]*\} */g, "");    // Remove curly brackets
+        artist_name = artist_name.trim();
+
+        // Check if channel_name exists in artists db
+        const artist_text = `SELECT "Artist_ID" FROM "artists" WHERE REPLACE(LOWER("Artist_Name"), ' ', '') = REPLACE(LOWER($1), ' ', '')`;
+        const artist_values = [artist_name];
+        const artist_res = await database.Query(artist_text, artist_values);
+        
+        // Check artist_res status and if artist exists use their ID, else create new artist
+        let artist_id;
+        if (artist_res.status == 200 && artist_res.body.length > 0) {
+            artist_id = artist_res.body[0].Artist_ID;
+        } else {
+            const artist_add_text = `INSERT INTO "artists"("Artist_Name") VALUES($1) RETURNING "Artist_ID"`;
+            const artist_add_values = [artist_name];
+            const artist_add_res = await database.Query(artist_add_text, artist_add_values);
+            artist_id = artist_add_res.body[0].Artist_ID;
+        }
+
+        // Check a "User Uploads" album for this artist exists
+        const album_text = `SELECT "Album_ID" FROM "albums" WHERE "Album_Name" = $1 AND "Artist_ID" = $2`;
+        const album_values = ["User Uploads", artist_id];
+        const album_res = await database.Query(album_text, album_values);
+
+        // If it doesn't exist, create it
+        let album_id;
+        if (album_res.status == 200 && album_res.body.length > 0) {
+            album_id = album_res.body[0].Album_ID;
+        } else {
+            const album_add_text = `INSERT INTO "albums"("Album_Name", "Artist_ID", "Album_Cover") VALUES($1, $2, $3) RETURNING "Album_ID"`;
+            const album_add_values = ["User Uploads", artist_id, channel_thumbnail];
+            const album_add_res = await database.Query(album_add_text, album_add_values);
+            album_id = album_add_res.body[0].Album_ID;
+        }
 
         const text = 'INSERT INTO songs("Song_Name", "Album_ID", "Artist_ID", "Song_URL") VALUES($1, $2, $3, $4)';
         const values = [song_name, album_id, artist_id, song_id];
