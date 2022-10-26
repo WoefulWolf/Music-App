@@ -47,6 +47,7 @@ const Artists = ({navigation, route}) => {
     });
   };
 
+  // This function generates an array of music to be added to the queue
   const generatePlaylistArray = async (dataArr, songsArr) => {
     let PlaylistSongs = [];
     console.log("We are here, this is the data " + dataArr[0]);
@@ -72,6 +73,8 @@ const Artists = ({navigation, route}) => {
     // }
     return PlaylistSongs;
   };
+
+  // This function shuffles the array of music to be added to the queue
   const shufflePlaylist2 = async () => {
     //console.log("in shuffle:----------------------------------------------------------------");
     //console.log(artistsSongs);
@@ -88,7 +91,7 @@ const Artists = ({navigation, route}) => {
         artistsSongs[i]=artistsSongs[j];
         artistsSongs[j]=tempItem;
       };
-    //onsole.log(data);
+    //console.log(data);
     //console.log("shuffle end:----------------------------------------------------------------");
   }
 
@@ -101,6 +104,7 @@ const Artists = ({navigation, route}) => {
     TrackPlayer.add(songs);
   };
 
+  // This function gets the index of the song that is currently playing
   const getIndex = async (Arr, songID) => {
     for (let i = 0; i < Arr.length; i++) {
       console.log(i);
@@ -158,6 +162,7 @@ const Artists = ({navigation, route}) => {
         <View style={styles.shuffleButtonView}>
             <TouchableOpacity
               onPress={() => {
+                // The following code handles adding music to the queue when pressed
                 console.log("=============================data before shuffle");
                 console.log(artistsSongs);
                 shufflePlaylist2();

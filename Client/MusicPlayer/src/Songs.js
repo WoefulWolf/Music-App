@@ -121,6 +121,8 @@ const Songs = ({navigation, route}) => {
     // }
     return PlaylistSongs;
   };
+
+  // This function shuffles the array of songs
   const shufflePlaylist2 = async () => {
     //console.log(data);
     //console.log("data.length:"+data.length);
@@ -189,6 +191,7 @@ const Songs = ({navigation, route}) => {
           <View style={styles.shuffleButtonView}>
             <TouchableOpacity
               onPress={() => {
+                // This code handles adding music to the queue when pressed
                 console.log("=============================data before shuffle");
                 console.log(data);
                 shufflePlaylist2(data);

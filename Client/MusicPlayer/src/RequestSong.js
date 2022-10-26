@@ -10,6 +10,7 @@ import {
   TextInput,
 } from 'react-native';
 
+// This function sends the URL entered by the user to the API
 const RequestSong = ({navigation, route}) => {
   // Variables needed for API calls
   const {userIDToken, userAccessToken, authUsername, userID} = route.params;
@@ -99,6 +100,7 @@ const RequestSong = ({navigation, route}) => {
 
             console.log('This is the URL we are checking: ' + lowerURL);
 
+            // Here we ensure that the URL entered is in the correct format
             if (
               lowerURL.includes('https://www.youtube.com/watch') ||
               lowerURL.includes('https://m.youtube.com/watch') ||
