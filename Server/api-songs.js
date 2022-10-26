@@ -155,6 +155,7 @@ class Songs {
 
         let artist_name = response.data.items[0].snippet.channelTitle;
         artist_name = artist_name.replace("VEVO", "");
+        artist_name = artist_name.replace("- Topic", "");
         artist_name = artist_name.replace(/ *\([^)]*\) */g, "");    // Remove round brackets
         artist_name = artist_name.replace(/ *\[[^)]*\] */g, "");    // Remove square brackets
         artist_name = artist_name.replace(/ *\{[^)]*\} */g, "");    // Remove curly brackets
