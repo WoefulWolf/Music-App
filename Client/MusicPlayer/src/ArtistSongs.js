@@ -73,20 +73,23 @@ const Artists = ({navigation, route}) => {
     return PlaylistSongs;
   };
   const shufflePlaylist2 = async () => {
-    //console.log(data);
-    //console.log("data.length:"+data.length);
-    //console.log("data.length-1:"+data.length-1);
-    for (let i = artistsSongs.length-1; i >=0; i--) {
+    //console.log("in shuffle:----------------------------------------------------------------");
+    //console.log(artistsSongs);
+    //console.log("data.length:"+artistsSongs.length);
+    //console.log("data.length-1:"+artistsSongs.length);
+    let inc=artistsSongs.length;
+    for (let i = inc-1; i >=0; i--) {
       //console.log("i:"+i);
-      //console.log("data[i]:"+data[i]);
+      //console.log("artistsSongs[i]:"+artistsSongs[i]);
         let j=Math.floor(Math.random() * artistsSongs.length);
         //console.log("j:"+j);
-        //console.log("data[j]:"+data[j]);
+        //console.log("artistsSongs[j]:"+artistsSongs[j]);
         let tempItem=artistsSongs[i];
-        artistsSongs[i]=data[j];
+        artistsSongs[i]=artistsSongs[j];
         artistsSongs[j]=tempItem;
       };
     //onsole.log(data);
+    //console.log("shuffle end:----------------------------------------------------------------");
   }
 
   const setupPlayer = async songs => {
@@ -157,10 +160,11 @@ const Artists = ({navigation, route}) => {
               onPress={() => {
                 console.log("=============================data before shuffle");
                 console.log(artistsSongs);
-                shufflePlaylist2(artistsSongs);
+                shufflePlaylist2();
                 console.log("=============================data after shuffle");
                 console.log(artistsSongs);
-                let tempID=artistsSongs[0].Song_ID;
+                let tempID=artistsSongs[0].id;
+                console.log("tempID:"+tempID);
                 generatePlaylistArray(artistsSongs, songs).then(
                   PlaylistSongs => {
                     getIndex(PlaylistSongs, tempID).then(async indexArr => {
