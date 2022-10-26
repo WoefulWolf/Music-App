@@ -121,6 +121,22 @@ const Songs = ({navigation, route}) => {
     // }
     return PlaylistSongs;
   };
+  const shufflePlaylist2 = async () => {
+    //console.log(data);
+    //console.log("data.length:"+data.length);
+    //console.log("data.length-1:"+data.length-1);
+    for (let i = data.length-1; i >=0; i--) {
+      //console.log("i:"+i);
+      //console.log("data[i]:"+data[i]);
+        let j=Math.floor(Math.random() * data.length);
+        //console.log("j:"+j);
+        //console.log("data[j]:"+data[j]);
+        let tempItem=data[i];
+        data[i]=data[j];
+        data[j]=tempItem;
+      };
+    //onsole.log(data);
+  }
 
   // calculate the index of the song to start playing first
   const getIndex = async (playlistArr, songID) => {
@@ -168,6 +184,104 @@ const Songs = ({navigation, route}) => {
                 source={require('./Assets/Buttons/back-icon.png')}
               />
               <Text style={styles.backButtonText}>Playlists</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.shuffleButtonView}>
+            <TouchableOpacity
+              onPress={() => {
+                console.log("=============================data before shuffle");
+                console.log(data);
+                shufflePlaylist2(data);
+                console.log("=============================data after shuffle");
+                console.log(data);
+                let tempID=data[0].Song_ID;
+                generatePlaylistArray(data, songs).then(PlaylistSongs => {
+                  getIndex(PlaylistSongs, tempID).then(
+                    async indexArr => {
+                      TrackPlayer.reset();
+                      for (let i = 0; i < PlaylistSongs.length; i++) {
+                        if (PlaylistSongs[i].id == indexArr[1]) {
+                          const urls = await ytdl(PlaylistSongs[i].url, {
+                            quality: 'lowestvideo',
+                            filter: 'audio',
+                            requestOptions: {
+                              headers: {
+                                cookie:
+                                  'SIDCC=AEf-XMSTqdOOqVQhPeRSG0lg_v0JQdpgjSU3wlm8EYlZRQofecJTWxhaoj9aMabz6CCFd55HQmQ; __Secure-1PSIDCC=AEf-XMTuxI83mIEQ5jQQmPNJ35Db7VYH99zeP8blqfhhAYfIzOLoBSYofZ5EerqaqMxAx39rqg; __Secure-3PSIDCC=AEf-XMTdsRPz_93IWWwW7tmGNKjAih1orv8p3uG6Rdf8vJTFxhf6ZXyy300BYAFaltw3l8jX5g; PREF=f6=40000080&tz=Africa.Johannesburg&f4=4000000; YSC=72RSxWR99tM; APISID=_MhT0CG7nUuF42iJ/AUUamKnSwpAcYkgfP; HSID=AOgShjL-bdGhPYguR; SAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; SID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7xenDXFVcCXCdDJhFZZ4tTzw.; SSID=AoQGOLsofjbYAH4MU; __Secure-1PAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; __Secure-1PSID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7x7Ljzqlhwpd9QilqnEMkFtQ.; __Secure-3PAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; __Secure-3PSID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7xJFRZHgHRas3Qdmcmv8vBOA.; LOGIN_INFO=AFmmF2swQwIfL8s8n-jDfGdFYzXwrQxFfoOtTxxhXEsOariQZtqXlwIgKHLmF8bq5qs8MB8tJdhSx4uYQs_w6gIYnE2pPHzOvkM:QUQ3MjNmeDlRNVdSaGhiTVEyS2pra1RYNzdCMVQ5X0J1dlVlb2VDcVlGdkxLMm9meVVsSzEwMUJ4R25VRjVKLTdUdGNuREs1WXJjc19iSURZVkNhcHB5ZnJRSlBmRF9wclRlYkJ4dHEtTzdsbHFkWTJOdHUtcEEwazNFLWJoUElTZWhZNVZJTUwycTJFbVRFS3A4enEzZmVnZE1RMDkzaEZR; VISITOR_INFO1_LIVE=4IybVPnbCOM',
+                              },
+                            },
+                          });
+                          await TrackPlayer.add({
+                            id: PlaylistSongs[i].id,
+                            url: urls[0].url,
+                            title: PlaylistSongs[i].title,
+                            artist: PlaylistSongs[i].artist,
+                            albumArt: PlaylistSongs[i].albumArt,
+                          });
+                        }
+                      }
+                      TrackPlayer.play();
+                      navigation.navigate('Player', {songs: [1]});
+
+                      let arrBefore = [];
+                      let arrAfter = [];
+                      let i = 0;
+
+                      while (PlaylistSongs[i].id != indexArr[1]) {
+                        console.log(i);
+                        const urls = await ytdl(PlaylistSongs[i].url, {
+                          quality: 'lowestvideo',
+                          filter: 'audio',
+                          requestOptions: {
+                            headers: {
+                              cookie:
+                                'SIDCC=AEf-XMSTqdOOqVQhPeRSG0lg_v0JQdpgjSU3wlm8EYlZRQofecJTWxhaoj9aMabz6CCFd55HQmQ; __Secure-1PSIDCC=AEf-XMTuxI83mIEQ5jQQmPNJ35Db7VYH99zeP8blqfhhAYfIzOLoBSYofZ5EerqaqMxAx39rqg; __Secure-3PSIDCC=AEf-XMTdsRPz_93IWWwW7tmGNKjAih1orv8p3uG6Rdf8vJTFxhf6ZXyy300BYAFaltw3l8jX5g; PREF=f6=40000080&tz=Africa.Johannesburg&f4=4000000; YSC=72RSxWR99tM; APISID=_MhT0CG7nUuF42iJ/AUUamKnSwpAcYkgfP; HSID=AOgShjL-bdGhPYguR; SAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; SID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7xenDXFVcCXCdDJhFZZ4tTzw.; SSID=AoQGOLsofjbYAH4MU; __Secure-1PAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; __Secure-1PSID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7x7Ljzqlhwpd9QilqnEMkFtQ.; __Secure-3PAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; __Secure-3PSID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7xJFRZHgHRas3Qdmcmv8vBOA.; LOGIN_INFO=AFmmF2swQwIfL8s8n-jDfGdFYzXwrQxFfoOtTxxhXEsOariQZtqXlwIgKHLmF8bq5qs8MB8tJdhSx4uYQs_w6gIYnE2pPHzOvkM:QUQ3MjNmeDlRNVdSaGhiTVEyS2pra1RYNzdCMVQ5X0J1dlVlb2VDcVlGdkxLMm9meVVsSzEwMUJ4R25VRjVKLTdUdGNuREs1WXJjc19iSURZVkNhcHB5ZnJRSlBmRF9wclRlYkJ4dHEtTzdsbHFkWTJOdHUtcEEwazNFLWJoUElTZWhZNVZJTUwycTJFbVRFS3A4enEzZmVnZE1RMDkzaEZR; VISITOR_INFO1_LIVE=4IybVPnbCOM',
+                            },
+                          },
+                        });
+                        await TrackPlayer.add({
+                          id: PlaylistSongs[i].id,
+                          url: urls[0].url,
+                          title: PlaylistSongs[i].title,
+                          artist: PlaylistSongs[i].artist,
+                          albumArt: PlaylistSongs[i].albumArt,
+                        }, i);
+                        indexArr = [indexArr[0] + 1, indexArr[1]];
+                        i++;
+                      }
+
+                      i++;
+                      // now go through the playlist array from after the selected song to the end
+                      while (i < PlaylistSongs.length) {
+                        console.log(i);
+                        const urls = await ytdl(PlaylistSongs[i].url, {
+                          quality: 'lowestvideo',
+                          filter: 'audio',
+                          requestOptions: {
+                            headers: {
+                              cookie: 'SIDCC=AEf-XMSTqdOOqVQhPeRSG0lg_v0JQdpgjSU3wlm8EYlZRQofecJTWxhaoj9aMabz6CCFd55HQmQ; __Secure-1PSIDCC=AEf-XMTuxI83mIEQ5jQQmPNJ35Db7VYH99zeP8blqfhhAYfIzOLoBSYofZ5EerqaqMxAx39rqg; __Secure-3PSIDCC=AEf-XMTdsRPz_93IWWwW7tmGNKjAih1orv8p3uG6Rdf8vJTFxhf6ZXyy300BYAFaltw3l8jX5g; PREF=f6=40000080&tz=Africa.Johannesburg&f4=4000000; YSC=72RSxWR99tM; APISID=_MhT0CG7nUuF42iJ/AUUamKnSwpAcYkgfP; HSID=AOgShjL-bdGhPYguR; SAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; SID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7xenDXFVcCXCdDJhFZZ4tTzw.; SSID=AoQGOLsofjbYAH4MU; __Secure-1PAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; __Secure-1PSID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7x7Ljzqlhwpd9QilqnEMkFtQ.; __Secure-3PAPISID=9wQdQ612YFrwO8PU/ADByvMsm5Dzdmygm9; __Secure-3PSID=Owj-0p8VHz0c76Fiq5Pmb2LETbiz2WdZNREUTvbVYvgsoK7xJFRZHgHRas3Qdmcmv8vBOA.; LOGIN_INFO=AFmmF2swQwIfL8s8n-jDfGdFYzXwrQxFfoOtTxxhXEsOariQZtqXlwIgKHLmF8bq5qs8MB8tJdhSx4uYQs_w6gIYnE2pPHzOvkM:QUQ3MjNmeDlRNVdSaGhiTVEyS2pra1RYNzdCMVQ5X0J1dlVlb2VDcVlGdkxLMm9meVVsSzEwMUJ4R25VRjVKLTdUdGNuREs1WXJjc19iSURZVkNhcHB5ZnJRSlBmRF9wclRlYkJ4dHEtTzdsbHFkWTJOdHUtcEEwazNFLWJoUElTZWhZNVZJTUwycTJFbVRFS3A4enEzZmVnZE1RMDkzaEZR; VISITOR_INFO1_LIVE=4IybVPnbCOM',
+                            },
+                          },
+                        });
+                        await TrackPlayer.add({
+                          id: PlaylistSongs[i].id,
+                          url: urls[0].url,
+                          title: PlaylistSongs[i].title,
+                          artist: PlaylistSongs[i].artist,
+                          albumArt: PlaylistSongs[i].albumArt,
+                        });
+                        indexArr = [indexArr[0], indexArr[1] + 1];
+                        i++;
+                      }
+                    },
+                  );
+                });
+                
+              }}>
+              <Image
+                style={styles.shuffleButton}
+                source={require('./Assets/Buttons/shuffle-solid.png')}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -357,5 +471,17 @@ const styles = StyleSheet.create({
   albumCover: {
     width: 50,
     height: 50,
+  },
+  shuffleButton: {
+    width: 20,
+    height: 20,
+  },
+  shuffleButtonView: {
+    marginLeft: 180,
+  },
+  ButtonView: {
+    marginLeft: 20,
+    marginBottom: 20,
+    flexDirection: 'row',
   },
 });
