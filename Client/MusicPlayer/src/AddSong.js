@@ -83,6 +83,9 @@ const Search = ({navigation, route}) => {
         albumCover: results[i].Album_Cover,
         // url: urls[0].url,
       };
+      if (result.title.length > 20) {
+        result.title = result.title.substring(0, 20) + '...';
+      }
       if (result.Album_Cover == null) {
         result.Album_Cover = './Assets/Images/Default_Cover.png';
       }

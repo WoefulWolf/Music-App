@@ -51,7 +51,7 @@ const RequestSong = ({navigation, route}) => {
         else {
           Alert.alert(
             'Success',
-            'Your song has successfully been requested.',
+            'Your song has successfully been added to our library.',
             [{text: 'OK', onPress: () => console.log('OK Pressed')}],
             {cancelable: false},
           );

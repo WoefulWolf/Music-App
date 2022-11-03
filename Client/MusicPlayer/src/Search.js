@@ -31,6 +31,9 @@ const Search = ({navigation, route}) => {
         album: results[i].Album_Name,
         albumCover: results[i].Album_Cover,
       };
+      if (result.title.length > 20) {
+        result.title = result.title.substring(0, 20) + '...';
+      }
       if (result.Album_Cover == null) {
         result.Album_Cover = './Assets/Images/Default_Cover.png';
       }
