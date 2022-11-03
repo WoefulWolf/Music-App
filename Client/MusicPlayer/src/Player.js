@@ -44,6 +44,7 @@ const Home = ({route, navigation}) => {
   const [currentTitle, setCurrentTitle] = useState('Song Name'); // Used to set song title on rendered UI
   const [currentArtist, setCurrentArtist] = useState('Artist Name'); // Used to set artist name on rendered UI
   const playbackState = usePlaybackState(); // Keeps track of the current playback state of the music player
+  const [playerStatus, setPlayerStatus] = useState(false);
 
   // function to set up the music player
   const setupPlayer = async () => {
@@ -118,16 +119,23 @@ const Home = ({route, navigation}) => {
   // This function is used to update the UI when the song changes
   // and setup the player on startup
   useEffect(() => {
+    console.log("This is the playback state: " + playbackState);
+    if (playbackState === 'paused' && !isSeeking) {
+      setState(false);
+    }
+    else {
+      setState(true);
+    }
     if (songs.length != 0) {
-      ifPlaying();
+      // ifPlaying();
       if (songIndex === 'undefined') {
         songIndex = 0;
       }
       // setupPlayer().then(() => {
-        // TrackPlayer.skip(songIndex);
-        // getImage();
-        // getName();
-        // TrackPlayer.play();
+      // TrackPlayer.skip(songIndex);
+      // getImage();
+      // getName();
+      // TrackPlayer.play();
       // });
       console.log(songIndex);
       if (isMountedRef.current) {
@@ -142,15 +150,24 @@ const Home = ({route, navigation}) => {
       isMountedRef.current = false;
       // TrackPlayer.destroy();
     };
-  }, []);
+  }, [playbackState]);
 
   // This function is used to update the UI when the song changes
   useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
     if (event.type === Event.PlaybackTrackChanged && event.nextTrack != null) {
       getImage();
       getName();
+      console.log("Track Changed");
     }
   });
+
+  // useTrackPlayerEvents([Event.PlaybackState], async event => {
+  //   if (event.state === State.Playing) {
+  //     setPlaying(true);
+  //   } else {
+  //     setPlaying(false);
+  //   }
+  // });
 
   // The UI is rendered here
 
@@ -167,11 +184,13 @@ const Home = ({route, navigation}) => {
         </Text>
       </SafeAreaView>
     );
-  } 
-  else {
+  } else {
     return (
       <SafeAreaView style={styles.body}>
-        <Image style={styles.albumArt} source={{uri: currentAlbumCover.toString()}} />
+        <Image
+          style={styles.albumArt}
+          source={{uri: currentAlbumCover.toString()}}
+        />
         <Text style={styles.songTitle}>{currentTitle}</Text>
         <Text style={styles.artist}>{currentArtist}</Text>
         <View style={styles.sliderView}>
@@ -217,7 +236,7 @@ const Home = ({route, navigation}) => {
             <TouchableOpacity
               style={styles.playButton}
               onPress={() => {
-                TrackPlayer.pause(), setState(false);
+                TrackPlayer.pause();
               }}>
               <Image
                 style={{width: 30, height: 40}}
@@ -229,7 +248,7 @@ const Home = ({route, navigation}) => {
               style={styles.playButton}
               onPress={() => {
                 {
-                  TrackPlayer.play(), setState(true);
+                  TrackPlayer.play();
                 }
               }}>
               <Image
@@ -253,22 +272,21 @@ const Home = ({route, navigation}) => {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              console.log("Pressed");
+              console.log('Pressed');
               setIsLooping(!isLooping);
               if (isLooping) {
                 TrackPlayer.setRepeatMode(RepeatMode.Off);
-              }
-              else {
+              } else {
                 TrackPlayer.setRepeatMode(RepeatMode.Track);
               }
-            }}
-          >
-            <Text style={{
-              fontSize: 15,
-              fontWeight: 'bold',
-              color: isLooping ? '#FF1655' : '#000',
             }}>
-              {isLooping ? "Repeat: On" : "Repeat: Off"}
+            <Text
+              style={{
+                fontSize: 15,
+                fontWeight: 'bold',
+                color: isLooping ? '#FF1655' : '#000',
+              }}>
+              {isLooping ? 'Repeat: On' : 'Repeat: Off'}
             </Text>
           </TouchableOpacity>
         </View>

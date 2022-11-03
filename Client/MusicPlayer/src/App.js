@@ -40,6 +40,13 @@ const App = () => {
       playBuffer: buffer,
       minBuffer: buffer * 2,
       maxBuffer: buffer * 2,
+      capabilities: [
+        Capability.Play,
+        Capability.Pause,
+        Capability.SkipToNext,
+        Capability.SkipToPrevious,
+        Capability.Stop,
+    ],
     });
     // await TrackPlayer.add(songs);
   };
