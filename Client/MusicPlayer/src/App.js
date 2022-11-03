@@ -41,7 +41,7 @@ const App = () => {
       minBuffer: buffer * 2,
       maxBuffer: buffer * 2,
     });
-    await TrackPlayer.add(songs);
+    // await TrackPlayer.add(songs);
   };
 
   useEffect(() => {

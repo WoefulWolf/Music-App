@@ -57,7 +57,7 @@ const Home = ({route, navigation}) => {
     // TrackPlayer.reset().then(()=>{
     //   TrackPlayer.add(songs);
     //})
-    await TrackPlayer.add(songs);
+    // await TrackPlayer.add(songs);
   };
 
   // This function is used to update the UI when the song changes
@@ -123,12 +123,12 @@ const Home = ({route, navigation}) => {
       if (songIndex === 'undefined') {
         songIndex = 0;
       }
-      setupPlayer().then(() => {
-        TrackPlayer.skip(songIndex);
-        getImage();
-        getName();
-        TrackPlayer.play();
-      });
+      // setupPlayer().then(() => {
+        // TrackPlayer.skip(songIndex);
+        // getImage();
+        // getName();
+        // TrackPlayer.play();
+      // });
       console.log(songIndex);
       if (isMountedRef.current) {
         TrackPlayer.addEventListener(Event.PlaybackTrackChanged, () => {
@@ -171,7 +171,7 @@ const Home = ({route, navigation}) => {
   else {
     return (
       <SafeAreaView style={styles.body}>
-        <Image style={styles.albumArt} source={{uri: currentAlbumCover}} />
+        <Image style={styles.albumArt} source={{uri: currentAlbumCover.toString()}} />
         <Text style={styles.songTitle}>{currentTitle}</Text>
         <Text style={styles.artist}>{currentArtist}</Text>
         <View style={styles.sliderView}>
