@@ -185,7 +185,7 @@ const Songs = ({navigation, route}) => {
                 style={styles.backButton}
                 source={require('./Assets/Buttons/back-icon.png')}
               />
-              <Text style={styles.backButtonText}>Playlists</Text>
+              <Text style={styles.backButtonText}>Home</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.shuffleButtonView}>

@@ -63,23 +63,19 @@ const Home = ({navigation, route}) => {
         </View>
       </View>
       <View style={styles.recommendations}>
-        <Text style={styles.recommendationsText}>Developers' Choice</Text>
-        <Text style={styles.recommendationsText}>Meme Playlist:</Text>
+        <Text style={styles.recommendationsText}>Listen to:</Text>
+        <Text style={styles.recommendationsText}>Your liked songs</Text>
         <View style={styles.imageView}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Player', {songs: songs, songIndex: 1});
+              navigation.navigate('Songs', {songs: songs});
             }}>
             <Image
               style={styles.recommendationsImage}
-              source={require('./Assets/Images/Rickroll.jpeg')}
+              source={require('./Assets/Images/LikedSongs.png')}
             />
           </TouchableOpacity>
         </View>
-        <Text style={styles.recommendationsText}>
-          Featuring: Never Gonna Give You Up
-        </Text>
-        <Text style={styles.recommendationsText}>By Rick Astley</Text>
       </View>
     </SafeAreaView>
   );
@@ -99,14 +95,14 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(158, 150, 150, .5)',
     paddingTop: 10,
     paddingLeft: 25,
-    paddingBottom: 10,
+    paddingBottom: 20,
   },
   button: {
     color: '#FF1655',
     fontSize: 25,
   },
   spacer: {
-    paddingTop: 20,
+    paddingTop: 50,
   },
   buttonView: {
     paddingLeft: 10,
